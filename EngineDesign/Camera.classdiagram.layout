@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12.125, 8.5" name="Camera">
+  <logicalClassDesignerModelMoniker Id="c8b19dcc-841d-433e-9e11-d97b7beeec9f" />
+  <nestedChildShapes>
+    <classShape Id="0a2fc8b3-4184-425c-93cc-c3e60771b3ea" absoluteBounds="3.125, 0.625, 5.75, 2.5039061854283022" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="0f1cbbcd-443a-423e-b86c-76a403d31937" LastKnownName="Camera" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="e339d890-525a-44f6-ac58-0d5b25c8832d" absoluteBounds="3.1399999999999997, 1.0150000000000001, 5.7200000000000006, 1.162109337747097" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="a1ec2da8-1143-4d75-9de8-e9456ab41841" absoluteBounds="3.14, 2.1871093377470974, 5.7200000000000006, 0.84179684768120444" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="73771f78-f125-43ba-80a3-450f46ddba7c" absoluteBounds="0.875, 3.75, 5, 3.9453123907248173" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="54dbbdad-2c4d-475b-b335-c619e990aade" LastKnownName="PerspectiveCamera" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="76c88d0e-81f8-44fc-8570-20aa1b2ff5e7" absoluteBounds="0.89, 4.14, 4.9700000000000006, 0.52148435761531187" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="63c5a262-c7ea-4330-a445-ec5bbbf21e4a" absoluteBounds="0.89, 4.671484357615312, 4.9700000000000006, 2.9238280331095057" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <generalizationConnector edgePoints="[(3.375 : 3.75); (3.375 : 3.4289061854283); (6 : 3.4289061854283); (6 : 3.1289061854283)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110">
+      <generalizationMoniker Id="7084b011-d173-4e6b-b24f-db7647d97515" />
+      <relativeChildShapes />
+      <nodes>
+        <classShapeMoniker Id="73771f78-f125-43ba-80a3-450f46ddba7c" />
+        <classShapeMoniker Id="0a2fc8b3-4184-425c-93cc-c3e60771b3ea" />
+      </nodes>
+    </generalizationConnector>
+    <classShape Id="f17cf22c-f917-4213-badb-9ad7ed6b8c1c" absoluteBounds="6.75, 3.75, 5.125, 1.5429687152306242" hideQualifiedName="false" increaseHeight="0" customColor="181, 193, 223">
+      <classMoniker Id="e450edc0-2b15-43b0-867c-b8cb69c849ab" LastKnownName="OrthogonalCamera" />
+      <nestedChildShapes>
+        <AttributeElementListCompartment Id="28edd3e9-9ce7-432d-8a8e-12882821c4c2" absoluteBounds="6.765, 4.14, 5.0950000000000006, 0.2011718675494194" name="AttributesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <OperationElementListCompartment Id="f68de097-1e64-4b43-813b-42cfe86d2ac3" absoluteBounds="6.765, 4.35117186754942, 5.0950000000000006, 0.84179684768120444" name="OperationsCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <generalizationConnector edgePoints="[(9.3125 : 3.75); (9.3125 : 3.4289061854283); (6 : 3.4289061854283); (6 : 3.1289061854283)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="113, 111, 110">
+      <generalizationMoniker Id="8a45d801-f75b-4393-83f3-be249fe04203" />
+      <relativeChildShapes />
+      <nodes>
+        <classShapeMoniker Id="f17cf22c-f917-4213-badb-9ad7ed6b8c1c" />
+        <classShapeMoniker Id="0a2fc8b3-4184-425c-93cc-c3e60771b3ea" />
+      </nodes>
+    </generalizationConnector>
+  </nestedChildShapes>
+</logicalClassDesignerDiagram>

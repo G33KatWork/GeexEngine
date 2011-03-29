@@ -1,0 +1,24 @@
+/*
+ *  WindowsTiming.cpp
+ *  Physics
+ *
+ *  Created by Andreas Galauner on 06.05.10.
+ *  Copyright 2010 none. All rights reserved.
+ *
+ */
+
+#include <Timing/Windows/WindowsTiming.h>
+#include <cstring>
+
+WindowsTiming::WindowsTiming()
+{
+	QueryPerformanceFrequency(&ticksPerSecond);
+}
+
+unsigned long long WindowsTiming::getSystemMiliseconds()
+{
+	LARGE_INTEGER ticks;
+	QueryPerformanceCounter(&ticks);
+	
+	return ticks.QuadPart / ticksPerSecond.QuadPart * 1000;
+}

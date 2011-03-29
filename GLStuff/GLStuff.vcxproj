@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{09A912E5-4793-4FAE-8ECC-9D541F505DEF}</ProjectGuid>
+    <RootNamespace>GLStuff</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>c:\boost_1_45_0;externals\glew\inc;.;C:\Program Files %28x86%29\Microsoft DirectX SDK %28June 2010%29\Include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPENGL;DIRECTX9;GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3d9.lib";"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\d3dx9.lib";"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\dinput8.lib";"C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Lib\x86\dxguid.lib";%(AdditionalDependencies)</AdditionalDependencies>
+      <TargetMachine>
+      </TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>externals\glew\inc;.</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPENGL;GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="3D\GraphicsCardResources\Effect.h" />
+    <ClInclude Include="3D\GraphicsCardResources\GeexShaderException.h" />
+    <ClInclude Include="3D\Rendering\DirectX\DirectXEffect.h" />
+    <ClInclude Include="3D\Rendering\DirectX\DirectXVertexBuffer.h" />
+    <ClInclude Include="3D\Rendering\GeexRendererException.h" />
+    <ClInclude Include="Application.h" />
+    <ClInclude Include="Common\DebugMessages.h" />
+    <ClInclude Include="Common\GeexEngineException.h" />
+    <ClInclude Include="Common\DataStructures\DynamicArray.h" />
+    <ClInclude Include="Events\IEvent.h" />
+    <ClInclude Include="externals\glew\inc\GL\glew.h" />
+    <ClInclude Include="externals\glew\inc\GL\glxew.h" />
+    <ClInclude Include="externals\glew\inc\GL\wglew.h" />
+    <ClInclude Include="3D\SceneGraph\Geometry.h" />
+    <ClInclude Include="3D\GraphicsCardResources\IGraphicsCardResource.h" />
+    <ClInclude Include="Input\DirectInput\DirectInputKeyboardInputDevice.h" />
+    <ClInclude Include="Input\DirectInput\DirectInputMouseInputDevice.h" />
+    <ClInclude Include="Input\InputDevice.h" />
+    <ClInclude Include="Input\KeyboardInputDevice.h" />
+    <ClInclude Include="Input\Keycodes.h" />
+    <ClInclude Include="Input\MouseInputDevice.h" />
+    <ClInclude Include="Math\Color.h" />
+    <ClInclude Include="Math\Matrix4.h" />
+    <ClInclude Include="Math\Quaternion.h" />
+    <ClInclude Include="Math\Vector2.h" />
+    <ClInclude Include="Math\Vector3.h" />
+    <ClInclude Include="Math\Vector4.h" />
+    <ClInclude Include="Platform\Window.h" />
+    <ClInclude Include="Platform\Windows\Win32Window.h" />
+    <ClInclude Include="3D\Rendering\DirectX\DirectXRenderer.h" />
+    <ClInclude Include="externals\glew\inc\glew.h" />
+    <ClInclude Include="externals\glew\inc\glxew.h" />
+    <ClInclude Include="externals\glew\inc\wglew.h" />
+    <ClInclude Include="3D\Rendering\Renderer.h" />
+    <ClInclude Include="3D\SceneGraph\Spatial.h" />
+    <ClInclude Include="Timing\MacOS\MacOSTiming.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Timing\TimingInformation.h" />
+    <ClInclude Include="Timing\Windows\WindowsTiming.h" />
+    <ClInclude Include="3D\Transformation.h" />
+    <ClInclude Include="Utils\Log.h" />
+    <ClInclude Include="3D\GraphicsCardResources\VertexBuffer.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="3D\GraphicsCardResources\Effect.cpp" />
+    <ClCompile Include="3D\Rendering\DirectX\DirectXEffect.cpp" />
+    <ClCompile Include="3D\Rendering\DirectX\DirectXVertexBuffer.cpp" />
+    <ClCompile Include="Application.cpp" />
+    <ClCompile Include="Common\DebugMessages.cpp" />
+    <ClCompile Include="3D\SceneGraph\Geometry.cpp" />
+    <ClCompile Include="Input\DirectInput\DirectInputKeyboardInputDevice.cpp" />
+    <ClCompile Include="Input\DirectInput\DirectInputMouseDevice.cpp" />
+    <ClCompile Include="Math\Matrix4.cpp" />
+    <ClCompile Include="Math\Quaternion.cpp" />
+    <ClCompile Include="Math\Vector2.cpp" />
+    <ClCompile Include="Math\Vector3.cpp" />
+    <ClCompile Include="Math\Vector4.cpp" />
+    <ClCompile Include="Platform\Windows\Win32Window.cpp" />
+    <ClCompile Include="3D\Rendering\DirectX\DirectXRenderer.cpp" />
+    <ClCompile Include="externals\glew\src\glew.c" />
+    <ClCompile Include="3D\Rendering\Renderer.cpp" />
+    <ClCompile Include="3D\SceneGraph\Spatial.cpp" />
+    <ClCompile Include="Timing\MacOS\MacOSTiming.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Timing\TimingInformation.cpp" />
+    <ClCompile Include="Timing\Windows\WindowsTiming.cpp" />
+    <ClCompile Include="3D\Transformation.cpp" />
+    <ClCompile Include="3D\GraphicsCardResources\VertexBuffer.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
