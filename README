@@ -1,0 +1,35 @@
+GeexEngine
+==========
+
+This is a small platform-independent 3D rendering engine.
+
+Please keep in mind that this code currently is under development.
+Don't even expect it to compile. Also, only Windows with DirectX 9
+is supported by now. WGL-Windows can theoretically be created, but
+I doubt the GL code to build at this time.
+
+
+Current state
+-------------
+
+At the current state I'm trying to abstract all necessary 3D objects
+that are needed to render something on the screen:
+* The rendering device itself with OpenGL or DirectX
+* Textures
+* Vertex- and Indexbuffers
+* Drawing surfaces
+* Effects (aka Shaders)
+
+Also, I somehow need a memory management system for all those basic
+graphics objects...
+
+The next step is to implement a scene graph togehter with possible
+manipulations of objects inside it for animations etc.
+
+After that a small physics engine will be developed which integrates
+into the scenegraph.
+Originally this was the whole point why I intended to write all this.
+
+You see, there is lots of stuff to do and it will take some time for me
+to design and finally implement this in my free time. We'll see if this
+project ever gets finished.
