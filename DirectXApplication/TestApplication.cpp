@@ -75,6 +75,7 @@ TestApplication::TestApplication()
     keyboard = NULL;
 }
 #include <iostream>
+#include <d3dx9.h>
 bool TestApplication::OnInitialize()
 {
     //Effect::CreateFromSourceCode("effect.fx", renderer);
@@ -100,7 +101,31 @@ bool TestApplication::OnInitialize()
 
     buf = new DirectX9VertexBuffer(((DirectXRenderer*)renderer)->GetDevice(), 3, format);
     buf->SetData(&vertices);
-  
+
+    D3DXMATRIX a;
+    D3DXMatrixIdentity(&a);
+    //D3DXMatrixRotationX(&a, 45.0f * 3.14f / 180.0f);
+    //D3DXMatrixPerspectiveFovRH(&a, 45.0f * 3.14f / 180.0f, 4.0f/3.0f, 100.0f, 0.0f);
+    D3DXVECTOR3 eye, at, up;
+    eye.x = eye.y = eye.z = 0.0f;
+    at.x = at.y = at.z = 10.0f;
+    up.x = 1.0f; up.y = 2.0f; up.z = 3.0f;
+
+    D3DXMatrixLookAtRH(&a, &eye, &at, &up);
+    std::cout << a(0, 0) << " " << a(0, 1) << " " << a(0, 2) << " " << a(0, 3) << std::endl;
+    std::cout << a(1, 0) << " " << a(1, 1) << " " << a(1, 2) << " " << a(1, 3) << std::endl;
+    std::cout << a(2, 0) << " " << a(2, 1) << " " << a(2, 2) << " " << a(2, 3) << std::endl;
+    std::cout << a(3, 0) << " " << a(3, 1) << " " << a(3, 2) << " " << a(3, 3) << std::endl;
+
+    Matrix4 m = Matrix4::Identity();
+    //m = Matrix4::Rotate(45.0f * 3.14f / 180.0f, Vector3(1.0f, 0.0f, 0.0f));
+    //m = Matrix4::CreatePerspectiveRightHanded(45.0f * 3.14f / 180.0f, 4.0f/3.0f, 100.0f, 0.0f);
+    m = Matrix4::CreateLookAtRightHanded(Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 2.0f, 3.0f));
+    std::cout << m(0, 0) << " " << m(0, 1) << " " << m(0, 2) << " " << m(0, 3) << std::endl;
+    std::cout << m(1, 0) << " " << m(1, 1) << " " << m(1, 2) << " " << m(1, 3) << std::endl;
+    std::cout << m(2, 0) << " " << m(2, 1) << " " << m(2, 2) << " " << m(2, 3) << std::endl;
+    std::cout << m(3, 0) << " " << m(3, 1) << " " << m(3, 2) << " " << m(3, 3) << std::endl;
+
     return true;
 }
 

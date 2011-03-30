@@ -13,18 +13,18 @@ public:
             float _20, float _21, float _22, float _23,
             float _30, float _31, float _32, float _33);
 
-	static Matrix4 Zero();
+    static Matrix4 Zero();
     static Matrix4 Identity();
-	static Matrix4 Translate(float dx, float dy, float dz);
-	static Matrix4 Translate(Vector3& v);
-	static Matrix4 Rotate(float angle, float x, float y, float z);
-	static Matrix4 Rotate(float angle, Vector3& factors);
-	static Matrix4 Scale(float x, float y, float z);
-	static Matrix4 Scale(Vector3& factors);
-	static Matrix4 CreatePerspective(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
-	static Matrix4 CreateOrthographic(float left, float right, float top, float bottom, float nearPlane, float farPlane);
-	static Matrix4 CreateOrthographicCenter(float width, float height, float nearPlane, float farPlane);
-	static Matrix4 CreateLookAt(Vector3& position, Vector3& lookAt, Vector3& upVector);
+    static Matrix4 Translate(float dx, float dy, float dz);
+    static Matrix4 Translate(Vector3& v);
+    static Matrix4 Rotate(float angle, float x, float y, float z);
+    static Matrix4 Rotate(float angle, Vector3& factors);
+    static Matrix4 Scale(float x, float y, float z);
+    static Matrix4 Scale(Vector3& factors);
+    static Matrix4 CreatePerspectiveRightHanded(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
+    static Matrix4 CreateOrthographicRightHanded(float left, float right, float top, float bottom, float nearPlane, float farPlane);
+    static Matrix4 CreateOrthographicRightHandedCenter(float width, float height, float nearPlane, float farPlane);
+    static Matrix4 CreateLookAtRightHanded(Vector3& position, Vector3& lookAt, Vector3& upVector);
 
     // assignment
     Matrix4& operator= (const Matrix4& m);
@@ -55,14 +55,19 @@ public:
     Matrix4& operator*= (float f);
     Matrix4& operator/= (float f);
 
-	// other
-	//FIXME: implement
-	//Matrix4 Transpose () const;
+    // other
+    //FIXME: implement
+    //Matrix4 Transpose () const;
 
     // matrix times vector
     //Vector3 operator* (const Vector3& v) const;  // M * v
 
 private:
+    //The data for the 4x4 Matrix itself is stored in this array column major:
+    //00 01 02 03
+    //04 05 06 07
+    //08 09 10 11
+    //12 13 14 15
     float a[16];
 
     static int I(int row, int col)

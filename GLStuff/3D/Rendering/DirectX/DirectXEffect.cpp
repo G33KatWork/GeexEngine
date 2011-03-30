@@ -20,7 +20,7 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
         strlen(sourceCode),
         NULL,   //defines
         NULL,   //includes
-        0,      //TODO: Flags?
+        D3DXSHADER_PACKMATRIX_COLUMNMAJOR,  //TODO: Flags?
         NULL,   //EffectPool TODO: use this?
         &this->dxEffect,
         &errors
