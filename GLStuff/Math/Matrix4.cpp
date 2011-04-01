@@ -54,18 +54,18 @@ Matrix4 Matrix4::Identity()
 Matrix4 Matrix4::Translate(float dx, float dy, float dz)
 {
     Matrix4 translation = Identity();
-    translation[0][3] = dx;
-    translation[1][3] = dy;
-    translation[2][3] = dz;
+    translation[3][0] = dx;
+    translation[3][1] = dy;
+    translation[3][2] = dz;
     return translation;
 }
 
 Matrix4 Matrix4::Translate(Vector3& v)
 {
     Matrix4 translation = Identity();
-    translation[0][3] = v.GetX();
-    translation[1][3] = v.GetY();
-    translation[2][3] = v.GetZ();
+    translation[3][0] = v.GetX();
+    translation[3][1] = v.GetY();
+    translation[3][2] = v.GetZ();
     return translation;
 }
 
@@ -133,6 +133,20 @@ Matrix4 Matrix4::CreatePerspectiveRightHanded(float fieldOfView, float aspectRat
     perspective[1][1] = 1.0f / tan(fieldOfView/2.0f);
     perspective[2][2] = farPlane / (nearPlane - farPlane);
     perspective[2][3] = -1.0f;
+    perspective[3][2] = (farPlane * nearPlane) / (nearPlane - farPlane);
+    perspective[3][3] = 0.0f;
+
+    return perspective;
+}
+
+Matrix4 Matrix4::CreatePerspectiveLeftHanded(float fieldOfView, float aspectRatio, float nearPlane, float farPlane)
+{
+    Matrix4 perspective = Matrix4::Identity();
+
+    perspective[0][0] = 1.0f / (aspectRatio * tan(fieldOfView/2.0f));
+    perspective[1][1] = 1.0f / tan(fieldOfView/2.0f);
+    perspective[2][2] = farPlane / (farPlane - nearPlane);
+    perspective[2][3] = 1.0f;
     perspective[3][2] = (farPlane * nearPlane) / (nearPlane - farPlane);
     perspective[3][3] = 0.0f;
 
@@ -262,41 +276,15 @@ Matrix4 Matrix4::operator- (const Matrix4& m) const
     return dif;
 }
 
-Matrix4 Matrix4::operator* (const Matrix4& m) const
+Matrix4 Matrix4::operator* (const Matrix4& other) const
 {
     Matrix4 prod;
 
-    prod.a[0] = a[0]*m.a[0] + a[1]*m.a[4] + a[2]*m.a[8] + a[3]*m.a[12];
-    prod.a[1] = a[0]*m.a[1] + a[1]*m.a[5] + a[2]*m.a[9] + a[3]*m.a[13];
-    prod.a[2] = a[0]*m.a[2] + a[1]*m.a[6] + a[2]*m.a[10] + a[3]*m.a[14];
-    prod.a[3] = a[0]*m.a[3] + a[1]*m.a[7] + a[2]*m.a[11] + a[3]*m.a[15];
+    Matrix4 me = *this;
 
-    prod.a[4] = a[4]*m.a[0] + a[5]*m.a[4] + a[6]*m.a[8] + a[7]*m.a[12];
-    prod.a[5] = a[4]*m.a[1] + a[5]*m.a[5] + a[6]*m.a[9] + a[7]*m.a[13];
-    prod.a[6] = a[4]*m.a[2] + a[5]*m.a[6] + a[6]*m.a[10] + a[7]*m.a[14];
-    prod.a[7] = a[4]*m.a[3] + a[5]*m.a[7] + a[6]*m.a[11] + a[7]*m.a[15];
-
-    prod.a[8] = a[8]*m.a[0] + a[9]*m.a[4] + a[10]*m.a[8] + a[11]*m.a[12];
-    prod.a[9] = a[8]*m.a[1] + a[9]*m.a[5] + a[10]*m.a[9] + a[11]*m.a[13];
-    prod.a[10] = a[8]*m.a[2] + a[9]*m.a[6] + a[10]*m.a[10] + a[11]*m.a[14];
-    prod.a[11] = a[8]*m.a[3] + a[9]*m.a[7] + a[10]*m.a[11] + a[11]*m.a[15];
-
-    prod.a[12] = a[12]*m.a[0] + a[13]*m.a[4] + a[14]*m.a[8] + a[15]*m.a[12];
-    prod.a[13] = a[12]*m.a[1] + a[13]*m.a[5] + a[14]*m.a[9] + a[15]*m.a[13];
-    prod.a[14] = a[12]*m.a[2] + a[13]*m.a[6] + a[14]*m.a[10] + a[15]*m.a[14];
-    prod.a[15] = a[12]*m.a[3] + a[13]*m.a[7] + a[14]*m.a[11] + a[15]*m.a[15];
-
-    /*for(int row = 0; row < 4; row++)
-    {
-        for(int col = 0; col < 4; col++)
-        {
-            int i = I(row, col);
-            prod.a[i] = 0.0f;
-
-            for(int mid = 0; mid < 4; mid++)
-                prod.a[I(row, mid)] += a[I(row, mid)] * m.a[I(mid, col)];
-        }
-    }*/
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            prod[i][j] = me[i][0] * other(0,j) + me[i][1] * other(1,j) + me[i][2] * other(2,j) + me[i][3] * other(3,j);
 
     return prod;
 }

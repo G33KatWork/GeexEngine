@@ -3,6 +3,9 @@
 
 #include <Math/Vector3.h>
 
+//The Matrix itself is Row-Major
+//For internal data representation see note in private vars
+
 class Matrix4
 {
 public:
@@ -22,6 +25,7 @@ public:
     static Matrix4 Scale(float x, float y, float z);
     static Matrix4 Scale(Vector3& factors);
     static Matrix4 CreatePerspectiveRightHanded(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
+    static Matrix4 CreatePerspectiveLeftHanded(float fieldOfView, float aspectRatio, float nearPlane, float farPlane);
     static Matrix4 CreateOrthographicRightHanded(float left, float right, float top, float bottom, float nearPlane, float farPlane);
     static Matrix4 CreateOrthographicRightHandedCenter(float width, float height, float nearPlane, float farPlane);
     static Matrix4 CreateLookAtRightHanded(Vector3& position, Vector3& lookAt, Vector3& upVector);
