@@ -43,7 +43,8 @@ void DirectXEffect::SetTechniqueByName(const char* name)
     if(!technique)
         throw new GeexShaderException("Requested technique doesn't exist");
     
-    this->dxEffect->SetTechnique(technique);
+    if(FAILED(this->dxEffect->SetTechnique(technique)))
+        throw new GeexShaderException("Switching to technique failed");
 }
 
 unsigned int DirectXEffect::Begin()
@@ -71,4 +72,10 @@ void DirectXEffect::EndPass()
 {
     if(FAILED(this->dxEffect->End()))
         throw new GeexShaderException("End of shader pass failed");
+}
+
+void DirectXEffect::SetMatrix(const char* name, Matrix4& m)
+{
+    D3DXMATRIX matrix = D3DXMATRIX(m[0]);
+    HRESULT res = this->dxEffect->SetMatrix(name, &matrix);
 }

@@ -21,6 +21,9 @@ public:
     virtual void End();
     virtual void EndPass();
 
+
+    virtual void SetMatrix(const char* name, Matrix4& m);
+
 private:
     ID3DXEffect* dxEffect;
     IDirect3DDevice9* device;
