@@ -124,7 +124,7 @@ D3DDECLUSAGE DirectX9VertexBuffer::GetDXDeclUsage(VertexElementUsage usage)
     switch(usage)
     {
     case GX_VB_ELEMENT_USAGE_POSITION:
-        return D3DDECLUSAGE_POSITIONT;
+        return D3DDECLUSAGE_POSITION;
     case GX_VB_ELEMENT_USAGE_NORMAL:
         return D3DDECLUSAGE_NORMAL;
     case GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES:
