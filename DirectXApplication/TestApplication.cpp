@@ -7,11 +7,13 @@
 #include <stdexcept>
 
 #include <3D/Rendering/DirectX/DirectXVertexBuffer.h>
+#include <3D/Rendering/DirectX/DirectXIndexBuffer.h>
 #include <3D/Rendering/DirectX/DirectXEffect.h>
 #include <3D/Rendering/DirectX/DirectXTexture.h>
 
 DirectXEffect* effect;
 DirectX9VertexBuffer *buf;
+DirectX9IndexBuffer *indexBuf;
 DirectXTexture *texture;
 
 Matrix4 world;
@@ -42,10 +44,22 @@ bool TestApplication::OnInitialize()
 
     struct D3DVERTEX vertices[] =
     {
-        { -1.0f,  1.0f, 0.f,    0.0f, 0.0f },
-        {  1.0f,  1.0f, 0.f,    1.0f, 0.0f },
-        { -1.0f, -1.0f, 0.f,    0.0f, 1.0f },
-        {  1.0f, -1.0f, 0.f,    1.0f, 1.0f },
+        {-1.0f,-1.0f,-1.0f,0.0f,1.0f},
+        {-1.0f, 1.0f,-1.0f,0.0f,0.0f},
+        { 1.0f, 1.0f,-1.0f,1.0f,0.0f},
+        { 1.0f,-1.0f,-1.0f,1.0f,1.0f},
+        {-1.0f,-1.0f, 1.0f,0.0f,0.0f},
+        { 1.0f,-1.0f, 1.0f,0.0f,1.0f},
+        { 1.0f, 1.0f, 1.0f,0.0f,0.0f},
+        {-1.0f, 1.0f, 1.0f,0.0f,1.0f}
+    };
+
+    short indices[] = 
+    {
+        0,1,2, 2,3,0, 4,5,6,
+        6,7,4, 0,3,5, 5,4,0,
+        3,2,6, 6,5,3, 2,1,7,
+        7,6,2, 1,0,4, 4,7,1
     };
 
     renderer->SetBackgroundColor(Color(0.4f, 0.8f, 0.9f, 1.0f));
@@ -56,11 +70,14 @@ bool TestApplication::OnInitialize()
     offset += VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT3);
     format.AddElement(offset, VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT2), GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES, GX_VB_ELEMENT_TYPE_FLOAT2);
     
-    std::cout << "size of struct: " << sizeof(D3DVERTEX) * 4 << std::endl;
-    std::cout << "size of declaration: " << format.GetTotalVertexSize() * 4 << std::endl;
+    std::cout << "size of struct: " << sizeof(D3DVERTEX) * 8 << std::endl;
+    std::cout << "size of declaration: " << format.GetTotalVertexSize() * 8 << std::endl;
 
-    buf = new DirectX9VertexBuffer(((DirectXRenderer*)renderer)->GetDevice(), 4, format);
+    buf = new DirectX9VertexBuffer(((DirectXRenderer*)renderer)->GetDevice(), 8, format);
     buf->SetData(&vertices);
+
+    indexBuf = new DirectX9IndexBuffer(((DirectXRenderer*)renderer)->GetDevice(), 36, GX_IB_ELEMENT_TYPE_UINT16);
+    indexBuf->SetData(&indices);
 
     D3DXMATRIX a;
     D3DXMatrixIdentity(&a);
@@ -162,7 +179,8 @@ void TestApplication::OnRedraw()
             effect->BeginPass(i);
 
             buf->Activate();
-            ((DirectXRenderer*)renderer)->GetDevice()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+            indexBuf->Activate();
+            ((DirectXRenderer*)renderer)->GetDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
 
             effect->EndPass();
         }

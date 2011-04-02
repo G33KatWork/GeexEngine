@@ -62,7 +62,7 @@ protected:
     VertexElementList elements;
 
 public:
-    size_t GetElementCount() { return elements.size(); }
+    size_t GetElementCount() const { return elements.size(); }
 
     const VertexBufferFormat::VertexElementList& GetElements() { return elements; }
     const VertexElement* GetElements(unsigned short at);
@@ -82,9 +82,10 @@ protected:
     size_t vertexCount;
     VertexBufferFormat format;
 
+    virtual ~VertexBuffer();
+
 public:
     VertexBuffer(size_t vertexCount, VertexBufferFormat& format);
-    virtual ~VertexBuffer();
 
     size_t GetVertexCount() { return vertexCount; }
 

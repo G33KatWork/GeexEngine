@@ -117,8 +117,10 @@
   <ItemGroup>
     <ClInclude Include="3D\GraphicsCardResources\Effect.h" />
     <ClInclude Include="3D\GraphicsCardResources\GeexShaderException.h" />
+    <ClInclude Include="3D\GraphicsCardResources\IndexBuffer.h" />
     <ClInclude Include="3D\GraphicsCardResources\Texture.h" />
     <ClInclude Include="3D\Rendering\DirectX\DirectXEffect.h" />
+    <ClInclude Include="3D\Rendering\DirectX\DirectXIndexBuffer.h" />
     <ClInclude Include="3D\Rendering\DirectX\DirectXTexture.h" />
     <ClInclude Include="3D\Rendering\DirectX\DirectXVertexBuffer.h" />
     <ClInclude Include="3D\Rendering\GeexRendererException.h" />
@@ -165,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="3D\GraphicsCardResources\Effect.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXEffect.cpp" />
+    <ClCompile Include="3D\Rendering\DirectX\DirectXIndexBuffer.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXTexture.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXVertexBuffer.cpp" />
     <ClCompile Include="Application.cpp" />
