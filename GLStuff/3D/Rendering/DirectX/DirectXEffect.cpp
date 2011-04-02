@@ -4,14 +4,16 @@
 
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, void* code)
     : dxEffect(NULL),
-    device(device)
+    device(device),
+    DirectXResettableResource()
 {
     throw new GeexEngineException("Not yet implemented");
 }
 
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
     : dxEffect(NULL),
-    device(device)
+    device(device),
+    DirectXResettableResource()
 {
     LPD3DXBUFFER errors = NULL;
     
@@ -31,7 +33,8 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
 
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode, bool fromFile)
     : dxEffect(NULL),
-    device(device)
+    device(device),
+    DirectXResettableResource()
 {
     LPD3DXBUFFER errors = NULL;
     if(FAILED(D3DXCreateEffectFromFile(
@@ -196,4 +199,14 @@ void DirectXEffect::SetTexture(const char* name, Texture* t)
 {
     //FIXME: Casting OK? I don't think that there will be anything else than a DX Texture arrive here
     this->dxEffect->SetTexture(name, ((DirectXTexture*)t)->GetDirectXTexture());
+}
+
+void DirectXEffect::OnDeviceLost()
+{
+    this->dxEffect->OnLostDevice();
+}
+
+void DirectXEffect::OnDeviceReset()
+{
+    this->dxEffect->OnResetDevice();
 }

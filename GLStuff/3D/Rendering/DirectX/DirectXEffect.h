@@ -2,11 +2,12 @@
 #define _DXEFFECT_H_
 
 #include <3D/GraphicsCardResources/Effect.h>
+#include <3D/Rendering/DirectX/DirectXResettableResource.h>
 
 #include <d3d9.h>
 #include <d3dx9.h>
 
-class DirectXEffect : public Effect
+class DirectXEffect : public Effect, DirectXResettableResource
 {
 public:
     DirectXEffect(IDirect3DDevice9* device, void* code);
@@ -40,10 +41,16 @@ public:
 
     virtual void SetTexture(const char* name, Texture* t);
 
+    //DirectXResettableResource members
+    virtual void OnDeviceLost();
+    virtual void OnDeviceReset();
+
 private:
     ID3DXEffect* dxEffect;
     IDirect3DDevice9* device;
 
+    //prevent copying
+    DirectXEffect(const DirectXEffect& other) {}
 };
 
 #endif

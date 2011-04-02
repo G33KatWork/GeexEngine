@@ -1,5 +1,6 @@
 #include <3D/Rendering/DirectX/DirectXRenderer.h>
 #include <Common/GeexEngineException.h>
+#include <3D/Rendering/DirectX/DirectXResettableResource.h>
 
 DirectXRenderer::DirectXRenderer(HWND window, int width, int height)
     : Renderer(width, height),
@@ -179,7 +180,7 @@ void DirectXRenderer::UpdateCamera(ICamera* camera)
 
 void DirectXRenderer::OnDeviceLost()
 {
-    //TODO: Notify resources that device is lost
+    DirectXResettableResource::NotifyDeviceLost();
 }
 
 void DirectXRenderer::OnDeviceReset()
@@ -193,6 +194,8 @@ void DirectXRenderer::OnDeviceReset()
     vp.MinZ = 0.0f;
     vp.MaxZ = 0.0f;
     d3dDevice->SetViewport(&vp);
+
+    DirectXResettableResource::NotifyDeviceReset();
 }
 
 D3DMATRIX DirectXRenderer::ToD3DMatrix(Matrix4 m)
@@ -222,6 +225,7 @@ bool DirectXRenderer::CheckCooperateLevel()
             throw new GeexEngineException("Resetting the D3D Device failed");
 
         OnDeviceReset();
+        deviceIsLost = false;
         return true;
     }
 
