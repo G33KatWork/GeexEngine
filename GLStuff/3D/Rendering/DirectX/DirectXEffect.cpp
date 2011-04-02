@@ -1,4 +1,5 @@
 #include "DirectXEffect.h"
+#include "DirectXTexture.h"
 #include <3D/GraphicsCardResources/GeexShaderException.h>
 
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, void* code)
@@ -18,6 +19,24 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
         device,
         sourceCode,
         strlen(sourceCode),
+        NULL,   //defines
+        NULL,   //includes
+        D3DXSHADER_PACKMATRIX_COLUMNMAJOR,  //TODO: Flags?
+        NULL,   //EffectPool TODO: use this?
+        &this->dxEffect,
+        &errors
+    )))
+        throw new GeexShaderException("Creating a DirectX effect failed", (const char*)errors->GetBufferPointer());
+}
+
+DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode, bool fromFile)
+    : dxEffect(NULL),
+    device(device)
+{
+    LPD3DXBUFFER errors = NULL;
+    if(FAILED(D3DXCreateEffectFromFile(
+        device,
+        sourceCode,
         NULL,   //defines
         NULL,   //includes
         D3DXSHADER_PACKMATRIX_COLUMNMAJOR,  //TODO: Flags?
@@ -171,4 +190,10 @@ void DirectXEffect::SetMatrix(const char* name, Matrix4& m)
 {
     D3DXMATRIX matrix = D3DXMATRIX(m[0]);
     HRESULT res = this->dxEffect->SetMatrix(name, &matrix);
+}
+
+void DirectXEffect::SetTexture(const char* name, Texture* t)
+{
+    //FIXME: Casting OK? I don't think that there will be anything else than a DX Texture arrive here
+    this->dxEffect->SetTexture(name, ((DirectXTexture*)t)->GetDirectXTexture());
 }

@@ -1,49 +1,54 @@
-struct VIn
+float4x4 worldViewProjection;
+texture testTexture;
+
+
+sampler Sampler = sampler_state
+{
+    Texture   = (testTexture);
+    MipFilter = LINEAR;
+    MinFilter = LINEAR;
+    MagFilter = LINEAR;
+};
+
+
+struct VertexShaderInput
+{
+    float3 position : POSITION;
+    float2 texture0 : TEXCOORD0;
+};
+
+struct VertexShaderOutput
 {
     float4 position : POSITION;
-    float4 color : COLOR;
-};
-
-struct VOut
-{
-    float4 position : SV_POSITION;
-    float4 color : COLOR;
-};
-
-struct POut
-{
-    float4 Color : COLOR0;
+    float2 texture0 : TEXCOORD0;
 };
 
 
-//float4x4 worldViewProjection;
-
-
-VOut VShader(VIn vin)
+VertexShaderOutput VShader(VertexShaderInput vin)
 {
-    VOut output;
-
-    output.position = vin.position;
-    //output.position = mul(vin.position, worldViewProjection);
-    output.color = vin.color;
-
+    VertexShaderOutput output;
+    
+    output.position = mul(float4(vin.position, 1.0f), worldViewProjection);
+    output.texture0 = vin.texture0;
+    
     return output;
 }
 
-POut PShader(VOut vout) : SV_TARGET
+float4 PShader(VertexShaderOutput vout) : COLOR0
 {
-    POut pout;
-    
-    pout.Color = vout.color;
-    return pout;
+    return tex2D(Sampler, vout.texture0);
 }
 
 
 technique Simplest
 {
     pass Pass0
-    {        
-        VertexShader = compile vs_2_0 VShader();
+    {
+        Lighting = FALSE;
+        
+        Sampler[0] = (Sampler);
+        
+        VertexShader = compile vs_1_1 VShader();
         PixelShader = compile ps_2_0 PShader();
     }
 }

@@ -5,6 +5,7 @@
 #include <Math/Vector3.h>
 #include <Math/Vector4.h>
 #include <Math/Matrix4.h>
+#include <3D/GraphicsCardResources/Texture.h>
 
 class Effect
 {
@@ -42,6 +43,8 @@ public:
     virtual void SetVector(const char* name, Vector3& v) = 0;
     virtual void SetVector(const char* name, Vector4& v) = 0;
     virtual void SetMatrix(const char* name, Matrix4& m) = 0;
+
+    virtual void SetTexture(const char* name, Texture* t) = 0;
 };
 
 #endif

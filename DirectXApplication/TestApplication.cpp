@@ -8,53 +8,11 @@
 
 #include <3D/Rendering/DirectX/DirectXVertexBuffer.h>
 #include <3D/Rendering/DirectX/DirectXEffect.h>
-
-const char* effectSource = 
-{
-"float4x4 worldViewProjection;\n"
-"\n"
-"\n"
-"struct VertexShaderInput\n"
-"{\n"
-"    float3 position : POSITION;\n"
-"    float4 color : COLOR0;\n"
-"};\n"
-"\n"
-"struct VertexShaderOutput\n"
-"{\n"
-"    float4 position : POSITION;\n"
-"    float4 color : COLOR0;\n"
-"};\n"
-"\n"
-"\n"
-"VertexShaderOutput VShader(VertexShaderInput vin)\n"
-"{\n"
-"    VertexShaderOutput output;\n"
-"    \n"
-"    output.position = mul(float4(vin.position, 1.0f), worldViewProjection);\n"
-"    output.color = vin.color;\n"
-"    \n"
-"    return output;\n"
-"}\n"
-"\n"
-"float4 PShader(VertexShaderOutput vout) : COLOR0\n"
-"{\n"
-"    return vout.color;\n"
-"}\n"
-"\n"
-"\n"
-"technique Simplest\n"
-"{\n"
-"    pass Pass0\n"
-"    {        \n"
-"        VertexShader = compile vs_1_1 VShader();\n"
-"        PixelShader = compile ps_2_0 PShader();\n"
-"    }\n"
-"}\n"
-};
+#include <3D/Rendering/DirectX/DirectXTexture.h>
 
 DirectXEffect* effect;
 DirectX9VertexBuffer *buf;
+DirectXTexture *texture;
 
 Matrix4 world;
 Matrix4 projection;
@@ -70,23 +28,24 @@ TestApplication::TestApplication()
 #include <iostream>
 #include <d3dx9.h>
 
-struct D3DVERTEX {float x, y, z; DWORD color;};
+struct D3DVERTEX {float x, y, z, tu, tv;};
 
 bool TestApplication::OnInitialize()
 {
     world = Matrix4::Identity();
-    projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, this->window->GetWidth() / this->window->GetWidth(), 0.1f, 100.0f);
+    projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetWidth(), 0.1f, 100.0f);
     view = Matrix4::Identity();
 
-    //Effect::CreateFromSourceCode("effect.fx", renderer);
-    effect = new DirectXEffect(((DirectXRenderer*)renderer)->GetDevice(), effectSource);
+    effect = new DirectXEffect(((DirectXRenderer*)renderer)->GetDevice(), "effect.fx", true);
+
+    texture = new DirectXTexture(((DirectXRenderer*)renderer)->GetDevice(), "test.bmp");
 
     struct D3DVERTEX vertices[] =
     {
-        { -1.0f,  1.0f, 0.f, D3DCOLOR_XRGB(0, 0, 255), },
-        {  1.0f,  1.0f, 0.f, D3DCOLOR_XRGB(0, 255, 0), },
-        { -1.0f, -1.0f, 0.f, D3DCOLOR_XRGB(255, 0, 0), },
-        {  1.0f, -1.0f, 0.f, D3DCOLOR_XRGB(255, 255, 0), },
+        { -1.0f,  1.0f, 0.f,    0.0f, 0.0f },
+        {  1.0f,  1.0f, 0.f,    1.0f, 0.0f },
+        { -1.0f, -1.0f, 0.f,    0.0f, 1.0f },
+        {  1.0f, -1.0f, 0.f,    1.0f, 1.0f },
     };
 
     renderer->SetBackgroundColor(Color(0.4f, 0.8f, 0.9f, 1.0f));
@@ -95,7 +54,7 @@ bool TestApplication::OnInitialize()
     size_t offset = 0;
     format.AddElement(offset, VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT3), GX_VB_ELEMENT_USAGE_POSITION, GX_VB_ELEMENT_TYPE_FLOAT3);
     offset += VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT3);
-    format.AddElement(offset, VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_UBYTE4), GX_VB_ELEMENT_USAGE_COLOR, GX_VB_ELEMENT_TYPE_UBYTE4);
+    format.AddElement(offset, VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT2), GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES, GX_VB_ELEMENT_TYPE_FLOAT2);
     
     std::cout << "size of struct: " << sizeof(D3DVERTEX) * 4 << std::endl;
     std::cout << "size of declaration: " << format.GetTotalVertexSize() * 4 << std::endl;
@@ -195,6 +154,7 @@ void TestApplication::OnRedraw()
         world = rotation * translation;
 
         effect->SetMatrix("worldViewProjection", world*view*projection /*Matrix4::Identity()*/);
+        effect->SetTexture("testTexture", texture);
         
         unsigned int numPasses = effect->Begin();
         for(unsigned int i = 0; i < numPasses; i++)

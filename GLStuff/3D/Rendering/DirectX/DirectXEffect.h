@@ -11,6 +11,7 @@ class DirectXEffect : public Effect
 public:
     DirectXEffect(IDirect3DDevice9* device, void* code);
     DirectXEffect(IDirect3DDevice9* device, const char* sourceCode);
+    DirectXEffect(IDirect3DDevice9* device, const char* sourceCode, bool fromFile);
     virtual ~DirectXEffect();
 
     void SetTechniqueByName(const char* name);
@@ -36,6 +37,8 @@ public:
     virtual void SetVector(const char* name, Vector3& v);
     virtual void SetVector(const char* name, Vector4& v);
     virtual void SetMatrix(const char* name, Matrix4& m);
+
+    virtual void SetTexture(const char* name, Texture* t);
 
 private:
     ID3DXEffect* dxEffect;
