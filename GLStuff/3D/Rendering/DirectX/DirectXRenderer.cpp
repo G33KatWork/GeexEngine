@@ -41,6 +41,21 @@ DirectXRenderer::DirectXRenderer(HWND window, int width, int height)
         throw GeexEngineException("D3D device creation failed");
 }
 
+DirectXRenderer::~DirectXRenderer()
+{
+    if(d3dDevice)
+    {
+        d3dDevice->Release();
+        d3dDevice = NULL;
+    }
+
+    if(d3dObject)
+    {
+        d3dObject->Release();
+        d3dObject = NULL;
+    }
+}
+
 void DirectXRenderer::Resize(int newWidth, int newHeight)
 {
     Renderer::Resize(newWidth, newHeight);
@@ -139,8 +154,9 @@ void DirectXRenderer::ClearBuffers()
     if(!CheckCooperateLevel())
         return;
 
-    if(FAILED(d3dDevice->SetRenderState(D3DRS_STENCILMASK, ~0)))
-        throw GeexEngineException("Setting of stencilmask in D3D-Device failed during clearance of stencil buffer");
+    //FIXME: what does this do? necessary?
+    //if(FAILED(d3dDevice->SetRenderState(D3DRS_STENCILMASK, ~0)))
+    //    throw GeexEngineException("Setting of stencilmask in D3D-Device failed during clearance of stencil buffer");
 
     if(FAILED(d3dDevice->Clear(0, 0, D3DCLEAR_TARGET | D3DCLEAR_STENCIL | D3DCLEAR_ZBUFFER, D3DCOLOR_COLORVALUE(backgroundColor.R(), backgroundColor.G(), backgroundColor.B(), backgroundColor.A()), 1.0f, 0)))
         throw GeexEngineException("Buffer clearance failed");

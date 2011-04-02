@@ -9,7 +9,7 @@ class DirectXRenderer : public Renderer
 {
 public:
     DirectXRenderer(HWND window, int width, int height);
-    virtual ~DirectXRenderer() {}
+    virtual ~DirectXRenderer();
 
     virtual void Resize(int newWidth, int newHeight);
     virtual void ToggleFullscreen();
