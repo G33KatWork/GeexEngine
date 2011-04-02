@@ -156,28 +156,9 @@ void DirectXRenderer::SwapBuffers()
         throw GeexEngineException("Error while presenting BackBuffer");
 }
 
-void DirectXRenderer::SetWorldMatrix(Matrix4 m)
-{
-    worldMatrix = ToD3DMatrix(m);
-    d3dDevice->SetTransform(D3DTS_WORLD, &worldMatrix);
-}
-
-void DirectXRenderer::SetViewMatrix(Matrix4 m)
-{
-    viewMatrix = ToD3DMatrix(m);
-    d3dDevice->SetTransform(D3DTS_VIEW, &worldMatrix);
-}
-
-void DirectXRenderer::SetProjectionMatrix(Matrix4 m)
-{
-    projectionMatrix = ToD3DMatrix(m);
-    d3dDevice->SetTransform(D3DTS_PROJECTION, &worldMatrix);
-}
-
 void DirectXRenderer::UpdateCamera(ICamera* camera)
 {
-    this->SetProjectionMatrix(camera->GetProjectionMatrix());
-    this->SetViewMatrix(camera->GetViewMatrix());
+    
 }
 
 void DirectXRenderer::OnDeviceLost()
@@ -196,10 +177,6 @@ void DirectXRenderer::OnDeviceReset()
     vp.MinZ = 0.0f;
     vp.MaxZ = 0.0f;
     d3dDevice->SetViewport(&vp);
-
-    d3dDevice->SetTransform(D3DTS_WORLD, &worldMatrix);
-    d3dDevice->SetTransform(D3DTS_VIEW, &viewMatrix);
-    d3dDevice->SetTransform(D3DTS_PROJECTION, &projectionMatrix);
 }
 
 D3DMATRIX DirectXRenderer::ToD3DMatrix(Matrix4 m)

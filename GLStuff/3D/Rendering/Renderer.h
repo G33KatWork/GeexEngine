@@ -32,10 +32,6 @@ public:
 
     virtual void SwapBuffers() = 0;
 
-    virtual void SetWorldMatrix(Matrix4 m) = 0;
-    virtual void SetViewMatrix(Matrix4 m) = 0;
-    virtual void SetProjectionMatrix(Matrix4 m) = 0;
-
 	virtual void UpdateCamera(ICamera* camera) = 0;
 
     virtual Color GetBackgroundColor() { return backgroundColor; }

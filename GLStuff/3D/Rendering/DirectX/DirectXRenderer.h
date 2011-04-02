@@ -24,10 +24,6 @@ public:
 
     virtual void SwapBuffers();
 
-    virtual void SetWorldMatrix(Matrix4 m);
-    virtual void SetViewMatrix(Matrix4 m);
-    virtual void SetProjectionMatrix(Matrix4 m);
-
 	virtual void UpdateCamera(ICamera* camera);
 
 	//FIXME: remove this when we have a real drawing interface
@@ -47,10 +43,6 @@ protected:
     D3DPRESENT_PARAMETERS presentationParamenters;
 
     RECT oldWindowRect;
-
-    D3DMATRIX worldMatrix;
-    D3DMATRIX viewMatrix;
-    D3DMATRIX projectionMatrix;
 
     bool deviceIsLost;
 };
