@@ -194,6 +194,30 @@ void TestApplication::OnRedraw()
 
 void TestApplication::OnTerminate()
 {
+    if(effect)
+    {
+        delete effect;
+        effect = NULL;
+    }
+
+    if(buf)
+    {
+        delete buf;
+        buf = NULL;
+    }
+
+    if(indexBuf)
+    {
+        delete indexBuf;
+        indexBuf = NULL;
+    }
+
+    if(texture)
+    {
+        delete texture;
+        texture = NULL;
+    }
+
     if(mouse)
     {
         mouse->Destroy();
