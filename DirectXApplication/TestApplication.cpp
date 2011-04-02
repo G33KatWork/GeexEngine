@@ -86,7 +86,7 @@ bool TestApplication::OnInitialize()
         { -1.0f,  1.0f, 0.f, D3DCOLOR_XRGB(0, 0, 255), },
         {  1.0f,  1.0f, 0.f, D3DCOLOR_XRGB(0, 255, 0), },
         { -1.0f, -1.0f, 0.f, D3DCOLOR_XRGB(255, 0, 0), },
-        {  1.0f, -1.0f, 0.f, D3DCOLOR_XRGB(128, 0, 0), },
+        {  1.0f, -1.0f, 0.f, D3DCOLOR_XRGB(255, 255, 0), },
     };
 
     renderer->SetBackgroundColor(Color(0.4f, 0.8f, 0.9f, 1.0f));

@@ -74,6 +74,99 @@ void DirectXEffect::EndPass()
         throw new GeexShaderException("End of shader pass failed");
 }
 
+void DirectXEffect::GetInt(const char* name, int* i)
+{
+    this->dxEffect->GetInt(name, i);
+}
+
+void DirectXEffect::GetFloat(const char* name, float* f)
+{
+    this->dxEffect->GetFloat(name, f);
+}
+
+void DirectXEffect::GetBool(const char* name, bool* b)
+{
+    BOOL bo;
+    this->dxEffect->GetBool(name, &bo);
+
+    *b = bo;
+}
+
+void DirectXEffect::GetVector(const char* name, Vector2* v)
+{
+    D3DXVECTOR4 vec;
+    this->dxEffect->GetVector(name, &vec);
+
+    v->SetX(vec.x);
+    v->SetY(vec.y);
+}
+
+void DirectXEffect::GetVector(const char* name, Vector3* v)
+{
+    D3DXVECTOR4 vec;
+    this->dxEffect->GetVector(name, &vec);
+
+    v->SetX(vec.x);
+    v->SetY(vec.y);
+    v->SetZ(vec.z);
+}
+
+void DirectXEffect::GetVector(const char* name, Vector4* v)
+{
+    D3DXVECTOR4 vec;
+    this->dxEffect->GetVector(name, &vec);
+
+    v->SetX(vec.x);
+    v->SetY(vec.y);
+    v->SetZ(vec.z);
+    v->SetW(vec.w);
+}
+
+void DirectXEffect::GetMatrix(const char* name, Matrix4* m)
+{
+    D3DXMATRIX mat;
+    this->dxEffect->GetMatrix(name, &mat);
+
+    *m = Matrix4(mat.m[0][0], mat.m[0][1], mat.m[0][2], mat.m[0][3],
+                 mat.m[1][0], mat.m[1][1], mat.m[1][2], mat.m[1][3],
+                 mat.m[2][0], mat.m[2][1], mat.m[2][2], mat.m[2][3],
+                 mat.m[3][0], mat.m[3][1], mat.m[3][2], mat.m[3][3]
+    );
+}
+
+void DirectXEffect::SetInt(const char* name, int i)
+{
+    this->dxEffect->SetInt(name, i);
+}
+
+void DirectXEffect::SetFloat(const char* name, float f)
+{
+    this->dxEffect->SetFloat(name, f);
+}
+
+void DirectXEffect::SetBool(const char* name, bool b)
+{
+    this->dxEffect->SetBool(name, b);
+}
+
+void DirectXEffect::SetVector(const char* name, Vector2& v)
+{
+    D3DXVECTOR4 vector = D3DXVECTOR4(v.GetX(), v.GetY(), 0.0f, 1.0f);
+    this->dxEffect->SetVector(name, &vector);
+}
+
+void DirectXEffect::SetVector(const char* name, Vector3& v)
+{
+    D3DXVECTOR4 vector = D3DXVECTOR4(v.GetX(), v.GetY(), v.GetZ(), 1.0f);
+    this->dxEffect->SetVector(name, &vector);
+}
+
+void DirectXEffect::SetVector(const char* name, Vector4& v)
+{
+    D3DXVECTOR4 vector = D3DXVECTOR4(v.GetX(), v.GetY(), v.GetZ(), v.GetW());
+    this->dxEffect->SetVector(name, &vector);
+}
+
 void DirectXEffect::SetMatrix(const char* name, Matrix4& m)
 {
     D3DXMATRIX matrix = D3DXMATRIX(m[0]);

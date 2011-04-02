@@ -21,7 +21,20 @@ public:
     virtual void End();
     virtual void EndPass();
 
+    virtual void GetInt(const char* name, int* i);
+    virtual void GetFloat(const char* name, float* f);
+    virtual void GetBool(const char* name, bool* b);
+    virtual void GetVector(const char* name, Vector2* v);
+    virtual void GetVector(const char* name, Vector3* v);
+    virtual void GetVector(const char* name, Vector4* v);
+    virtual void GetMatrix(const char* name, Matrix4* m);
 
+    virtual void SetInt(const char* name, int i);
+    virtual void SetFloat(const char* name, float f);
+    virtual void SetBool(const char* name, bool b);
+    virtual void SetVector(const char* name, Vector2& v);
+    virtual void SetVector(const char* name, Vector3& v);
+    virtual void SetVector(const char* name, Vector4& v);
     virtual void SetMatrix(const char* name, Matrix4& m);
 
 private:
