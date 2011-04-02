@@ -95,7 +95,7 @@ void Application::OnMove(int newX, int newY)
 
 void Application::OnResize(int newWidth, int newHeight)
 {
-    if(renderer)
+    if(renderer && newWidth > 0 && newHeight > 0)
         renderer->Resize(newWidth, newHeight);
 }
 

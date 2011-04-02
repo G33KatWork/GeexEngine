@@ -49,7 +49,8 @@ void DirectXRenderer::Resize(int newWidth, int newHeight)
     presentationParamenters.BackBufferHeight = newHeight;
 
     OnDeviceLost();
-    ResetDevice();
+    d3dDevice->Reset(&presentationParamenters);
+    OnDeviceReset();
 }
 
 void DirectXRenderer::ToggleFullscreen()
@@ -67,7 +68,8 @@ void DirectXRenderer::ToggleFullscreen()
     }
 
     OnDeviceLost();
-    ResetDevice();
+    d3dDevice->Reset(&presentationParamenters);
+    OnDeviceReset();
 
     //restore old window position if necessary
     if(presentationParamenters.Windowed)
@@ -183,11 +185,8 @@ void DirectXRenderer::OnDeviceLost()
     //TODO: Notify resources that device is lost
 }
 
-void DirectXRenderer::ResetDevice()
+void DirectXRenderer::OnDeviceReset()
 {
-    if(FAILED(d3dDevice->Reset(&presentationParamenters)))
-        throw GeexEngineException("DeviceReset failed");
-
     //TODO: Reset matrices etc.
     D3DVIEWPORT9 vp;
     vp.Height = this->curHeight;
@@ -223,11 +222,14 @@ bool DirectXRenderer::CheckCooperateLevel()
             OnDeviceLost();
         }
         return false;
-    
+
     case D3DERR_DEVICENOTRESET:
-        ResetDevice();
-        deviceIsLost = false;
-        break;
+        HRESULT result = d3dDevice->Reset(&presentationParamenters);
+        if(FAILED(result))
+            throw new GeexEngineException("Resetting the D3D Device failed");
+
+        OnDeviceReset();
+        return true;
     }
 
     return true;

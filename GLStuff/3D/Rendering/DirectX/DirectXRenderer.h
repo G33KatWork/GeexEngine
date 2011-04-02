@@ -38,7 +38,7 @@ private:
 
 protected:
     void OnDeviceLost();
-    void ResetDevice();
+    void OnDeviceReset();
 
     D3DMATRIX ToD3DMatrix(Matrix4 m);
 

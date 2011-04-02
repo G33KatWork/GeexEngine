@@ -107,7 +107,7 @@ bool TestApplication::OnInitialize()
     std::cout << m(1, 0) << " " << m(1, 1) << " " << m(1, 2) << " " << m(1, 3) << std::endl;
     std::cout << m(2, 0) << " " << m(2, 1) << " " << m(2, 2) << " " << m(2, 3) << std::endl;
     std::cout << m(3, 0) << " " << m(3, 1) << " " << m(3, 2) << " " << m(3, 3) << std::endl;
-
+    
     return true;
 }
 float lr = 0.0f; //left right
@@ -170,7 +170,7 @@ void TestApplication::OnRedraw()
 
         world = rotation * translation;
 
-        effect->SetMatrix("worldViewProjection", world*view*projection /*Matrix4::Identity()*/);
+        effect->SetMatrix("worldViewProjection", world*view*projection);
         effect->SetTexture("testTexture", texture);
         
         unsigned int numPasses = effect->Begin();
