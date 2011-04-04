@@ -5,10 +5,7 @@ DirectXResettableResource::ResettableResourceList DirectXResettableResource::not
 void DirectXResettableResource::NotifyDeviceLost()
 {
     for(ResettableResourceList::const_iterator i = notifyList.begin(); i != notifyList.end(); ++i)
-    {
-        std::cout << (unsigned)*i << std::endl;
         (*i)->OnDeviceLost();
-    }
 }
 
 void DirectXResettableResource::NotifyDeviceReset()

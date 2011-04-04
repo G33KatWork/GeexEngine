@@ -3,7 +3,7 @@
 
 #include <3D/GraphicsCardResources/Texture.h>
 #include <list>
-#include <iostream>
+
 /**
   * This class is a superclass for all DirectX resources which need to be
   * notified on a lost or resetted device
@@ -23,7 +23,7 @@ public:
     static void NotifyDeviceReset();
 
 protected:
-    DirectXResettableResource() { std::cout  << "adding" << std::endl; DirectXResettableResource::notifyList.push_back(this); }
+    DirectXResettableResource() { DirectXResettableResource::notifyList.push_back(this); }
 
 private:
     typedef std::list<DirectXResettableResource*> ResettableResourceList;
