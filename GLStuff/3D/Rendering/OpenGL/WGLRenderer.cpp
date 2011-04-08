@@ -6,14 +6,14 @@ WGLRenderer::WGLRenderer(HWND window, int width, int height)
 {
     deviceContext = NULL;
     renderingContext = NULL;
-	pixelFormat = 0;
+    pixelFormat = 0;
 
     windowHandle = window;
 
     if(!(deviceContext = GetDC(windowHandle)))
         throw GeexEngineException("Failed to acquire device context");
 
-	//FIXME: make configurable?
+    //FIXME: make configurable?
     static	PIXELFORMATDESCRIPTOR pfd=				// pfd Tells Windows How We Want Things To Be
     {
         sizeof(PIXELFORMATDESCRIPTOR),				// Size Of This Pixel Format Descriptor
@@ -36,10 +36,10 @@ WGLRenderer::WGLRenderer(HWND window, int width, int height)
         0, 0, 0										// Layer Masks Ignored
     };
 
-	if (!(pixelFormat=ChoosePixelFormat(deviceContext,&pfd)))
+    if (!(pixelFormat=ChoosePixelFormat(deviceContext,&pfd)))
         throw GeexEngineException("Failed to choose a pixel format");
 
-	if (!SetPixelFormat(deviceContext, pixelFormat, &pfd))
+    if (!SetPixelFormat(deviceContext, pixelFormat, &pfd))
         throw GeexEngineException("Failed to set pixel format");
 
     if (!(renderingContext = wglCreateContext(deviceContext)))
@@ -51,7 +51,7 @@ WGLRenderer::WGLRenderer(HWND window, int width, int height)
 
 WGLRenderer::~WGLRenderer()
 {
-	if(renderingContext != NULL)
+    if(renderingContext != NULL)
     {
         wglMakeCurrent(NULL, NULL);
         wglDeleteContext(renderingContext);
@@ -67,51 +67,51 @@ WGLRenderer::~WGLRenderer()
 
 void WGLRenderer::ToggleFullscreen()
 {
-	Renderer::ToggleFullscreen();
+    Renderer::ToggleFullscreen();
 
     if(!isFullscreen)	//comming out of fullscreen
-	{
-		ChangeDisplaySettings(NULL,0);
-	}
+    {
+        ChangeDisplaySettings(NULL,0);
+    }
     else				//going into fullscreen
     {
-		GetWindowRect(windowHandle, &oldWindowRect);	//save old window position
+        GetWindowRect(windowHandle, &oldWindowRect);	//save old window position
 
-		//switch resolution
-		DEVMODE dmScreenSettings;
-		memset(&dmScreenSettings, 0, sizeof(dmScreenSettings));
-		dmScreenSettings.dmSize = sizeof(dmScreenSettings);
-		dmScreenSettings.dmPelsWidth = this->curWidth;
-		dmScreenSettings.dmPelsHeight = this->curHeight;
-		dmScreenSettings.dmBitsPerPel = 32;
-		dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
+        //switch resolution
+        DEVMODE dmScreenSettings;
+        memset(&dmScreenSettings, 0, sizeof(dmScreenSettings));
+        dmScreenSettings.dmSize = sizeof(dmScreenSettings);
+        dmScreenSettings.dmPelsWidth = this->curWidth;
+        dmScreenSettings.dmPelsHeight = this->curHeight;
+        dmScreenSettings.dmBitsPerPel = 32;
+        dmScreenSettings.dmFields = DM_BITSPERPEL | DM_PELSWIDTH | DM_PELSHEIGHT;
 
-		if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
-		{
-			MessageBox(windowHandle, "Error switching to fullscreen with given resolution. Staying in windowed mode.", "Error switching to fullscreen", MB_OK | MB_ICONEXCLAMATION);
-			isFullscreen = false;
-			return;
-		}
+        if (ChangeDisplaySettings(&dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
+        {
+            MessageBox(windowHandle, "Error switching to fullscreen with given resolution. Staying in windowed mode.", "Error switching to fullscreen", MB_OK | MB_ICONEXCLAMATION);
+            isFullscreen = false;
+            return;
+        }
 
-		//remove window border and move it into position
-		SetWindowLong(windowHandle, GWL_STYLE, WS_POPUP);
-		SetWindowPos(windowHandle,
-					 NULL,
-					 0,
-					 0,
-					 this->curWidth,
-					 this->curHeight,
-					 SWP_NOZORDER | SWP_DRAWFRAME | SWP_FRAMECHANGED | SWP_SHOWWINDOW
-					 );
+        //remove window border and move it into position
+        SetWindowLong(windowHandle, GWL_STYLE, WS_POPUP);
+        SetWindowPos(windowHandle,
+                     NULL,
+                     0,
+                     0,
+                     this->curWidth,
+                     this->curHeight,
+                     SWP_NOZORDER | SWP_DRAWFRAME | SWP_FRAMECHANGED | SWP_SHOWWINDOW
+                     );
 
         ShowCursor(false);
     }
 
-	//restore old window position is necessary
+    //restore old window position is necessary
     if(!isFullscreen)
     {
-		SetWindowLong(windowHandle, GWL_STYLE, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX);
-		SetWindowPos(windowHandle,
+        SetWindowLong(windowHandle, GWL_STYLE, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX);
+        SetWindowPos(windowHandle,
                      NULL,
                      oldWindowRect.left,
                      oldWindowRect.top,

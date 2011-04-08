@@ -1,7 +1,7 @@
 #ifndef _WGLRENDERER_H_
 #define _WGLRENDERER_H_
 
-#include <Rendering/OpenGL/OpenGLRenderer.h>
+#include <3D/Rendering/OpenGL/OpenGLRenderer.h>
 #include <Windows.h>
 
 class WGLRenderer : public OpenGLRenderer
@@ -17,11 +17,11 @@ public:
 protected:
     HDC deviceContext;
     HGLRC renderingContext;
-	GLuint pixelFormat;
+    GLuint pixelFormat;
 
     HWND windowHandle;
 
-	RECT oldWindowRect;
+    RECT oldWindowRect;
 };
 
 #endif

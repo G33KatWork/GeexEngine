@@ -32,13 +32,13 @@ public:
 
     virtual void SwapBuffers() = 0;
 
-	virtual void UpdateCamera(ICamera* camera) = 0;
+    virtual void UpdateCamera(ICamera* camera) = 0;
 
     virtual Color GetBackgroundColor() { return backgroundColor; }
     virtual void SetBackgroundColor(Color newColor) { backgroundColor = newColor; }
 
-	virtual int GetWidth() const { return this->curWidth; }
-	virtual int GetHeight() const { return this->curHeight; }
+    virtual int GetWidth() const { return this->curWidth; }
+    virtual int GetHeight() const { return this->curHeight; }
 };
 
 #endif

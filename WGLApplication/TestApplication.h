@@ -7,7 +7,6 @@
 #include <Application.h>
 #include <Input/DirectInput/DirectInputMouseInputDevice.h>
 #include <Input/DirectInput/DirectInputKeyboardInputDevice.h>
-#include <3D/PerspectiveCamera.h>
 
 class TestApplication : public Application
 {

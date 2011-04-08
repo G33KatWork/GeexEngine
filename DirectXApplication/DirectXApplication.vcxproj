@@ -18,6 +18,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="effect.fx" />
+    <None Include="test.bmp">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{56836235-D541-409F-8627-9E4C8904EACC}</ProjectGuid>

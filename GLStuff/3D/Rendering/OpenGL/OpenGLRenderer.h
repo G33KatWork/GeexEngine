@@ -6,7 +6,7 @@
 
 typedef struct
 {
-	float m[16];
+    float m[16];
 } OGLMATRIX;
 
 class OpenGLRenderer : public Renderer
@@ -27,19 +27,15 @@ public:
 
     virtual void SwapBuffers() = 0;
 
-    virtual void SetWorldMatrix(Matrix4 m);
-    virtual void SetViewMatrix(Matrix4 m);
-    virtual void SetProjectionMatrix(Matrix4 m);
+    virtual void SetBackgroundColor(Color newColor);
 
-	virtual void SetBackgroundColor(Color newColor);
-
-	virtual void UpdateCamera(ICamera* camera);
+    virtual void UpdateCamera(ICamera* camera);
 
 protected:
     OpenGLRenderer(int width, int height);
 
 private:
-	OGLMATRIX ToOGLMatrix(Matrix4 m);
+    OGLMATRIX ToOGLMatrix(Matrix4 m);
 };
 
 #endif
