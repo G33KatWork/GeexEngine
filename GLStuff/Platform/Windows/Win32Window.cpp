@@ -86,8 +86,6 @@ void Win32Window::Create()
 
 void Win32Window::Destroy()
 {
-    CloseWindow(hWnd);
-    
     if(hWnd)
     {
         DestroyWindow(hWnd);
