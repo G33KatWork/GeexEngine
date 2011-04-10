@@ -60,8 +60,7 @@ public:
     Matrix4& operator/= (float f);
 
     // other
-    //FIXME: implement
-    //Matrix4 Transpose () const;
+    Matrix4 Transpose () const;
 
     // matrix times vector
     //Vector3 operator* (const Vector3& v) const;  // M * v
@@ -73,11 +72,6 @@ private:
     //08 09 10 11
     //12 13 14 15
     float a[16];
-
-    static int I(int row, int col)
-    {
-        return col + 4*row;
-    }
 };
 
 #endif

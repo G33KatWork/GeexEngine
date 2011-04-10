@@ -10,22 +10,15 @@ enum VertexElementUsage
     GX_VB_ELEMENT_USAGE_NORMAL,
     GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES,
     GX_VB_ELEMENT_USAGE_COLOR,
-    GX_VB_ELEMENT_USAGE_DIFFUSE,
-    GX_VB_ELEMENT_USAGE_SPECULAR,
+    /*GX_VB_ELEMENT_USAGE_DIFFUSE,
+    GX_VB_ELEMENT_USAGE_SPECULAR,*/
 };
 
 enum VertexElementType
 {
-    GX_VB_ELEMENT_TYPE_FLOAT1,
-    GX_VB_ELEMENT_TYPE_FLOAT2,
-    GX_VB_ELEMENT_TYPE_FLOAT3,
-    GX_VB_ELEMENT_TYPE_FLOAT4,
-    GX_VB_ELEMENT_TYPE_COLOR,
-    GX_VB_ELEMENT_TYPE_SHORT2,
-    GX_VB_ELEMENT_TYPE_SHORT4,
-    GX_VB_ELEMENT_TYPE_UBYTE4,
-    GX_VB_ELEMENT_TYPE_COLOR_ARGB,
-    GX_VB_ELEMENT_TYPE_COLOR_ABGR,
+    GX_VB_ELEMENT_TYPE_FLOAT,
+    GX_VB_ELEMENT_TYPE_SHORT,
+    GX_VB_ELEMENT_TYPE_UBYTE,
 };
 
 class VertexElement
@@ -34,18 +27,18 @@ public:
     VertexElementType type;
     VertexElementUsage usage;
     size_t offset;
-    size_t size;
+    size_t componentCount;
 
     VertexElement() {}
-    VertexElement(VertexElementType type, VertexElementUsage usage, size_t offset, size_t size)
-        : type(type), usage(usage), offset(offset), size(size)
+    VertexElement(VertexElementType type, VertexElementUsage usage, size_t offset, size_t componentCount)
+        : type(type), usage(usage), offset(offset), componentCount(componentCount)
     {}
 
     inline bool operator==(const VertexElement& other)
     {
         return
             other.offset == offset &&
-            other.size == size &&
+            other.componentCount == componentCount &&
             other.type == type &&
             other.usage == usage;
     }
@@ -67,8 +60,8 @@ public:
     const VertexBufferFormat::VertexElementList& GetElements() { return elements; }
     const VertexElement* GetElements(unsigned short at);
 
-    void AddElement(size_t offset, size_t size, VertexElementUsage usage, VertexElementType type);
-    void AddElement(unsigned short at, size_t offset, size_t size, VertexElementUsage usage, VertexElementType type);
+    void AddElement(size_t offset, size_t componentCount, VertexElementUsage usage, VertexElementType type);
+    void AddElement(unsigned short at, size_t offset, size_t componentCount, VertexElementUsage usage, VertexElementType type);
     void RemoveElement(unsigned short at);
     void RemoveAllElements() { elements.clear(); }
 
@@ -94,7 +87,10 @@ public:
     virtual void Unbind(Renderer* renderer) {}*/
 
     virtual void Activate() {}
+    virtual void Deactivate() {}
     virtual void SetData(void* data) = 0;
+
+    virtual VertexBufferFormat* GetVertexFormat() { return &format; }
 };
 
 //TODO: Vertex streams

@@ -25,17 +25,23 @@ public:
     virtual void ClearStencilBuffer();
     virtual void ClearBuffers();
 
+    virtual void DrawPrimitive(unsigned int startVertex, size_t primitiveCount, PrimitiveType primitiveType);
+    virtual void DrawIndexedPrimitive(int baseVertexIndex, unsigned int minIndex, unsigned int startIndex, size_t primitiveCount, PrimitiveType primitiveType);
+
     virtual void SwapBuffers() = 0;
 
     virtual void SetBackgroundColor(Color newColor);
 
     virtual void UpdateCamera(ICamera* camera);
 
+    //TODO: remove me...
+    static OGLMATRIX ToOGLMatrix(Matrix4 m);
+
 protected:
     OpenGLRenderer(int width, int height);
 
 private:
-    OGLMATRIX ToOGLMatrix(Matrix4 m);
+    GLenum GetGLPrimitiveType(PrimitiveType type);
 };
 
 #endif

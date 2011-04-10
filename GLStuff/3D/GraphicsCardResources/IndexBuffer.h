@@ -32,6 +32,7 @@ public:
     virtual void Unbind(Renderer* renderer) {}*/
 
     virtual void Activate() {}
+    virtual void Deactivate() {}
     virtual void SetData(void* data) = 0;
 };
 

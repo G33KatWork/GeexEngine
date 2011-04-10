@@ -5,12 +5,26 @@
 #include <Math/Color.h>
 #include <3D/Camera/ICamera.h>
 #include <3D/GraphicsCardResources/Effect.h>
+#include <3D/GraphicsCardResources/VertexBuffer.h>
+#include <3D/GraphicsCardResources/IndexBuffer.h>
+
+enum PrimitiveType
+{
+    PRIMTYPE_POINTLIST,
+    PRIMTYPE_LINELIST,
+    PRIMTYPE_LINESTRIP,
+    PRIMTYPE_TRIANGLELIST,
+    PRIMTYPE_TRIANGLESTRIP,
+    PRIMTYPE_TRIANGLEFAN
+};
 
 class Renderer
 {
 protected:
     Renderer();
     Renderer(int width, int height);
+    
+    size_t GetVertexCount(PrimitiveType type, size_t primitiveCount);
 
     int curWidth, curHeight;
     bool isFullscreen;
@@ -29,6 +43,9 @@ public:
     virtual void ClearDepthBuffer() = 0;
     virtual void ClearStencilBuffer() = 0;
     virtual void ClearBuffers() = 0;
+
+    virtual void DrawPrimitive(unsigned int startVertex, size_t primitiveCount, PrimitiveType primitiveType) = 0;
+    virtual void DrawIndexedPrimitive(int baseVertexIndex, unsigned int minIndex, unsigned int startIndex, size_t primitiveCount, PrimitiveType primitiveType) = 0;
 
     virtual void SwapBuffers() = 0;
 

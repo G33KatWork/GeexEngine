@@ -20,22 +20,22 @@ Matrix4::Matrix4(float _00, float _01, float _02, float _03,
         float _20, float _21, float _22, float _23,
         float _30, float _31, float _32, float _33)
 {
-    a[0] = _00;
-    a[1] = _01;
-    a[2] = _02;
-    a[3] = _03;
-    a[4] = _10;
-    a[5] = _11;
-    a[6] = _12;
-    a[7] = _13;
-    a[8] = _20;
-    a[9] = _21;
-    a[10] = _22;
-    a[11] = _23;
-    a[12] = _30;
-    a[13] = _31;
-    a[14] = _32;
-    a[15] = _33;
+    (*this)[0][0] = _00;
+    (*this)[0][1] = _01;
+    (*this)[0][2] = _02;
+    (*this)[0][3] = _03;
+    (*this)[1][0] = _10;
+    (*this)[1][1] = _11;
+    (*this)[1][2] = _12;
+    (*this)[1][3] = _13;
+    (*this)[2][0] = _20;
+    (*this)[2][1] = _21;
+    (*this)[2][2] = _22;
+    (*this)[2][3] = _23;
+    (*this)[3][0] = _30;
+    (*this)[3][1] = _31;
+    (*this)[3][2] = _32;
+    (*this)[3][3] = _33;
 }
 
 Matrix4 Matrix4::Zero()
@@ -218,7 +218,7 @@ Matrix4& Matrix4::operator= (const Matrix4& m)
 //access
 float Matrix4::operator() (int row, int col) const
 {
-    return a[I(row, col)];
+    return a[row*4 + col];
 }
 
 float* Matrix4::operator[] (int row)
@@ -364,6 +364,17 @@ Matrix4& Matrix4::operator/= (float f)
     }
 
     return *this;
+}
+
+Matrix4 Matrix4::Transpose() const
+{
+    Matrix4 t;
+
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            t[i][j] = (*this)(j, i);
+
+    return t;
 }
 
 // matrix times vector

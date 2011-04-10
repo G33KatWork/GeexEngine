@@ -35,7 +35,7 @@ struct D3DVERTEX {float x, y, z, tu, tv;};
 bool TestApplication::OnInitialize()
 {
     world = Matrix4::Identity();
-    projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetWidth(), 0.1f, 100.0f);
+    projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
     view = Matrix4::Identity();
 
     effect = new DirectXEffect(((DirectXRenderer*)renderer)->GetDevice(), "effect.fx", true);
@@ -66,9 +66,9 @@ bool TestApplication::OnInitialize()
 
     VertexBufferFormat format = VertexBufferFormat();
     size_t offset = 0;
-    format.AddElement(offset, VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT3), GX_VB_ELEMENT_USAGE_POSITION, GX_VB_ELEMENT_TYPE_FLOAT3);
-    offset += VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT3);
-    format.AddElement(offset, VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT2), GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES, GX_VB_ELEMENT_TYPE_FLOAT2);
+    format.AddElement(offset, 3, GX_VB_ELEMENT_USAGE_POSITION, GX_VB_ELEMENT_TYPE_FLOAT);
+    offset += VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT) * 3;
+    format.AddElement(offset, 2, GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES, GX_VB_ELEMENT_TYPE_FLOAT);
     
     std::cout << "size of struct: " << sizeof(D3DVERTEX) * 8 << std::endl;
     std::cout << "size of declaration: " << format.GetTotalVertexSize() * 8 << std::endl;
@@ -78,35 +78,6 @@ bool TestApplication::OnInitialize()
 
     indexBuf = new DirectX9IndexBuffer(((DirectXRenderer*)renderer)->GetDevice(), 36, GX_IB_ELEMENT_TYPE_UINT16);
     indexBuf->SetData(&indices);
-
-    D3DXMATRIX a;
-    D3DXMatrixIdentity(&a);
-    D3DXMatrixRotationZ(&a, 45.0f * 3.14f / 180.0f);
-    D3DXMATRIX t;
-    D3DXMatrixTranslation(&t, 1.0f, 2.0f, 3.0f);
-    D3DXMatrixMultiply(&a, &a, &t);
-
-    //D3DXMatrixPerspectiveFovLH(&a, 45.0f * 3.14f / 180.0f, 4.0f/3.0f, 100.0f, 0.0f);
-    D3DXVECTOR3 eye, at, up;
-    eye.x = eye.y = eye.z = 0.0f;
-    at.x = at.y = at.z = 10.0f;
-    up.x = 1.0f; up.y = 2.0f; up.z = 3.0f;
-
-    //D3DXMatrixLookAtRH(&a, &eye, &at, &up);
-    std::cout << a(0, 0) << " " << a(0, 1) << " " << a(0, 2) << " " << a(0, 3) << std::endl;
-    std::cout << a(1, 0) << " " << a(1, 1) << " " << a(1, 2) << " " << a(1, 3) << std::endl;
-    std::cout << a(2, 0) << " " << a(2, 1) << " " << a(2, 2) << " " << a(2, 3) << std::endl;
-    std::cout << a(3, 0) << " " << a(3, 1) << " " << a(3, 2) << " " << a(3, 3) << std::endl;
-
-    Matrix4 m = Matrix4::Identity();
-    m = Matrix4::Rotate(45.0f * 3.14f / 180.0f, Vector3(0.0f, 0.0f, 1.0f));
-    m = m * Matrix4::Translate(1.0f, 2.0f, 3.0f);
-    //m = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f / 180.0f, 4.0f/3.0f, 100.0f, 0.0f);
-    //m = Matrix4::CreateLookAtRightHanded(Vector3(0.0f, 0.0f, 0.0f), Vector3(10.0f, 10.0f, 10.0f), Vector3(1.0f, 2.0f, 3.0f));
-    std::cout << m(0, 0) << " " << m(0, 1) << " " << m(0, 2) << " " << m(0, 3) << std::endl;
-    std::cout << m(1, 0) << " " << m(1, 1) << " " << m(1, 2) << " " << m(1, 3) << std::endl;
-    std::cout << m(2, 0) << " " << m(2, 1) << " " << m(2, 2) << " " << m(2, 3) << std::endl;
-    std::cout << m(3, 0) << " " << m(3, 1) << " " << m(3, 2) << " " << m(3, 3) << std::endl;
     
     return true;
 }
@@ -173,19 +144,23 @@ void TestApplication::OnRedraw()
         effect->SetMatrix("worldViewProjection", world*view*projection);
         effect->SetTexture("testTexture", texture);
         
+        buf->Activate();
+        indexBuf->Activate();
+
         unsigned int numPasses = effect->Begin();
         for(unsigned int i = 0; i < numPasses; i++)
         {
             effect->BeginPass(i);
 
-            buf->Activate();
-            indexBuf->Activate();
-            ((DirectXRenderer*)renderer)->GetDevice()->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0, 0, 8, 0, 12);
+            renderer->DrawIndexedPrimitive(0, 0, 0, 12, PRIMTYPE_TRIANGLELIST);
 
             effect->EndPass();
         }
         effect->End();
         
+        buf->Deactivate();
+        indexBuf->Deactivate();
+
         renderer->EndScene();
     }
 

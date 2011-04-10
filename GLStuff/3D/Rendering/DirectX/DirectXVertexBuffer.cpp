@@ -44,6 +44,15 @@ void DirectX9VertexBuffer::Activate()
         throw new GeexRendererException("Setting of vertex stream source failed");
 }
 
+void DirectX9VertexBuffer::Deactivate()
+{
+    if(FAILED(device->SetVertexDeclaration(NULL)))
+        throw new GeexRendererException("Unsetting of vertex declaration failed");
+
+    if(FAILED(device->SetStreamSource(0, NULL, 0, 0)))
+        throw new GeexRendererException("Unsetting of vertex stream source failed");
+}
+
 void DirectX9VertexBuffer::SetData(void* data)
 {
     void *pVertexBuffer = NULL;
@@ -70,7 +79,7 @@ void DirectX9VertexBuffer::BuildDirect3DVertexDeclaration9()
 
         declaration[i].Stream = 0;
         declaration[i].Offset = curElement->offset;
-        declaration[i].Type = GetDXDeclType(curElement->type);
+        declaration[i].Type = GetDXDeclType(curElement->type, curElement->componentCount);
         declaration[i].Method = D3DDECLMETHOD_DEFAULT;  //TODO: let user specify this crap
         declaration[i].Usage = GetDXDeclUsage(curElement->usage);
         declaration[i].UsageIndex = 0;
@@ -92,31 +101,32 @@ void DirectX9VertexBuffer::BuildDirect3DVertexDeclaration9()
     delete[] declaration;
 }
 
-D3DDECLTYPE DirectX9VertexBuffer::GetDXDeclType(VertexElementType type)
+D3DDECLTYPE DirectX9VertexBuffer::GetDXDeclType(VertexElementType type, size_t componentCount)
 {
     switch(type)
     {
-    case GX_VB_ELEMENT_TYPE_COLOR:
-    case GX_VB_ELEMENT_TYPE_COLOR_ABGR:
-    case GX_VB_ELEMENT_TYPE_COLOR_ARGB:
-        return D3DDECLTYPE_D3DCOLOR;
-    case GX_VB_ELEMENT_TYPE_FLOAT1:
-        return D3DDECLTYPE_FLOAT1;
-    case GX_VB_ELEMENT_TYPE_FLOAT2:
-        return D3DDECLTYPE_FLOAT2;
-    case GX_VB_ELEMENT_TYPE_FLOAT3:
-        return D3DDECLTYPE_FLOAT3;
-    case GX_VB_ELEMENT_TYPE_FLOAT4:
-        return D3DDECLTYPE_FLOAT4;
-    case GX_VB_ELEMENT_TYPE_SHORT2:
-        return D3DDECLTYPE_SHORT2;
-    case GX_VB_ELEMENT_TYPE_SHORT4:
-        return D3DDECLTYPE_SHORT4;
-    case GX_VB_ELEMENT_TYPE_UBYTE4:
-        return D3DDECLTYPE_UBYTE4;
+    case GX_VB_ELEMENT_TYPE_FLOAT:
+        if(componentCount == 1)
+            return D3DDECLTYPE_FLOAT1;
+        else if (componentCount == 2)
+            return D3DDECLTYPE_FLOAT2;
+        else if (componentCount == 3)
+            return D3DDECLTYPE_FLOAT3;
+        else if (componentCount == 4)
+            return D3DDECLTYPE_FLOAT4;
+
+    case GX_VB_ELEMENT_TYPE_SHORT:
+        if(componentCount == 2)
+            return D3DDECLTYPE_SHORT2;
+        else if (componentCount == 4)
+            return D3DDECLTYPE_SHORT4;
+
+    case GX_VB_ELEMENT_TYPE_UBYTE:
+        if (componentCount == 4)
+            return D3DDECLTYPE_UBYTE4;
     }
 
-    throw new GeexRendererException("Unknown VertexElementType supplied");
+    throw new GeexRendererException("Unknown VertexElementType and componentCount pair supplied");
 }
 
 D3DDECLUSAGE DirectX9VertexBuffer::GetDXDeclUsage(VertexElementUsage usage)
@@ -131,10 +141,10 @@ D3DDECLUSAGE DirectX9VertexBuffer::GetDXDeclUsage(VertexElementUsage usage)
         return D3DDECLUSAGE_TEXCOORD;
     case GX_VB_ELEMENT_USAGE_COLOR:
         return D3DDECLUSAGE_COLOR;
-    case GX_VB_ELEMENT_USAGE_DIFFUSE:
+    /*case GX_VB_ELEMENT_USAGE_DIFFUSE:
         return D3DDECLUSAGE_COLOR;
     case GX_VB_ELEMENT_USAGE_SPECULAR:
-        return D3DDECLUSAGE_COLOR;
+        return D3DDECLUSAGE_COLOR;*/
     }
 
     throw new GeexRendererException("Unknown VertexElementUsage supplied");

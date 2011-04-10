@@ -163,6 +163,16 @@ void DirectXRenderer::ClearBuffers()
         throw GeexEngineException("Buffer clearance failed");
 }
 
+void DirectXRenderer::DrawPrimitive(unsigned int startVertex, size_t primitiveCount, PrimitiveType primitiveType)
+{
+    d3dDevice->DrawPrimitive(GetD3DPrimitiveType(primitiveType), startVertex, primitiveCount);
+}
+
+void DirectXRenderer::DrawIndexedPrimitive(int baseVertexIndex, unsigned int minIndex, unsigned int startIndex, size_t primitiveCount, PrimitiveType primitiveType)
+{
+    d3dDevice->DrawIndexedPrimitive(GetD3DPrimitiveType(primitiveType), baseVertexIndex, minIndex, GetVertexCount(primitiveType, primitiveCount), startIndex, primitiveCount);
+}
+
 void DirectXRenderer::SwapBuffers()
 {
     if(!CheckCooperateLevel())
@@ -230,4 +240,25 @@ bool DirectXRenderer::CheckCooperateLevel()
     }
 
     return true;
+}
+
+D3DPRIMITIVETYPE DirectXRenderer::GetD3DPrimitiveType(PrimitiveType type)
+{
+    switch(type)
+    {
+    case PRIMTYPE_LINELIST:
+        return D3DPT_LINELIST;
+    case PRIMTYPE_LINESTRIP:
+        return D3DPT_LINESTRIP;
+    case PRIMTYPE_POINTLIST:
+        return D3DPT_POINTLIST;
+    case PRIMTYPE_TRIANGLEFAN:
+        return D3DPT_TRIANGLEFAN;
+    case PRIMTYPE_TRIANGLELIST:
+        return D3DPT_TRIANGLELIST;
+    case PRIMTYPE_TRIANGLESTRIP:
+        return D3DPT_TRIANGLESTRIP;
+    }
+
+    throw new GeexEngineException("Invalid PrimitiveType passed");
 }

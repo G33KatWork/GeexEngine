@@ -4,7 +4,7 @@
 #include <3D/GraphicsCardResources/IndexBuffer.h>
 #include <d3d9.h>
 
-class DirectX9IndexBuffer : IndexBuffer
+class DirectX9IndexBuffer : public IndexBuffer
 {
 protected:
     IDirect3DDevice9 *device;
@@ -17,6 +17,7 @@ public:
     virtual ~DirectX9IndexBuffer();
 
     virtual void Activate();
+    virtual void Deactivate();
     virtual void SetData(void* data);
 };
 

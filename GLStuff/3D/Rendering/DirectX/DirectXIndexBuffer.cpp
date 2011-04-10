@@ -32,6 +32,12 @@ void DirectX9IndexBuffer::Activate()
         throw new GeexRendererException("Setting of index buffer failed");
 }
 
+void DirectX9IndexBuffer::Deactivate()
+{
+    if(FAILED(device->SetIndices(NULL)))
+        throw new GeexRendererException("Unsetting of index buffer failed");
+}
+
 void DirectX9IndexBuffer::SetData(void* data)
 {
     void *pIndexBuffer = NULL;

@@ -4,7 +4,7 @@
 #include <3D/GraphicsCardResources/VertexBuffer.h>
 #include <d3d9.h>
 
-class DirectX9VertexBuffer : VertexBuffer
+class DirectX9VertexBuffer : public VertexBuffer
 {
 protected:
     IDirect3DDevice9 *device;
@@ -13,7 +13,7 @@ protected:
 
     void BuildDirect3DVertexDeclaration9();
 
-    static D3DDECLTYPE GetDXDeclType(VertexElementType type);
+    static D3DDECLTYPE GetDXDeclType(VertexElementType type, size_t componentCount);
     static D3DDECLUSAGE GetDXDeclUsage(VertexElementUsage usage);
 
 public:
@@ -21,6 +21,7 @@ public:
     virtual ~DirectX9VertexBuffer();
 
     virtual void Activate();
+    virtual void Deactivate();
     virtual void SetData(void* data);
 };
 

@@ -1,7 +1,7 @@
 #ifndef _IGRAPHICSCARDRESOURCE_H_
 #define _IGRAPHICSCARDRESOURCE_H_
 
-#include <3D/Rendering/Renderer.h>
+class Renderer;
 
 class IGraphicsCardResource
 {
