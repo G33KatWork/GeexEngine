@@ -41,10 +41,10 @@ void DirectX9IndexBuffer::Deactivate()
 void DirectX9IndexBuffer::SetData(void* data)
 {
     void *pIndexBuffer = NULL;
-    if(FAILED(indexBuffer->Lock(0, indexCount * sizeof(GetDXIndexType(this->elementType)), &pIndexBuffer, 0)))
+    if(FAILED(indexBuffer->Lock(0, indexCount * GetDXIndexTypeSize(GetDXIndexType(this->elementType)), &pIndexBuffer, 0)))
         throw new GeexRendererException("Locking of index buffer failed");
 
-    memcpy(pIndexBuffer, data, indexCount * sizeof(GetDXIndexType(this->elementType)));
+    memcpy(pIndexBuffer, data, indexCount * GetDXIndexTypeSize(GetDXIndexType(this->elementType)));
 
     if(FAILED(indexBuffer->Unlock()))
         throw new GeexRendererException("Unlocking of index buffer failed");
@@ -61,4 +61,17 @@ D3DFORMAT DirectX9IndexBuffer::GetDXIndexType(IndexElementType type)
     }
 
     throw new GeexRendererException("Unknown IndexElementType supplied");
+}
+
+size_t DirectX9IndexBuffer::GetDXIndexTypeSize(D3DFORMAT type)
+{
+    switch(type)
+    {
+    case D3DFMT_INDEX16:
+        return sizeof(unsigned short);
+    case D3DFMT_INDEX32:
+        return sizeof(unsigned int);
+    }
+
+    throw new GeexRendererException("Unappropriate D3DFORMAT supplied");
 }
