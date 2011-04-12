@@ -152,8 +152,8 @@ void TestApplication::OnRedraw()
         {
             effect->BeginPass(i);
 
-            renderer->DrawIndexedPrimitive(0, 0, 0, 12, PRIMTYPE_TRIANGLELIST);
-
+            renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
+            
             effect->EndPass();
         }
         effect->End();

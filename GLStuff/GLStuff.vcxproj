@@ -123,11 +123,14 @@
     <ClInclude Include="3D\Rendering\DirectX\DirectXIndexBuffer.h" />
     <ClInclude Include="3D\Rendering\DirectX\DirectXResettableResource.h" />
     <ClInclude Include="3D\Rendering\DirectX\DirectXTexture.h" />
+    <ClInclude Include="3D\Rendering\DirectX\DirectXTypeConversions.h" />
     <ClInclude Include="3D\Rendering\DirectX\DirectXVertexBuffer.h" />
     <ClInclude Include="3D\Rendering\GeexRendererException.h" />
     <ClInclude Include="3D\Rendering\GraphicsResourceFactory.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLHeader.h" />
+    <ClInclude Include="3D\Rendering\OpenGL\OpenGLIndexBuffer.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLRenderer.h" />
+    <ClInclude Include="3D\Rendering\OpenGL\OpenGLTypeConversions.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLVertexBuffer.h" />
     <ClInclude Include="3D\Rendering\OpenGL\WGLRenderer.h" />
     <ClInclude Include="Application.h" />
@@ -176,8 +179,11 @@
     <ClCompile Include="3D\Rendering\DirectX\DirectXIndexBuffer.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXResettableResource.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXTexture.cpp" />
+    <ClCompile Include="3D\Rendering\DirectX\DirectXTypeConversions.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXVertexBuffer.cpp" />
+    <ClCompile Include="3D\Rendering\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLRenderer.cpp" />
+    <ClCompile Include="3D\Rendering\OpenGL\OpenGLTypeConversions.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\WGLRenderer.cpp" />
     <ClCompile Include="Application.cpp" />

@@ -22,9 +22,9 @@ public:
     virtual void ClearStencilBuffer();
     virtual void ClearBuffers();
 
-    virtual void DrawPrimitive(unsigned int startVertex, size_t primitiveCount, PrimitiveType primitiveType);
-    virtual void DrawIndexedPrimitive(int baseVertexIndex, unsigned int minIndex, unsigned int startIndex, size_t primitiveCount, PrimitiveType primitiveType);
-
+    virtual void DrawPrimitive(PrimitiveType primitiveType, unsigned int startVertex, size_t primitiveCount);
+    virtual void DrawIndexedPrimitive(IndexElementType indexElementType, PrimitiveType primitiveType, unsigned int startIndex, size_t primitiveCount);
+    
     virtual void SwapBuffers();
 
 	virtual void UpdateCamera(ICamera* camera);
@@ -34,8 +34,6 @@ public:
 
 private:
     bool CheckCooperateLevel();
-
-    D3DPRIMITIVETYPE GetD3DPrimitiveType(PrimitiveType type);
 
 protected:
     void OnDeviceLost();

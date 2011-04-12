@@ -25,9 +25,9 @@ public:
     virtual void ClearStencilBuffer();
     virtual void ClearBuffers();
 
-    virtual void DrawPrimitive(unsigned int startVertex, size_t primitiveCount, PrimitiveType primitiveType);
-    virtual void DrawIndexedPrimitive(int baseVertexIndex, unsigned int minIndex, unsigned int startIndex, size_t primitiveCount, PrimitiveType primitiveType);
-
+    virtual void DrawPrimitive(PrimitiveType primitiveType, unsigned int startVertex, size_t primitiveCount);
+    virtual void DrawIndexedPrimitive(IndexElementType indexElementType, PrimitiveType primitiveType, unsigned int startIndex, size_t primitiveCount);
+    
     virtual void SwapBuffers() = 0;
 
     virtual void SetBackgroundColor(Color newColor);
@@ -39,9 +39,6 @@ public:
 
 protected:
     OpenGLRenderer(int width, int height);
-
-private:
-    GLenum GetGLPrimitiveType(PrimitiveType type);
 };
 
 #endif

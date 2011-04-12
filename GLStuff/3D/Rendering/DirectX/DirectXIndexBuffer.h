@@ -10,9 +10,6 @@ protected:
     IDirect3DDevice9 *device;
     LPDIRECT3DINDEXBUFFER9 indexBuffer;
 
-    static D3DFORMAT GetDXIndexType(IndexElementType type);
-    static size_t GetDXIndexTypeSize(D3DFORMAT type);
-
 public:
     DirectX9IndexBuffer(IDirect3DDevice9 *device, size_t indexCount, IndexElementType type);
     virtual ~DirectX9IndexBuffer();

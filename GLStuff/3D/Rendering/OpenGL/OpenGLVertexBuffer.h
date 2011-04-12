@@ -9,8 +9,6 @@ class OpenGLVertexBuffer : public VertexBuffer
 protected:
     GLuint vertexBuffer;
 
-    static GLenum GetGLDeclType(VertexElementType type);
-
 public:
     OpenGLVertexBuffer(size_t vertexCount, VertexBufferFormat& format);
     virtual ~OpenGLVertexBuffer();

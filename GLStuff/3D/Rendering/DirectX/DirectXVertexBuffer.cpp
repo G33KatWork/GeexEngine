@@ -1,5 +1,6 @@
 #include "DirectXVertexBuffer.h"
 #include <3D/Rendering/GeexRendererException.h>
+#include <3D/Rendering/DirectX/DirectXTypeConversions.h>
 
 DirectX9VertexBuffer::DirectX9VertexBuffer(IDirect3DDevice9 *device, size_t vertexCount, VertexBufferFormat& format)
     : VertexBuffer(vertexCount, format),
@@ -99,53 +100,4 @@ void DirectX9VertexBuffer::BuildDirect3DVertexDeclaration9()
 
 
     delete[] declaration;
-}
-
-D3DDECLTYPE DirectX9VertexBuffer::GetDXDeclType(VertexElementType type, size_t componentCount)
-{
-    switch(type)
-    {
-    case GX_VB_ELEMENT_TYPE_FLOAT:
-        if(componentCount == 1)
-            return D3DDECLTYPE_FLOAT1;
-        else if (componentCount == 2)
-            return D3DDECLTYPE_FLOAT2;
-        else if (componentCount == 3)
-            return D3DDECLTYPE_FLOAT3;
-        else if (componentCount == 4)
-            return D3DDECLTYPE_FLOAT4;
-
-    case GX_VB_ELEMENT_TYPE_SHORT:
-        if(componentCount == 2)
-            return D3DDECLTYPE_SHORT2;
-        else if (componentCount == 4)
-            return D3DDECLTYPE_SHORT4;
-
-    case GX_VB_ELEMENT_TYPE_UBYTE:
-        if (componentCount == 4)
-            return D3DDECLTYPE_UBYTE4;
-    }
-
-    throw new GeexRendererException("Unknown VertexElementType and componentCount pair supplied");
-}
-
-D3DDECLUSAGE DirectX9VertexBuffer::GetDXDeclUsage(VertexElementUsage usage)
-{
-    switch(usage)
-    {
-    case GX_VB_ELEMENT_USAGE_POSITION:
-        return D3DDECLUSAGE_POSITION;
-    case GX_VB_ELEMENT_USAGE_NORMAL:
-        return D3DDECLUSAGE_NORMAL;
-    case GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES:
-        return D3DDECLUSAGE_TEXCOORD;
-    case GX_VB_ELEMENT_USAGE_COLOR:
-        return D3DDECLUSAGE_COLOR;
-    /*case GX_VB_ELEMENT_USAGE_DIFFUSE:
-        return D3DDECLUSAGE_COLOR;
-    case GX_VB_ELEMENT_USAGE_SPECULAR:
-        return D3DDECLUSAGE_COLOR;*/
-    }
-
-    throw new GeexRendererException("Unknown VertexElementUsage supplied");
 }

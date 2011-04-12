@@ -13,9 +13,6 @@ protected:
 
     void BuildDirect3DVertexDeclaration9();
 
-    static D3DDECLTYPE GetDXDeclType(VertexElementType type, size_t componentCount);
-    static D3DDECLUSAGE GetDXDeclUsage(VertexElementUsage usage);
-
 public:
     DirectX9VertexBuffer(IDirect3DDevice9 *device, size_t vertexCount, VertexBufferFormat& format);
     virtual ~DirectX9VertexBuffer();

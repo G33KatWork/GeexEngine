@@ -1,5 +1,6 @@
 #include <3D/Rendering/OpenGL/OpenGLRenderer.h>
 #include <3D/Rendering/GeexRendererException.h>
+#include <3D/Rendering/OpenGL/OpenGLTypeConversions.h>
 
 OpenGLRenderer::OpenGLRenderer(int width, int height)
     : Renderer(width, height)
@@ -43,7 +44,7 @@ void OpenGLRenderer::ClearBuffers()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 }
 
-void OpenGLRenderer::DrawPrimitive(unsigned int startVertex, size_t primitiveCount, PrimitiveType primitiveType)
+void OpenGLRenderer::DrawPrimitive(PrimitiveType primitiveType, unsigned int startVertex, size_t primitiveCount)
 {
     glDrawArrays(GetGLPrimitiveType(primitiveType), startVertex, GetVertexCount(primitiveType, primitiveCount));
 
@@ -52,8 +53,14 @@ void OpenGLRenderer::DrawPrimitive(unsigned int startVertex, size_t primitiveCou
         throw new GeexRendererException("Array drawing failed");
 }
 
-void OpenGLRenderer::DrawIndexedPrimitive(int baseVertexIndex, unsigned int minIndex, unsigned int startIndex, size_t primitiveCount, PrimitiveType primitiveType)
+void OpenGLRenderer::DrawIndexedPrimitive(IndexElementType indexElementType, PrimitiveType primitiveType, unsigned int startIndex, size_t primitiveCount)
 {
+    glDrawElements(
+        GetGLPrimitiveType(primitiveType),
+        GetVertexCount(primitiveType, primitiveCount),
+        GetGLIndexType(indexElementType),
+        (void*)(startIndex * GetGLIndexTypeSize(GetGLIndexType(indexElementType)))
+    );
 }
 
 void OpenGLRenderer::SetBackgroundColor(Color newColor)
@@ -98,23 +105,3 @@ OGLMATRIX OpenGLRenderer::ToOGLMatrix(Matrix4 m)
     return d;
 }
 
-GLenum OpenGLRenderer::GetGLPrimitiveType(PrimitiveType type)
-{
-    switch(type)
-    {
-    case PRIMTYPE_LINELIST:
-        return GL_LINES;
-    case PRIMTYPE_LINESTRIP:
-        return GL_LINE_STRIP;
-    case PRIMTYPE_POINTLIST:
-        return GL_POINTS;
-    case PRIMTYPE_TRIANGLEFAN:
-        return GL_TRIANGLE_FAN;
-    case PRIMTYPE_TRIANGLELIST:
-        return GL_TRIANGLES;
-    case PRIMTYPE_TRIANGLESTRIP:
-        return GL_TRIANGLE_STRIP;
-    }
-
-    throw new GeexEngineException("Invalid PrimitiveType passed");
-}

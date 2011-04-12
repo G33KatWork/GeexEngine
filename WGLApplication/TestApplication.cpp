@@ -6,8 +6,10 @@
 #include <Common/GeexEngineException.h>
 
 #include <3D/Rendering/OpenGL/OpenGLVertexBuffer.h>
+#include <3D/Rendering/OpenGL/OpenGLIndexBuffer.h>
 
 OpenGLVertexBuffer *buf;
+OpenGLIndexBuffer *index;
 
 Matrix4 world;
 Matrix4 projection;
@@ -32,7 +34,6 @@ bool TestApplication::OnInitialize()
     projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
     view = Matrix4::Identity();
 
-
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glLoadMatrixf(projection[0]);
@@ -42,9 +43,22 @@ bool TestApplication::OnInitialize()
 
     struct GLVERTEX vertices[] =
     {
-        { -1.0f,  1.0f, 0.f,    0.0f, 0.0f, 1.0f, },
-        {  1.0f,  1.0f, 0.f,    0.0f, 1.0f, 0.0f, },
-        { -1.0f, -1.0f, 0.f,    1.0f, 0.0f, 0.0f, },
+        { -1.0f,-1.0f,-1.0f,    0.0f, 0.0f, 1.0f },
+        { -1.0f, 1.0f,-1.0f,    0.0f, 1.0f, 0.0f },
+        {  1.0f, 1.0f,-1.0f,    1.0f, 0.0f, 0.0f },
+        {  1.0f,-1.0f,-1.0f,    0.0f, 0.0f, 1.0f },
+        { -1.0f,-1.0f, 1.0f,    0.0f, 1.0f, 0.0f },
+        {  1.0f,-1.0f, 1.0f,    1.0f, 0.0f, 0.0f },
+        {  1.0f, 1.0f, 1.0f,    0.0f, 0.0f, 1.0f },
+        { -1.0f, 1.0f, 1.0f,    0.0f, 1.0f, 0.0f }
+    };
+
+    short indices[] = 
+    {
+        0,1,2, 2,3,0, 4,5,6,
+        6,7,4, 0,3,5, 5,4,0,
+        3,2,6, 6,5,3, 2,1,7,
+        7,6,2, 1,0,4, 4,7,1
     };
 
     VertexBufferFormat format = VertexBufferFormat();
@@ -53,10 +67,15 @@ bool TestApplication::OnInitialize()
     offset += VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT) * 3;
     format.AddElement(offset, 3, GX_VB_ELEMENT_USAGE_COLOR, GX_VB_ELEMENT_TYPE_FLOAT);
 
-    buf = new OpenGLVertexBuffer(3, format);
+    buf = new OpenGLVertexBuffer(8, format);
     buf->SetData(vertices);
 
+    index = new OpenGLIndexBuffer(36, GX_IB_ELEMENT_TYPE_UINT16);
+    index->SetData(indices);
+
     renderer->SetBackgroundColor(Color(0.4f, 0.8f, 0.9f, 1.0f));
+
+    glEnable(GL_DEPTH_TEST);
 
     return true;
 }
@@ -127,7 +146,11 @@ void TestApplication::OnRedraw()
     if(renderer->BeginScene())
     {
         buf->Activate();
-        renderer->DrawPrimitive(0, 1, PRIMTYPE_TRIANGLESTRIP);
+        index->Activate();
+
+        renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
+
+        index->Deactivate();
         buf->Deactivate();
 
         renderer->EndScene(); 

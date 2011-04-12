@@ -1,5 +1,6 @@
 #include "DirectXIndexBuffer.h"
 #include <3D/Rendering/GeexRendererException.h>
+#include <3D/Rendering/DirectX/DirectXTypeConversions.h>
 
 DirectX9IndexBuffer::DirectX9IndexBuffer(IDirect3DDevice9 *device, size_t indexCount, IndexElementType type)
     : IndexBuffer(indexCount, type),
@@ -48,30 +49,4 @@ void DirectX9IndexBuffer::SetData(void* data)
 
     if(FAILED(indexBuffer->Unlock()))
         throw new GeexRendererException("Unlocking of index buffer failed");
-}
-
-D3DFORMAT DirectX9IndexBuffer::GetDXIndexType(IndexElementType type)
-{
-    switch(type)
-    {
-    case GX_IB_ELEMENT_TYPE_UINT16:
-        return D3DFMT_INDEX16;
-    case GX_IB_ELEMENT_TYPE_UINT32:
-        return D3DFMT_INDEX32;
-    }
-
-    throw new GeexRendererException("Unknown IndexElementType supplied");
-}
-
-size_t DirectX9IndexBuffer::GetDXIndexTypeSize(D3DFORMAT type)
-{
-    switch(type)
-    {
-    case D3DFMT_INDEX16:
-        return sizeof(unsigned short);
-    case D3DFMT_INDEX32:
-        return sizeof(unsigned int);
-    }
-
-    throw new GeexRendererException("Unappropriate D3DFORMAT supplied");
 }
