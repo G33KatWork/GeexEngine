@@ -18,11 +18,10 @@ protected:
 public:
     virtual void SetTechniqueByName(const char* name) = 0;
 
-    virtual unsigned int Begin() = 0;
-    virtual void BeginPass(unsigned int passNum) = 0;
-
+    virtual void Begin() = 0;
     virtual void End() = 0;
-    virtual void EndPass() = 0;
+
+    virtual bool ExecutePass() = 0;
 
 
     //TODO: Replace this with a constant- oder texture-buffer later

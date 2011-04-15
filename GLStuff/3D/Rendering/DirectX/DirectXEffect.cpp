@@ -2,9 +2,13 @@
 #include "DirectXTexture.h"
 #include <3D/GraphicsCardResources/GeexShaderException.h>
 
+//FIXME: Upon first setting or getting of parameter, save the parameter object in some hashtable or so and use this for next gets and sets. Perhaps faster?
+
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, void* code)
     : dxEffect(NULL),
     device(device),
+    currentPass(0),
+    totalPasses(0),
     DirectXResettableResource()
 {
     throw new GeexEngineException("Not yet implemented");
@@ -13,6 +17,8 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, void* code)
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
     : dxEffect(NULL),
     device(device),
+    currentPass(0),
+    totalPasses(0),
     DirectXResettableResource()
 {
     LPD3DXBUFFER errors = NULL;
@@ -34,6 +40,8 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode, bool fromFile)
     : dxEffect(NULL),
     device(device),
+    currentPass(0),
+    totalPasses(0),
     DirectXResettableResource()
 {
     LPD3DXBUFFER errors = NULL;
@@ -69,31 +77,40 @@ void DirectXEffect::SetTechniqueByName(const char* name)
         throw new GeexShaderException("Switching to technique failed");
 }
 
-unsigned int DirectXEffect::Begin()
+void DirectXEffect::Begin()
 {
-    UINT passes;
-    if(FAILED(this->dxEffect->Begin(&passes, 0)))
+    if(FAILED(this->dxEffect->Begin(&totalPasses, 0)))
         throw new GeexShaderException("Beginning of effect failed");
     
-    return passes;
+    currentPass = 0;
 }
 
-void DirectXEffect::BeginPass(unsigned int passNum)
+bool DirectXEffect::ExecutePass()
 {
-    if(FAILED(this->dxEffect->BeginPass(passNum)))
-        throw new GeexShaderException("Beginning of shader pass failed");
+    //if not the first pass...
+    if(currentPass > 0)
+    {
+        //end last pass...
+        if(FAILED(this->dxEffect->EndPass()))
+            throw new GeexShaderException("End of shader failed");
+    }
+
+    //... and start new one if there is one left
+    if(currentPass < totalPasses)
+    {
+        if(FAILED(this->dxEffect->BeginPass(currentPass)))
+            throw new GeexShaderException("Beginning of shader pass failed");
+    }
+
+    currentPass++;
+
+    return currentPass - 1 < totalPasses;
 }
 
 void DirectXEffect::End()
 {
-    if(FAILED(this->dxEffect->EndPass()))
-        throw new GeexShaderException("End of shader failed");
-}
-
-void DirectXEffect::EndPass()
-{
     if(FAILED(this->dxEffect->End()))
-        throw new GeexShaderException("End of shader pass failed");
+            throw new GeexShaderException("End of shader failed");
 }
 
 void DirectXEffect::GetInt(const char* name, int* i)

@@ -8,8 +8,14 @@
 #include <3D/Rendering/OpenGL/OpenGLVertexBuffer.h>
 #include <3D/Rendering/OpenGL/OpenGLIndexBuffer.h>
 
+#include <3D/Rendering/Cg/CgEffect.h>
+#include <Cg/cgGL.h>
+
 OpenGLVertexBuffer *buf;
 OpenGLIndexBuffer *index;
+CgEffect *effect;
+
+CGcontext context;
 
 Matrix4 world;
 Matrix4 projection;
@@ -30,16 +36,15 @@ bool TestApplication::OnInitialize()
     if(glewInit() != GLEW_OK)
         throw new GeexEngineException("GLEW initialization failed");
 
+    context = cgCreateContext();
+    cgGLRegisterStates(context);
+
+    effect = new CgEffect(context, "effect.fx", true);
+    effect->SetTechniqueByName("glsl");
+
     world = Matrix4::Identity();
     projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
     view = Matrix4::Identity();
-
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glLoadMatrixf(projection[0]);
-
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
 
     struct GLVERTEX vertices[] =
     {
@@ -122,7 +127,7 @@ void TestApplication::OnUpdate()
     if(keyboard->KeyPressed(KEY_ESCAPE))
         this->Terminate();
 }
-
+#include <iostream>
 void TestApplication::OnRedraw()
 {
     renderer->ClearBuffers();
@@ -136,19 +141,19 @@ void TestApplication::OnRedraw()
 
     world = rotation * translation;
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadMatrixf((view * world)[0]);
-
-    /*glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-    glTranslatef(0.0f,0.0f,3.0f);*/
+    effect->SetMatrix("worldViewProjection", world*view*projection);
 
     if(renderer->BeginScene())
     {
         buf->Activate();
         index->Activate();
 
-        renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
+        effect->Begin();
+
+        while(effect->ExecutePass())
+            renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
+
+        effect->End();
 
         index->Deactivate();
         buf->Deactivate();

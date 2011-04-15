@@ -17,8 +17,7 @@
     <ClCompile Include="TestApplication.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragmentShader.txt" />
-    <None Include="vertexShader.txt" />
+    <None Include="effect.fx" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{938A4809-2142-40FC-A387-3E57A7B1EE7F}</ProjectGuid>
@@ -60,12 +59,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>c:\boost_1_45_0;..\GLStuff;..\GLStuff\externals\glew\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>c:\boost_1_45_0;..\GLStuff;..\GLStuff\externals\glew\inc;..\GLStuff\externals\cg\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(OutDir)\GLStuff.lib;opengl32.lib;glu32.lib;$(DXSDK_DIR)\Lib\x86\dinput8.lib;$(DXSDK_DIR)\Lib\x86\dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)\GLStuff.lib;opengl32.lib;glu32.lib;..\GLStuff\externals\cg\win\lib\*.lib;$(DXSDK_DIR)\Lib\x86\dinput8.lib;$(DXSDK_DIR)\Lib\x86\dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

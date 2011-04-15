@@ -17,11 +17,11 @@ public:
 
     void SetTechniqueByName(const char* name);
 
-    virtual unsigned int Begin();
-    virtual void BeginPass(unsigned int passNum);
-
+    virtual void Begin();
     virtual void End();
-    virtual void EndPass();
+
+    //returns true if there is a next pass
+    virtual bool ExecutePass();
 
     virtual void GetInt(const char* name, int* i);
     virtual void GetFloat(const char* name, float* f);
@@ -48,6 +48,9 @@ public:
 private:
     ID3DXEffect* dxEffect;
     IDirect3DDevice9* device;
+
+    UINT totalPasses;
+    UINT currentPass;
 
     //prevent copying
     DirectXEffect(const DirectXEffect& other) {}

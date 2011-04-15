@@ -147,15 +147,11 @@ void TestApplication::OnRedraw()
         buf->Activate();
         indexBuf->Activate();
 
-        unsigned int numPasses = effect->Begin();
-        for(unsigned int i = 0; i < numPasses; i++)
-        {
-            effect->BeginPass(i);
+        effect->Begin();
 
+        while(effect->ExecutePass())
             renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
-            
-            effect->EndPass();
-        }
+
         effect->End();
         
         buf->Deactivate();

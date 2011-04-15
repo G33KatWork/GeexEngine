@@ -38,6 +38,11 @@ Matrix4::Matrix4(float _00, float _01, float _02, float _03,
     (*this)[3][3] = _33;
 }
 
+Matrix4::Matrix4(const float* values)
+{
+    memcpy(a, values, sizeof(a));
+}
+
 Matrix4 Matrix4::Zero()
 {
     return Matrix4();

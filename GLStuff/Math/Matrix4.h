@@ -15,6 +15,7 @@ public:
             float _10, float _11, float _12, float _13,
             float _20, float _21, float _22, float _23,
             float _30, float _31, float _32, float _33);
+    Matrix4(const float* values);
 
     static Matrix4 Zero();
     static Matrix4 Identity();
