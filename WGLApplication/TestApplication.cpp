@@ -1,17 +1,10 @@
 #include "TestApplication.h"
 
-#include <Platform/Windows/Win32Window.h>
-#include <3D/Rendering/OpenGL/WGLRenderer.h>
-#include <Timing/Windows/WindowsTiming.h>
-#include <Common/GeexEngineException.h>
+#include <3D/Rendering/OpenGL/OpenGLHeader.h>
 
 TestApplication::TestApplication()
-    : Application()
+    : WindowsOpenGLApplication()
 {
-    din = NULL;
-    mouse = NULL;
-    keyboard = NULL;
-
     buf = NULL;
     index = NULL;
     effect = NULL;
@@ -25,9 +18,6 @@ TestApplication::TestApplication()
 
 bool TestApplication::OnInitialize()
 {
-    if(glewInit() != GLEW_OK)
-        throw new GeexEngineException("GLEW initialization failed");
-
     effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx");
     effect->SetTechniqueByName("glsl");
 
@@ -76,6 +66,9 @@ bool TestApplication::OnInitialize()
 
 void TestApplication::OnUpdate()
 {
+    MouseInputDevice* mouse = input->GetMouse();
+    KeyboardInputDevice* keyboard = input->GetKeyboard();
+
     mouse->Update();
     keyboard->Update();
 
@@ -166,52 +159,6 @@ void TestApplication::OnTerminate()
         delete index;
         index = NULL;
     }
-
-    if(mouse)
-    {
-        mouse->Destroy();
-        delete mouse;
-        mouse = NULL;
-    }
-
-    if(keyboard)
-    {
-        keyboard->Destroy();
-        delete keyboard;
-        keyboard = NULL;
-    }
-
-    if(din)
-    {
-        din->Release();
-        din = NULL;
-    }
-}
-
-Renderer* TestApplication::CreateRenderer(Window* forWindow)
-{
-    return new WGLRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
-}
-
-Window* TestApplication::CreateRenderWindow()
-{
-    return (new Win32Window("GeexEngine Window", 0, 0, 640, 480));
-}
-
-TimingInformation* TestApplication::CreateTimer()
-{
-    return new WindowsTiming();
-}
-
-void TestApplication::CreateInputDevices(Window* forWindow)
-{
-    DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&din, NULL);
-
-    mouse = new DirectInputMouseInputDevice(din, ((Win32Window*)forWindow)->GetWindowHandle());
-    mouse->Create();
-
-    keyboard = new DirectInputKeyboardInputDevice(din, ((Win32Window*)forWindow)->GetWindowHandle());
-    keyboard->Create();
 }
 
 int main(int argc, char** argv)

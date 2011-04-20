@@ -13,6 +13,7 @@
 #include <3D/Rendering/Renderer.h>
 #include <Platform/Window.h>
 #include <Timing/TimingInformation.h>
+#include <Input/InputManager.h>
 
 class Application
 {
@@ -20,6 +21,7 @@ protected:
 	Renderer* renderer;
 	Window* window;
 	TimingInformation* timer;
+    InputManager* input;
 
 	bool running;
 
@@ -51,7 +53,11 @@ protected:
 	virtual Renderer* CreateRenderer(Window* forWindow) = 0;
 	virtual Window* CreateRenderWindow() = 0;
 	virtual TimingInformation* CreateTimer() = 0;
-	virtual void CreateInputDevices(Window* forWindow) = 0;
+	virtual InputManager* CreateInputDevices(Window* forWindow) = 0;
+
+    //FIXME: Implement this. To be implemented by an application which delivers resolution,
+    //       window position and various rendering parameters to the engine with this method
+    //virtual DisplayParameters GetDesiredDisplayParameters() = 0;
 };
 
 #endif

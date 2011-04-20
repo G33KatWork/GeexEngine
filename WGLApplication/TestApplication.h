@@ -1,14 +1,9 @@
 #ifndef _TESTAPPLICATION_H_
 #define _TESTAPPLICATION_H_
 
-#define DIRECTINPUT_VERSION	0x0800
-#include <dinput.h>
+#include <Platform/Windows/WindowsOpenGLApplication.h>
 
-#include <Application.h>
-#include <Input/DirectInput/DirectInputMouseInputDevice.h>
-#include <Input/DirectInput/DirectInputKeyboardInputDevice.h>
-
-class TestApplication : public Application
+class TestApplication : public WindowsOpenGLApplication
 {
 public:
     TestApplication();
@@ -19,15 +14,6 @@ public:
     virtual void OnTerminate();
 
 protected:
-    virtual Renderer* CreateRenderer(Window* forWindow);
-    virtual Window* CreateRenderWindow();
-    virtual TimingInformation* CreateTimer();
-    virtual void CreateInputDevices(Window* forWindow);
-
-    LPDIRECTINPUT8 din;
-    MouseInputDevice* mouse;
-    KeyboardInputDevice* keyboard;
-
     VertexBuffer *buf;
     IndexBuffer *index;
     Effect *effect;

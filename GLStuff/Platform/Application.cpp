@@ -1,4 +1,4 @@
-#include <Application.h>
+#include <Platform/Application.h>
 #include <cassert>
 #include <cstdio>
 #include <stddef.h>
@@ -10,6 +10,7 @@ Application::Application()
     window = NULL;
     renderer = NULL;
     timer = NULL;
+    input = NULL;
     running = true;
 }
 
@@ -32,6 +33,7 @@ int Application::Main(int iQuantity, char** apcArgument)
     renderer = this->CreateRenderer(window);
     this->CreateInputDevices(window);
     timer = this->CreateTimer();
+    input = this->CreateInputDevices(window);
 
     if(!OnInitialize())
         return -4;
@@ -56,6 +58,12 @@ int Application::Main(int iQuantity, char** apcArgument)
     {
         delete timer;
         timer = NULL;
+    }
+
+    if(input)
+    {
+        delete input;
+        input = NULL;
     }
 
     if(renderer)
