@@ -2,8 +2,8 @@ uniform float4x4 worldViewProjection;
 
 
 void VShader(
-    float3 iPosition : POSITION,
-    float3 iColor : COLOR0,
+    float3 iPosition : ATTR0,
+    float3 iColor : ATTR1,
     
     out float4 position : POSITION,
     out float3 color : COLOR0)

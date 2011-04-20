@@ -22,8 +22,15 @@ void OpenGLVertexBuffer::Activate()
 {
     glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
 
+    GLuint index = 0;
     for(VertexBufferFormat::VertexElementList::const_iterator curElement = format.GetElements().begin(); curElement != format.GetElements().end(); curElement++)
     {
+        glVertexAttribPointer(index, (*curElement).componentCount, GetGLVertexDeclType((*curElement).type), GL_FALSE, format.GetTotalVertexSize(), (void*)(*curElement).offset);
+        glEnableVertexAttribArray(index);
+
+        index++;
+        
+#if 0
         switch((*curElement).usage)
         {
         case GX_VB_ELEMENT_USAGE_POSITION:
@@ -61,6 +68,7 @@ void OpenGLVertexBuffer::Activate()
             );
             break;
         }
+#endif
     }
 }
 
@@ -68,8 +76,13 @@ void OpenGLVertexBuffer::Deactivate()
 {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+    GLuint index = 0;
     for(VertexBufferFormat::VertexElementList::const_iterator curElement = format.GetElements().begin(); curElement != format.GetElements().end(); curElement++)
     {
+        glDisableVertexAttribArray(index);
+        index++;
+
+#if 0
         switch((*curElement).usage)
         {
         case GX_VB_ELEMENT_USAGE_POSITION:
@@ -90,6 +103,7 @@ void OpenGLVertexBuffer::Deactivate()
             glDisableClientState(GL_COLOR_ARRAY);
             break;
         }
+#endif
     }
 }
 
