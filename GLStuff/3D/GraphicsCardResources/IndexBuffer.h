@@ -16,13 +16,13 @@ protected:
     size_t indexCount;
     IndexElementType elementType;
 
-    virtual ~IndexBuffer() {}
-
-public:
     IndexBuffer(size_t indexCount, IndexElementType type)
         : indexCount(indexCount),
         elementType(type)
     { }
+
+public:
+    virtual ~IndexBuffer() {}
 
     size_t GetIndexCount() const { return indexCount; }
     IndexElementType GetIndexElementType() const { return elementType; }

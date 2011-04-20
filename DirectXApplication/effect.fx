@@ -1,54 +1,28 @@
-float4x4 worldViewProjection;
-texture testTexture;
+uniform float4x4 worldViewProjection;
 
 
-sampler Sampler = sampler_state
-{
-    Texture   = (testTexture);
-    MipFilter = LINEAR;
-    MinFilter = LINEAR;
-    MagFilter = LINEAR;
-};
-
-
-struct VertexShaderInput
-{
-    float3 position : POSITION;
-    float2 texture0 : TEXCOORD0;
-};
-
-struct VertexShaderOutput
-{
-    float4 position : POSITION;
-    float2 texture0 : TEXCOORD0;
-};
-
-
-VertexShaderOutput VShader(VertexShaderInput vin)
-{
-    VertexShaderOutput output;
+void VShader(
+    float3 iPosition : POSITION,
+    float3 iColor : COLOR0,
     
-    output.position = mul(float4(vin.position, 1.0f), worldViewProjection);
-    output.texture0 = vin.texture0;
-    
-    return output;
+    out float4 position : POSITION,
+    out float3 color : COLOR0)
+{
+    position = mul(worldViewProjection, float4(iPosition, 1.0f));
+    color = iColor;
 }
 
-float4 PShader(VertexShaderOutput vout) : COLOR0
+float4 PShader(in float3 color : COLOR0) : COLOR
 {
-    return tex2D(Sampler, vout.texture0);
+    return float4(color, 1.0);
 }
 
 
-technique Simplest
+technique hlsl
 {
-    pass Pass0
+    pass
     {
-        Lighting = FALSE;
-        
-        Sampler[0] = (Sampler);
-        
-        VertexShader = compile vs_1_1 VShader();
-        PixelShader = compile ps_2_0 PShader();
+        VertexProgram = compile hlslv VShader();
+        FragmentProgram = compile hlslf PShader();
     }
 }

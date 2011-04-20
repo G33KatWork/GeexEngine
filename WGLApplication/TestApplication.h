@@ -27,6 +27,22 @@ protected:
     LPDIRECTINPUT8 din;
     MouseInputDevice* mouse;
     KeyboardInputDevice* keyboard;
+
+    VertexBuffer *buf;
+    IndexBuffer *index;
+    Effect *effect;
+
+    float lr; //left right
+    float ud; //up down
+    float zoom;
+    float rotrightleft;
+    float rotupdown;
+
+    Matrix4 world;
+    Matrix4 projection;
+    Matrix4 view;
+
+    struct GLVERTEX {float x, y, z; float r, g, b;};
 };
 
 #endif

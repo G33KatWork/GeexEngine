@@ -3,7 +3,6 @@
 
 #include <3D/GraphicsCardResources/Effect.h>
 
-#include <map>
 #include <Cg/cg.h>
 
 class CgEffect : public Effect

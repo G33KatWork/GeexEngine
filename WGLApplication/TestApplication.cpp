@@ -5,41 +5,30 @@
 #include <Timing/Windows/WindowsTiming.h>
 #include <Common/GeexEngineException.h>
 
-#include <3D/Rendering/OpenGL/OpenGLVertexBuffer.h>
-#include <3D/Rendering/OpenGL/OpenGLIndexBuffer.h>
-
-#include <3D/Rendering/Cg/CgEffect.h>
-#include <Cg/cgGL.h>
-
-OpenGLVertexBuffer *buf;
-OpenGLIndexBuffer *index;
-CgEffect *effect;
-
-CGcontext context;
-
-Matrix4 world;
-Matrix4 projection;
-Matrix4 view;
-
 TestApplication::TestApplication()
     : Application()
 {
     din = NULL;
     mouse = NULL;
     keyboard = NULL;
-}
 
-struct GLVERTEX {float x, y, z; float r, g, b;};
+    buf = NULL;
+    index = NULL;
+    effect = NULL;
+
+    lr = 0.0f;
+    ud = 0.0f;
+    zoom = 3.0f;
+    rotrightleft = 0.0f;
+    rotupdown = 0.0f;
+}
 
 bool TestApplication::OnInitialize()
 {
     if(glewInit() != GLEW_OK)
         throw new GeexEngineException("GLEW initialization failed");
 
-    context = cgCreateContext();
-    cgGLRegisterStates(context);
-
-    effect = new CgEffect(context, "effect.fx", true);
+    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx");
     effect->SetTechniqueByName("glsl");
 
     world = Matrix4::Identity();
@@ -72,10 +61,10 @@ bool TestApplication::OnInitialize()
     offset += VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT) * 3;
     format.AddElement(offset, 3, GX_VB_ELEMENT_USAGE_COLOR, GX_VB_ELEMENT_TYPE_FLOAT);
 
-    buf = new OpenGLVertexBuffer(8, format);
+    buf = renderer->GetGraphicsResourceFactory()->CreateVertexBuffer(8, format);
     buf->SetData(vertices);
 
-    index = new OpenGLIndexBuffer(36, GX_IB_ELEMENT_TYPE_UINT16);
+    index = renderer->GetGraphicsResourceFactory()->CreateIndexBuffer(36, GX_IB_ELEMENT_TYPE_UINT16);
     index->SetData(indices);
 
     renderer->SetBackgroundColor(Color(0.4f, 0.8f, 0.9f, 1.0f));
@@ -84,12 +73,6 @@ bool TestApplication::OnInitialize()
 
     return true;
 }
-
-float lr = 0.0f; //left right
-float ud = 0.0f; //up down
-float zoom = 3.0f;
-float rotrightleft = 0.0f;
-float rotupdown = 0.0f;
 
 void TestApplication::OnUpdate()
 {
@@ -127,7 +110,7 @@ void TestApplication::OnUpdate()
     if(keyboard->KeyPressed(KEY_ESCAPE))
         this->Terminate();
 }
-#include <iostream>
+
 void TestApplication::OnRedraw()
 {
     renderer->ClearBuffers();
@@ -166,6 +149,24 @@ void TestApplication::OnRedraw()
 
 void TestApplication::OnTerminate()
 {
+    if(effect)
+    {
+        delete effect;
+        effect = NULL;
+    }
+
+    if(buf)
+    {
+        delete buf;
+        buf = NULL;
+    }
+
+    if(index)
+    {
+        delete index;
+        index = NULL;
+    }
+
     if(mouse)
     {
         mouse->Destroy();

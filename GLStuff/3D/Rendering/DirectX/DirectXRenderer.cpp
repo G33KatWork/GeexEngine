@@ -2,10 +2,12 @@
 #include <Common/GeexEngineException.h>
 #include <3D/Rendering/DirectX/DirectXResettableResource.h>
 #include <3D/Rendering/DirectX/DirectXTypeConversions.h>
+#include <3D/Rendering/DirectX/DirectXGraphicsResourceFactory.h>
 
 DirectXRenderer::DirectXRenderer(HWND window, int width, int height)
     : Renderer(width, height),
-    deviceIsLost(false)
+    deviceIsLost(false),
+    resourceFactory(NULL)
 {
     d3dObject = Direct3DCreate9(D3D_SDK_VERSION);
     if(!d3dObject)
@@ -41,10 +43,18 @@ DirectXRenderer::DirectXRenderer(HWND window, int width, int height)
                                       &presentationParamenters,
                                       &d3dDevice)))
         throw GeexEngineException("D3D device creation failed");
+
+    resourceFactory = new DirectXGraphicsResourceFactory(this->d3dDevice);
 }
 
 DirectXRenderer::~DirectXRenderer()
 {
+    if(resourceFactory)
+    {
+        delete resourceFactory;
+        resourceFactory = NULL;
+    }
+
     if(d3dDevice)
     {
         d3dDevice->Release();

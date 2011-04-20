@@ -1,18 +1,18 @@
 #ifndef _GRAPHICSRESOURCEFACTORY_H_
 #define _GRAPHICSRESOURCEFACTORY_H_
 
-#include <3D/GraphicsCardResource/Effect.h>
-#include <3D/GraphicsCardResource/IndexBuffer.h>
-#include <3D/GraphicsCardResource/Texture.h>
-#include <3D/GraphicsCardResource/VertexBuffer.h>
+#include <3D/GraphicsCardResources/Effect.h>
+#include <3D/GraphicsCardResources/IndexBuffer.h>
+#include <3D/GraphicsCardResources/Texture.h>
+#include <3D/GraphicsCardResources/VertexBuffer.h>
 
 class GraphicsResourceFactory
 {
 protected:
-    GraphicsResourceFactory();
+    GraphicsResourceFactory() {}
 
 public:
-    virtual ~GraphicsResourceFactory();
+    virtual ~GraphicsResourceFactory() {}
 
     virtual Effect* CreateEffectFromFile(const char* filename) = 0;
     virtual Effect* CreateEffectFromPrecompiledCode(void* code) = 0;

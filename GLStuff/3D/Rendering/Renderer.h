@@ -7,6 +7,7 @@
 #include <3D/GraphicsCardResources/Effect.h>
 #include <3D/GraphicsCardResources/VertexBuffer.h>
 #include <3D/GraphicsCardResources/IndexBuffer.h>
+#include <3D/Rendering/GraphicsResourceFactory.h>
 
 enum PrimitiveType
 {
@@ -32,6 +33,8 @@ protected:
 
 public:
     virtual ~Renderer() {}
+
+    virtual GraphicsResourceFactory* GetGraphicsResourceFactory() = 0;
 
     virtual void Resize(int newWidth, int newHeight);
     virtual void ToggleFullscreen();

@@ -12,7 +12,9 @@ typedef struct
 class OpenGLRenderer : public Renderer
 {
 public:
-    virtual ~OpenGLRenderer() {}
+    virtual ~OpenGLRenderer();
+
+    virtual GraphicsResourceFactory* GetGraphicsResourceFactory() { return resourceFactory; }
 
     virtual void Resize(int newWidth, int newHeight);
     virtual void ToggleFullscreen() = 0;
@@ -39,6 +41,8 @@ public:
 
 protected:
     OpenGLRenderer(int width, int height);
+
+    GraphicsResourceFactory* resourceFactory;
 };
 
 #endif

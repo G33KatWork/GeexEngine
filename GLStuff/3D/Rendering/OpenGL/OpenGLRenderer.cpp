@@ -1,10 +1,23 @@
 #include <3D/Rendering/OpenGL/OpenGLRenderer.h>
 #include <3D/Rendering/GeexRendererException.h>
 #include <3D/Rendering/OpenGL/OpenGLTypeConversions.h>
+#include <3D/Rendering/OpenGL/OpenGLGraphicsResourceFactory.h>
 
 OpenGLRenderer::OpenGLRenderer(int width, int height)
-    : Renderer(width, height)
-{}
+    : Renderer(width, height),
+    resourceFactory(NULL)
+{
+    resourceFactory = new OpenGLGraphicsResourceFactory();
+}
+
+OpenGLRenderer::~OpenGLRenderer()
+{
+    if(resourceFactory)
+    {
+        delete resourceFactory;
+        resourceFactory = NULL;
+    }
+}
 
 void OpenGLRenderer::Resize(int newWidth, int newHeight)
 {

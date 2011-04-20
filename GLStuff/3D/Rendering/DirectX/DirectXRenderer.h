@@ -11,6 +11,8 @@ public:
     DirectXRenderer(HWND window, int width, int height);
     virtual ~DirectXRenderer();
 
+    virtual GraphicsResourceFactory* GetGraphicsResourceFactory() { return resourceFactory; }
+
     virtual void Resize(int newWidth, int newHeight);
     virtual void ToggleFullscreen();
 
@@ -44,6 +46,8 @@ protected:
     LPDIRECT3D9 d3dObject;
     LPDIRECT3DDEVICE9 d3dDevice;
     D3DPRESENT_PARAMETERS presentationParamenters;
+
+    GraphicsResourceFactory* resourceFactory;
 
     RECT oldWindowRect;
 

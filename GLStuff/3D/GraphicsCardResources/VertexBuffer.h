@@ -75,10 +75,10 @@ protected:
     size_t vertexCount;
     VertexBufferFormat format;
 
-    virtual ~VertexBuffer();
+    VertexBuffer(size_t vertexCount, VertexBufferFormat& format);
 
 public:
-    VertexBuffer(size_t vertexCount, VertexBufferFormat& format);
+    virtual ~VertexBuffer();
 
     size_t GetVertexCount() { return vertexCount; }
 

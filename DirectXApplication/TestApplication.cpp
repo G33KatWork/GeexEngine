@@ -4,33 +4,23 @@
 #include <3D/Rendering/DirectX/DirectXRenderer.h>
 #include <Timing/Windows/WindowsTiming.h>
 
-#include <stdexcept>
-
-#include <3D/Rendering/DirectX/DirectXVertexBuffer.h>
-#include <3D/Rendering/DirectX/DirectXIndexBuffer.h>
-#include <3D/Rendering/DirectX/DirectXEffect.h>
-#include <3D/Rendering/DirectX/DirectXTexture.h>
-
-DirectXEffect* effect;
-DirectX9VertexBuffer *buf;
-DirectX9IndexBuffer *indexBuf;
-DirectXTexture *texture;
-
-Matrix4 world;
-Matrix4 projection;
-Matrix4 view;
-
 TestApplication::TestApplication()
     : Application()
 {
     din = NULL;
     mouse = NULL;
     keyboard = NULL;
-}
-#include <iostream>
-#include <d3dx9.h>
 
-struct D3DVERTEX {float x, y, z, tu, tv;};
+    buf = NULL;
+    index = NULL;
+    effect = NULL;
+
+    lr = 0.0f;
+    ud = 0.0f;
+    zoom = 3.0f;
+    rotrightleft = 0.0f;
+    rotupdown = 0.0f;
+}
 
 bool TestApplication::OnInitialize()
 {
@@ -38,20 +28,19 @@ bool TestApplication::OnInitialize()
     projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
     view = Matrix4::Identity();
 
-    effect = new DirectXEffect(((DirectXRenderer*)renderer)->GetDevice(), "effect.fx", true);
-
-    texture = new DirectXTexture(((DirectXRenderer*)renderer)->GetDevice(), "test.bmp");
+    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx");
+    effect->SetTechniqueByName("hlsl");
 
     struct D3DVERTEX vertices[] =
     {
-        {-1.0f,-1.0f,-1.0f,0.0f,1.0f},
-        {-1.0f, 1.0f,-1.0f,0.0f,0.0f},
-        { 1.0f, 1.0f,-1.0f,1.0f,0.0f},
-        { 1.0f,-1.0f,-1.0f,1.0f,1.0f},
-        {-1.0f,-1.0f, 1.0f,0.0f,0.0f},
-        { 1.0f,-1.0f, 1.0f,0.0f,1.0f},
-        { 1.0f, 1.0f, 1.0f,0.0f,0.0f},
-        {-1.0f, 1.0f, 1.0f,0.0f,1.0f}
+        { -1.0f,-1.0f,-1.0f,    0.0f, 0.0f, 1.0f },
+        { -1.0f, 1.0f,-1.0f,    0.0f, 1.0f, 0.0f },
+        {  1.0f, 1.0f,-1.0f,    1.0f, 0.0f, 0.0f },
+        {  1.0f,-1.0f,-1.0f,    0.0f, 0.0f, 1.0f },
+        { -1.0f,-1.0f, 1.0f,    0.0f, 1.0f, 0.0f },
+        {  1.0f,-1.0f, 1.0f,    1.0f, 0.0f, 0.0f },
+        {  1.0f, 1.0f, 1.0f,    0.0f, 0.0f, 1.0f },
+        { -1.0f, 1.0f, 1.0f,    0.0f, 1.0f, 0.0f }
     };
 
     short indices[] = 
@@ -68,24 +57,16 @@ bool TestApplication::OnInitialize()
     size_t offset = 0;
     format.AddElement(offset, 3, GX_VB_ELEMENT_USAGE_POSITION, GX_VB_ELEMENT_TYPE_FLOAT);
     offset += VertexElement::GetTypeSize(GX_VB_ELEMENT_TYPE_FLOAT) * 3;
-    format.AddElement(offset, 2, GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES, GX_VB_ELEMENT_TYPE_FLOAT);
-    
-    std::cout << "size of struct: " << sizeof(D3DVERTEX) * 8 << std::endl;
-    std::cout << "size of declaration: " << format.GetTotalVertexSize() * 8 << std::endl;
+    format.AddElement(offset, 3, GX_VB_ELEMENT_USAGE_COLOR, GX_VB_ELEMENT_TYPE_FLOAT);
 
-    buf = new DirectX9VertexBuffer(((DirectXRenderer*)renderer)->GetDevice(), 8, format);
-    buf->SetData(&vertices);
+    buf = renderer->GetGraphicsResourceFactory()->CreateVertexBuffer(8, format);
+    buf->SetData(vertices);
 
-    indexBuf = new DirectX9IndexBuffer(((DirectXRenderer*)renderer)->GetDevice(), 36, GX_IB_ELEMENT_TYPE_UINT16);
-    indexBuf->SetData(&indices);
+    index = renderer->GetGraphicsResourceFactory()->CreateIndexBuffer(36, GX_IB_ELEMENT_TYPE_UINT16);
+    index->SetData(indices);
     
     return true;
 }
-float lr = 0.0f; //left right
-float ud = 0.0f; //up down
-float zoom = 3.0f;
-float rotrightleft = 0.0f;
-float rotupdown = 0.0f;
 
 void TestApplication::OnUpdate()
 {
@@ -127,25 +108,22 @@ void TestApplication::OnUpdate()
 void TestApplication::OnRedraw()
 {
     renderer->ClearBuffers();
-    
+
+    Matrix4 rotation = Matrix4::Identity();
+    rotation = Matrix4::Rotate(rotrightleft, Vector3(0.0f, 1.0f, 0.0f));
+    rotation = rotation * Matrix4::Rotate(rotupdown, Vector3(1.0f, 0.0f, 0.0f));
+
+    Matrix4 translation = Matrix4::Identity();
+    translation = Matrix4::Translate(lr, ud, zoom);
+
+    world = rotation * translation;
+
+    effect->SetMatrix("worldViewProjection", world*view*projection);
+
     if(renderer->BeginScene())
     {
-        effect->SetTechniqueByName("Simplest");
-
-        Matrix4 rotation = Matrix4::Identity();
-        rotation = Matrix4::Rotate(rotrightleft, Vector3(0.0f, 1.0f, 0.0f));
-        rotation = rotation * Matrix4::Rotate(rotupdown, Vector3(1.0f, 0.0f, 0.0f));
-
-        Matrix4 translation = Matrix4::Identity();
-        translation = Matrix4::Translate(lr, ud, zoom);
-
-        world = rotation * translation;
-
-        effect->SetMatrix("worldViewProjection", world*view*projection);
-        effect->SetTexture("testTexture", texture);
-        
         buf->Activate();
-        indexBuf->Activate();
+        index->Activate();
 
         effect->Begin();
 
@@ -153,11 +131,11 @@ void TestApplication::OnRedraw()
             renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
 
         effect->End();
-        
-        buf->Deactivate();
-        indexBuf->Deactivate();
 
-        renderer->EndScene();
+        index->Deactivate();
+        buf->Deactivate();
+
+        renderer->EndScene(); 
     }
 
     renderer->SwapBuffers();
@@ -177,16 +155,10 @@ void TestApplication::OnTerminate()
         buf = NULL;
     }
 
-    if(indexBuf)
+    if(index)
     {
-        delete indexBuf;
-        indexBuf = NULL;
-    }
-
-    if(texture)
-    {
-        delete texture;
-        texture = NULL;
+        delete index;
+        index = NULL;
     }
 
     if(mouse)
