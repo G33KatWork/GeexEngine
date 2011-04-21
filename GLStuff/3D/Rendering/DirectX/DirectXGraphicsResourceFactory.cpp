@@ -1,6 +1,6 @@
 #include "DirectXGraphicsResourceFactory.h"
 
-//#include "DirectXEffect.h"
+#include "DirectXEffect.h"
 #include <3D/Rendering/Cg/CgEffect.h>
 #include "DirectXIndexBuffer.h"
 #include "DirectXVertexBuffer.h"
@@ -24,19 +24,28 @@ DirectXGraphicsResourceFactory::~DirectXGraphicsResourceFactory()
     cgD3D9SetDevice(NULL);
 }
 
-Effect* DirectXGraphicsResourceFactory::CreateEffectFromFile(const char* filename)
+Effect* DirectXGraphicsResourceFactory::CreateEffectFromFile(const char* filename, EffectType type)
 {
-    return new CgEffect(cgContext, filename, true);
+    if(type == GX_EFFECT_TYPE_CG)
+        return new CgEffect(cgContext, filename, true);
+    else
+        return new DirectXEffect(d3d9Device, filename, true);
 }
 
-Effect* DirectXGraphicsResourceFactory::CreateEffectFromPrecompiledCode(void* code)
+Effect* DirectXGraphicsResourceFactory::CreateEffectFromPrecompiledCode(void* code, EffectType type)
 {
-    return new CgEffect(cgContext, code);
+    if(type == GX_EFFECT_TYPE_CG)
+        return new CgEffect(cgContext, code);
+    else
+        return new DirectXEffect(d3d9Device, code);
 }
 
-Effect* DirectXGraphicsResourceFactory::CreateEffectFromCode(const char* code)
+Effect* DirectXGraphicsResourceFactory::CreateEffectFromCode(const char* code, EffectType type)
 {
-    return new CgEffect(cgContext, code);
+    if(type == GX_EFFECT_TYPE_CG)
+        return new CgEffect(cgContext, code);
+    else
+        return new DirectXEffect(d3d9Device, code);
 }
 
 IndexBuffer* DirectXGraphicsResourceFactory::CreateIndexBuffer(size_t indexCount, IndexElementType type)

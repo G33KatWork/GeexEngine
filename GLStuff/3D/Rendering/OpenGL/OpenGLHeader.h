@@ -9,4 +9,6 @@
 #include <gl/GL.h>
 #include <gl/GLU.h>
 
+#include <glsw.h>
+
 #endif

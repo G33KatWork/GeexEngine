@@ -18,6 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="effect.fx" />
+    <None Include="effect.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{938A4809-2142-40FC-A387-3E57A7B1EE7F}</ProjectGuid>
@@ -59,7 +60,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>c:\boost_1_45_0;..\GLStuff;..\GLStuff\externals\glew\inc;..\GLStuff\externals\cg\win\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>c:\boost_1_45_0;..\GLStuff;..\GLStuff\externals\glew\inc;..\GLStuff\externals\cg\win\include;..\GLStuff\externals\glsw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

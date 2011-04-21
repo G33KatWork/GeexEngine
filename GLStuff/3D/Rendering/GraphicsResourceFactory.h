@@ -6,6 +6,12 @@
 #include <3D/GraphicsCardResources/Texture.h>
 #include <3D/GraphicsCardResources/VertexBuffer.h>
 
+enum EffectType
+{
+    GX_EFFECT_TYPE_NATIVE,
+    GX_EFFECT_TYPE_CG
+};
+
 class GraphicsResourceFactory
 {
 protected:
@@ -14,9 +20,9 @@ protected:
 public:
     virtual ~GraphicsResourceFactory() {}
 
-    virtual Effect* CreateEffectFromFile(const char* filename) = 0;
-    virtual Effect* CreateEffectFromPrecompiledCode(void* code) = 0;
-    virtual Effect* CreateEffectFromCode(const char* code) = 0;
+    virtual Effect* CreateEffectFromFile(const char* filename, EffectType type) = 0;
+    virtual Effect* CreateEffectFromPrecompiledCode(void* code, EffectType type) = 0;
+    virtual Effect* CreateEffectFromCode(const char* code, EffectType type) = 0;
 
     virtual IndexBuffer* CreateIndexBuffer(size_t indexCount, IndexElementType type) = 0;
     virtual VertexBuffer* CreateVertexBuffer(size_t vertexCount, VertexBufferFormat& format) = 0;

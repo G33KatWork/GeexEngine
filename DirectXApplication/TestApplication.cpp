@@ -20,7 +20,7 @@ bool TestApplication::OnInitialize()
     projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
     view = Matrix4::Identity();
 
-    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx");
+    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx", GX_EFFECT_TYPE_CG);
     effect->SetTechniqueByName("hlsl");
 
     struct D3DVERTEX vertices[] =

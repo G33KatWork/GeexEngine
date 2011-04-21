@@ -13,9 +13,9 @@ public:
     DirectXGraphicsResourceFactory(IDirect3DDevice9* device);
     virtual ~DirectXGraphicsResourceFactory();
 
-    virtual Effect* CreateEffectFromFile(const char* filename);
-    virtual Effect* CreateEffectFromPrecompiledCode(void* code);
-    virtual Effect* CreateEffectFromCode(const char* code);
+    virtual Effect* CreateEffectFromFile(const char* filename, EffectType type);
+    virtual Effect* CreateEffectFromPrecompiledCode(void* code, EffectType type);
+    virtual Effect* CreateEffectFromCode(const char* code, EffectType type);
 
     virtual IndexBuffer* CreateIndexBuffer(size_t indexCount, IndexElementType type);
     virtual VertexBuffer* CreateVertexBuffer(size_t vertexCount, VertexBufferFormat& format);

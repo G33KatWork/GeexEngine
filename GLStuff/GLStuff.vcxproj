@@ -66,7 +66,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>c:\boost_1_45_0;externals\glew\inc;externals\cg\win\include;.;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>c:\boost_1_45_0;externals\glsw;externals\glew\inc;externals\cg\win\include;.;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;DIRECTX9;GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -129,6 +129,7 @@
     <ClInclude Include="3D\Rendering\DirectX\DirectXVertexBuffer.h" />
     <ClInclude Include="3D\Rendering\GeexRendererException.h" />
     <ClInclude Include="3D\Rendering\GraphicsResourceFactory.h" />
+    <ClInclude Include="3D\Rendering\OpenGL\OpenGLEffect.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLGraphicsResourceFactory.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLHeader.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLIndexBuffer.h" />
@@ -145,6 +146,8 @@
     <ClInclude Include="externals\glew\inc\GL\wglew.h" />
     <ClInclude Include="3D\SceneGraph\Geometry.h" />
     <ClInclude Include="3D\GraphicsCardResources\IGraphicsCardResource.h" />
+    <ClInclude Include="externals\glsw\bstrlib.h" />
+    <ClInclude Include="externals\glsw\glsw.h" />
     <ClInclude Include="Input\DirectInput\DirectInputInputManager.h" />
     <ClInclude Include="Input\DirectInput\DirectInputKeyboardInputDevice.h" />
     <ClInclude Include="Input\DirectInput\DirectInputMouseInputDevice.h" />
@@ -190,6 +193,7 @@
     <ClCompile Include="3D\Rendering\DirectX\DirectXTexture.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXTypeConversions.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXVertexBuffer.cpp" />
+    <ClCompile Include="3D\Rendering\OpenGL\OpenGLEffect.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLGraphicsResourceFactory.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLIndexBuffer.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLRenderer.cpp" />
@@ -198,6 +202,8 @@
     <ClCompile Include="3D\Rendering\OpenGL\WGLRenderer.cpp" />
     <ClCompile Include="Common\DebugMessages.cpp" />
     <ClCompile Include="3D\SceneGraph\Geometry.cpp" />
+    <ClCompile Include="externals\glsw\bstrlib.c" />
+    <ClCompile Include="externals\glsw\glsw.c" />
     <ClCompile Include="Input\DirectInput\DirectInputInputManager.cpp" />
     <ClCompile Include="Input\DirectInput\DirectInputKeyboardInputDevice.cpp" />
     <ClCompile Include="Input\DirectInput\DirectInputMouseDevice.cpp" />

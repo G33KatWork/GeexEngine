@@ -18,8 +18,11 @@ TestApplication::TestApplication()
 
 bool TestApplication::OnInitialize()
 {
-    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx");
-    effect->SetTechniqueByName("glsl");
+    //effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx", GX_EFFECT_TYPE_CG);
+    //effect->SetTechniqueByName("glsl");
+
+    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect", GX_EFFECT_TYPE_NATIVE);
+    effect->SetTechniqueByName("simple");
 
     world = Matrix4::Identity();
     projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
@@ -117,17 +120,18 @@ void TestApplication::OnRedraw()
 
     world = rotation * translation;
 
-    effect->SetMatrix("worldViewProjection", world*view*projection);
-
     if(renderer->BeginScene())
     {
         buf->Activate();
         index->Activate();
 
         effect->Begin();
+        effect->SetMatrix("worldViewProjection", world*view*projection);
 
         while(effect->ExecutePass())
             renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
+
+        GLenum err = glGetError();
 
         effect->End();
 
