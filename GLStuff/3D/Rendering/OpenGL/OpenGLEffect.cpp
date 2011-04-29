@@ -32,7 +32,7 @@ OpenGLEffect::OpenGLEffect(const char* filename, bool fromFile)
 
 OpenGLEffect::~OpenGLEffect()
 {
-
+    destroyCurrentTechnique();
 }
 
 void OpenGLEffect::destroyCurrentTechnique()
@@ -152,67 +152,85 @@ bool OpenGLEffect::ExecutePass()
 
 void OpenGLEffect::GetInt(const char* name, int* i)
 {
-
+    glGetUniformiv(this->programObject, retrieveParameter(name), i);
 }
 
 void OpenGLEffect::GetFloat(const char* name, float* f)
 {
-
+    glGetUniformfv(this->programObject, retrieveParameter(name), f);
 }
 
 void OpenGLEffect::GetBool(const char* name, bool* b)
 {
+    int i;
+    glGetUniformiv(this->programObject, retrieveParameter(name), &i);
 
+    if(i == 0)
+        *b = false;
+    else
+        *b = true;
 }
 
 void OpenGLEffect::GetVector(const char* name, Vector2* v)
 {
+    float f[2];
+    glGetUniformfv(this->programObject, retrieveParameter(name), f);
 
+    *v = Vector2(f[0], f[1]);
 }
 
 void OpenGLEffect::GetVector(const char* name, Vector3* v)
 {
+    float f[3];
+    glGetUniformfv(this->programObject, retrieveParameter(name), f);
 
+    *v = Vector3(f[0], f[1], f[2]);
 }
 
 void OpenGLEffect::GetVector(const char* name, Vector4* v)
 {
+    float f[4];
+    glGetUniformfv(this->programObject, retrieveParameter(name), f);
 
+    *v = Vector4(f[0], f[1], f[2], f[3]);
 }
 
 void OpenGLEffect::GetMatrix(const char* name, Matrix4* m)
 {
+    float f[16];
+    glGetUniformfv(this->programObject, retrieveParameter(name), f);
 
+    *m = Matrix4(f);
 }
 
 void OpenGLEffect::SetInt(const char* name, int i)
 {
-
+    glUniform1i(retrieveParameter(name), i);
 }
 
 void OpenGLEffect::SetFloat(const char* name, float f)
 {
-
+    glUniform1f(retrieveParameter(name), f);
 }
 
 void OpenGLEffect::SetBool(const char* name, bool b)
 {
-
+    glUniform1i(retrieveParameter(name), b ? 1 : 0);
 }
 
 void OpenGLEffect::SetVector(const char* name, Vector2& v)
 {
-
+    glUniform2f(retrieveParameter(name), v.GetX(), v.GetY());
 }
 
 void OpenGLEffect::SetVector(const char* name, Vector3& v)
 {
-
+    glUniform3f(retrieveParameter(name), v.GetX(), v.GetY(), v.GetZ());
 }
 
 void OpenGLEffect::SetVector(const char* name, Vector4& v)
 {
-
+    glUniform4f(retrieveParameter(name), v.GetX(), v.GetY(), v.GetZ(), v.GetW());
 }
 
 void OpenGLEffect::SetMatrix(const char* name, Matrix4& m)
