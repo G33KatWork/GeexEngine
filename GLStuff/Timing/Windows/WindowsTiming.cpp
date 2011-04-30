@@ -20,5 +20,5 @@ unsigned long long WindowsTiming::getSystemMiliseconds()
 	LARGE_INTEGER ticks;
 	QueryPerformanceCounter(&ticks);
 	
-	return ticks.QuadPart / ticksPerSecond.QuadPart * 1000;
+	return (ticks.QuadPart * 1000) / ticksPerSecond.QuadPart;
 }
