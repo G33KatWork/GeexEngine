@@ -13,6 +13,11 @@ public:
     float B() const { return c[2]; }
     float A() const { return c[3]; }
 
+    void SetR(float R) { c[0] = R; }
+    void SetG(float G) { c[1] = G; }
+    void SetB(float B) { c[2] = B; }
+    void SetA(float A) { c[3] = A; }
+
 private:
     float c[4];
 };
