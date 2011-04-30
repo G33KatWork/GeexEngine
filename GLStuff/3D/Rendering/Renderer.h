@@ -19,6 +19,16 @@ enum PrimitiveType
     PRIMTYPE_TRIANGLEFAN
 };
 
+class RenderConfiguration
+{
+private:
+    unsigned int backbufferWidth, backbufferHeight;
+    unsigned short colorBits, alphaBits, depthBits, stencilBits;
+    bool enableVsync;
+    unsigned short multisampleCount;
+    bool fullscreen;
+};
+
 class Renderer
 {
 protected:
