@@ -60,12 +60,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\GLStuff;..\externals\gl3w\include;..\externals\cg\win\include;..\externals\glsw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\GLStuff;..\..\externals\gl3w\include;..\..\externals\cg\win\include;..\..\externals\glsw;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(OutDir)\GLStuff.lib;$(OutDir)\glsw.lib;$(OutDir)\gl3w.lib;opengl32.lib;..\externals\cg\win\lib\*.lib;$(DXSDK_DIR)\Lib\x86\dinput8.lib;$(DXSDK_DIR)\Lib\x86\dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)\GLStuff.lib;$(OutDir)\glsw.lib;$(OutDir)\gl3w.lib;opengl32.lib;..\..\externals\cg\win\lib\*.lib;$(DXSDK_DIR)\Lib\x86\dinput8.lib;$(DXSDK_DIR)\Lib\x86\dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
