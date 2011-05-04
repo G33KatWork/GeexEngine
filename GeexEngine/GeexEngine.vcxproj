@@ -20,7 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{09A912E5-4793-4FAE-8ECC-9D541F505DEF}</ProjectGuid>
-    <RootNamespace>GLStuff</RootNamespace>
+    <RootNamespace>GeexEngine</RootNamespace>
+    <ProjectName>GeexEngine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -80,7 +81,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>externals\glew\inc;.</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;$(DXSDK_DIR)\Include;..\externals\cg\win\include;..\externals\gl3w\include;..\externals\glsw</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
