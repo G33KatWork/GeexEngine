@@ -1,4 +1,4 @@
-#include <3D/Rendering/OpenGL/WGLRenderer.h>
+#include <Platform/Windows/3D/Rendering/OpenGL/WGLRenderer.h>
 #include <Common/GeexEngineException.h>
 
 WGLRenderer::WGLRenderer(HWND window, int width, int height)

@@ -2,8 +2,8 @@
 
 #include <Platform/Windows/Win32Window.h>
 #include <3D/Rendering/DirectX/DirectXRenderer.h>
-#include <Timing/Windows/WindowsTiming.h>
-#include <Input/DirectInput/DirectInputInputManager.h>
+#include <Platform/Windows/Timing/WindowsTiming.h>
+#include <Platform/Windows/Input/DirectInput/DirectInputInputManager.h>
 
 Renderer* WindowsDirectXApplication::CreateRenderer(Window* forWindow)
 {

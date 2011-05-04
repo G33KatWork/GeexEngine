@@ -7,7 +7,7 @@
  *
  */
 
-#include <Timing/Windows/WindowsTiming.h>
+#include <Platform/Windows/Timing/WindowsTiming.h>
 #include <cstring>
 
 WindowsTiming::WindowsTiming()

@@ -1,4 +1,4 @@
-#include <Input/DirectInput/DirectInputMouseInputDevice.h>
+#include <Platform/Windows/Input/DirectInput/DirectInputMouseInputDevice.h>
 
 DirectInputMouseInputDevice::DirectInputMouseInputDevice(LPDIRECTINPUT8 directInput, HWND windowHandle)
 	: MouseInputDevice(),

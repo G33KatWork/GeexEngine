@@ -1,4 +1,4 @@
-#include <Input/DirectInput/DirectInputKeyboardInputDevice.h>
+#include <Platform/Windows/Input/DirectInput/DirectInputKeyboardInputDevice.h>
 
 UCHAR keycodeConversion[256] =
 {

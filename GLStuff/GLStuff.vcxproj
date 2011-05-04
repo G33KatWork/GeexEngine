@@ -138,7 +138,6 @@
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLRenderSurface.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLTypeConversions.h" />
     <ClInclude Include="3D\Rendering\OpenGL\OpenGLVertexBuffer.h" />
-    <ClInclude Include="3D\Rendering\OpenGL\WGLRenderer.h" />
     <ClInclude Include="Common\DebugMessages.h" />
     <ClInclude Include="Common\GeexEngineException.h" />
     <ClInclude Include="Common\DataStructures\DynamicArray.h" />
@@ -166,6 +165,11 @@
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\Window.h" />
+    <ClInclude Include="Platform\Windows\3D\Rendering\OpenGL\WGLRenderer.h" />
+    <ClInclude Include="Platform\Windows\Input\DirectInput\DirectInputInputManager.h" />
+    <ClInclude Include="Platform\Windows\Input\DirectInput\DirectInputKeyboardInputDevice.h" />
+    <ClInclude Include="Platform\Windows\Input\DirectInput\DirectInputMouseInputDevice.h" />
+    <ClInclude Include="Platform\Windows\Timing\WindowsTiming.h" />
     <ClInclude Include="Platform\Windows\Win32Window.h" />
     <ClInclude Include="3D\Rendering\DirectX\DirectXRenderer.h" />
     <ClInclude Include="externals\glew\inc\glew.h" />
@@ -180,7 +184,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Timing\TimingInformation.h" />
-    <ClInclude Include="Timing\Windows\WindowsTiming.h" />
     <ClInclude Include="3D\Transformation.h" />
     <ClInclude Include="Utils\Log.h" />
     <ClInclude Include="3D\GraphicsCardResources\VertexBuffer.h" />
@@ -202,20 +205,21 @@
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLRenderSurface.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLTypeConversions.cpp" />
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLVertexBuffer.cpp" />
-    <ClCompile Include="3D\Rendering\OpenGL\WGLRenderer.cpp" />
     <ClCompile Include="Common\DebugMessages.cpp" />
     <ClCompile Include="3D\SceneGraph\Geometry.cpp" />
     <ClCompile Include="externals\glsw\bstrlib.c" />
     <ClCompile Include="externals\glsw\glsw.c" />
-    <ClCompile Include="Input\DirectInput\DirectInputInputManager.cpp" />
-    <ClCompile Include="Input\DirectInput\DirectInputKeyboardInputDevice.cpp" />
-    <ClCompile Include="Input\DirectInput\DirectInputMouseDevice.cpp" />
     <ClCompile Include="Math\Matrix4.cpp" />
     <ClCompile Include="Math\Quaternion.cpp" />
     <ClCompile Include="Math\Vector2.cpp" />
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
+    <ClCompile Include="Platform\Windows\3D\Rendering\OpenGL\WGLRenderer.cpp" />
+    <ClCompile Include="Platform\Windows\Input\DirectInput\DirectInputInputManager.cpp" />
+    <ClCompile Include="Platform\Windows\Input\DirectInput\DirectInputKeyboardInputDevice.cpp" />
+    <ClCompile Include="Platform\Windows\Input\DirectInput\DirectInputMouseDevice.cpp" />
+    <ClCompile Include="Platform\Windows\Timing\WindowsTiming.cpp" />
     <ClCompile Include="Platform\Windows\Win32Window.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXRenderer.cpp" />
     <ClCompile Include="externals\glew\src\glew.c" />
@@ -228,7 +232,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Timing\TimingInformation.cpp" />
-    <ClCompile Include="Timing\Windows\WindowsTiming.cpp" />
     <ClCompile Include="3D\Transformation.cpp" />
     <ClCompile Include="3D\GraphicsCardResources\VertexBuffer.cpp" />
   </ItemGroup>

@@ -1,9 +1,9 @@
 #include <Platform/Windows/WindowsOpenGLApplication.h>
 
 #include <Platform/Windows/Win32Window.h>
-#include <3D/Rendering/OpenGL/WGLRenderer.h>
-#include <Timing/Windows/WindowsTiming.h>
-#include <Input/DirectInput/DirectInputInputManager.h>
+#include <Platform/Windows/3D/Rendering/OpenGL/WGLRenderer.h>
+#include <Platform/Windows/Timing/WindowsTiming.h>
+#include <Platform/Windows/Input/DirectInput/DirectInputInputManager.h>
 
 #include <Common/GeexEngineException.h>
 

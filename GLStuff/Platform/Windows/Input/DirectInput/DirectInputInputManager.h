@@ -3,8 +3,8 @@
 
 #include <Input/InputManager.h>
 
-#include <Input/DirectInput/DirectInputMouseInputDevice.h>
-#include <Input/DirectInput/DirectInputKeyboardInputDevice.h>
+#include <Platform/Windows/Input/DirectInput/DirectInputMouseInputDevice.h>
+#include <Platform/Windows/Input/DirectInput/DirectInputKeyboardInputDevice.h>
 #include <Platform/Windows/Win32Window.h>
 
 class DirectInputInputManager : public InputManager
