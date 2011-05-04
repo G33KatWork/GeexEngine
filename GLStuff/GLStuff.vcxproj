@@ -66,7 +66,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>externals\glsw;externals\gl3w\include;externals\cg\win\include;.;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>externals\glsw;externals\gl3w\include;..\externals\cg\win\include;.;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;DIRECTX9;GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
