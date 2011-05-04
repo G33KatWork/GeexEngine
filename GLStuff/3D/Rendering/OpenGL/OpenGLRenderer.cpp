@@ -84,11 +84,7 @@ void OpenGLRenderer::SetBackgroundColor(Color newColor)
 
 void OpenGLRenderer::UpdateCamera(ICamera* camera)
 {
-    glMatrixMode(GL_PROJECTION);
-    glLoadIdentity();
-    glMultMatrixf(ToOGLMatrix(camera->GetProjectionMatrix()).m);
-    glMultMatrixf(ToOGLMatrix(camera->GetViewMatrix()).m);
-    glMatrixMode(GL_MODELVIEW);
+    throw new GeexRendererException("Not implemented");
 }
 
 OGLMATRIX OpenGLRenderer::ToOGLMatrix(Matrix4 m)

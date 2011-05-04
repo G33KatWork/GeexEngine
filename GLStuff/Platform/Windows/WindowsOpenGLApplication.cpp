@@ -11,9 +11,12 @@ Renderer* WindowsOpenGLApplication::CreateRenderer(Window* forWindow)
 {
     Renderer* r = new WGLRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
 
-    if(glewInit() != GLEW_OK)
-        throw new GeexEngineException("GLEW initialization failed");
+    //if(glewInit() != GLEW_OK)
+    //    throw new GeexEngineException("GLEW initialization failed");
     
+    if(FAILED(gl3wInit()))
+        throw new GeexEngineException("No OGL 3.0");
+
     return r;
 }
 

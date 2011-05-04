@@ -196,7 +196,7 @@ void DirectXRenderer::SwapBuffers()
 
 void DirectXRenderer::UpdateCamera(ICamera* camera)
 {
-    
+    throw new GeexEngineException("Not implemented");
 }
 
 void DirectXRenderer::OnDeviceLost()

@@ -6,14 +6,7 @@
 #include <Windows.h>
 #endif
 
-#include <gl/glew.h>
-#ifdef _WIN32
-#include <gl/wglew.h>
-#endif
-
-#include <gl/GL.h>
-#include <gl/GLU.h>
-
+#include <GL3/gl3w.h>
 #include <glsw.h>
 
 #endif

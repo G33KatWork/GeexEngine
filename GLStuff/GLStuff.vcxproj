@@ -66,7 +66,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>c:\boost_1_45_0;externals\glsw;externals\glew\inc;externals\cg\win\include;.;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>externals\glsw;externals\gl3w\include;externals\cg\win\include;.;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OPENGL;DIRECTX9;GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -142,9 +142,8 @@
     <ClInclude Include="Common\GeexEngineException.h" />
     <ClInclude Include="Common\DataStructures\DynamicArray.h" />
     <ClInclude Include="Events\IEvent.h" />
-    <ClInclude Include="externals\glew\inc\GL\glew.h" />
-    <ClInclude Include="externals\glew\inc\GL\glxew.h" />
-    <ClInclude Include="externals\glew\inc\GL\wglew.h" />
+    <ClInclude Include="externals\gl3w\include\GL3\gl3.h" />
+    <ClInclude Include="externals\gl3w\include\GL3\gl3w.h" />
     <ClInclude Include="3D\SceneGraph\Geometry.h" />
     <ClInclude Include="3D\GraphicsCardResources\IGraphicsCardResource.h" />
     <ClInclude Include="externals\glsw\bstrlib.h" />
@@ -207,6 +206,7 @@
     <ClCompile Include="3D\Rendering\OpenGL\OpenGLVertexBuffer.cpp" />
     <ClCompile Include="Common\DebugMessages.cpp" />
     <ClCompile Include="3D\SceneGraph\Geometry.cpp" />
+    <ClCompile Include="externals\gl3w\src\gl3w.c" />
     <ClCompile Include="externals\glsw\bstrlib.c" />
     <ClCompile Include="externals\glsw\glsw.c" />
     <ClCompile Include="Math\Matrix4.cpp" />
@@ -222,7 +222,6 @@
     <ClCompile Include="Platform\Windows\Timing\WindowsTiming.cpp" />
     <ClCompile Include="Platform\Windows\Win32Window.cpp" />
     <ClCompile Include="3D\Rendering\DirectX\DirectXRenderer.cpp" />
-    <ClCompile Include="externals\glew\src\glew.c" />
     <ClCompile Include="3D\Rendering\Renderer.cpp" />
     <ClCompile Include="3D\SceneGraph\Spatial.cpp" />
     <ClCompile Include="Platform\Windows\WindowsDirectXApplication.cpp" />
