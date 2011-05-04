@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLStuff", "GLStuff\GLStuff.vcxproj", "{09A912E5-4793-4FAE-8ECC-9D541F505DEF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD} = {001E5AB4-8FC9-47E0-A403-C194F23C26BD}
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B} = {2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcxproj", "{95AAC6B1-B12E-44EE-AD4C-88A3B853A6DE}"
 EndProject
@@ -23,6 +27,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		README = README
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "externals", "externals", "{90B4AC52-C8DC-459A-9A45-0C8549014B56}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glsw", "externals\glsw\glsw.vcxproj", "{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gl3w", "externals\gl3w\gl3w.vcxproj", "{001E5AB4-8FC9-47E0-A403-C194F23C26BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,8 +120,36 @@ Global
 		{26206E32-F75C-4CF6-9B99-CC64404FD246}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{26206E32-F75C-4CF6-9B99-CC64404FD246}.Release|Win32.ActiveCfg = Release|Any CPU
 		{26206E32-F75C-4CF6-9B99-CC64404FD246}.Release|x64.ActiveCfg = Release|Any CPU
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Debug|Win32.Build.0 = Debug|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Debug|x64.ActiveCfg = Debug|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Release|Any CPU.ActiveCfg = Release|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Release|Win32.ActiveCfg = Release|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Release|Win32.Build.0 = Release|Win32
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B}.Release|x64.ActiveCfg = Release|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Debug|Mixed Platforms.ActiveCfg = Debug|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Debug|Mixed Platforms.Build.0 = Debug|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Debug|Win32.ActiveCfg = Debug|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Debug|Win32.Build.0 = Debug|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Debug|x64.ActiveCfg = Debug|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Release|Any CPU.ActiveCfg = Release|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Release|Mixed Platforms.ActiveCfg = Release|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Release|Mixed Platforms.Build.0 = Release|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Release|Win32.ActiveCfg = Release|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Release|Win32.Build.0 = Release|Win32
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2FB8FCD7-B6BB-4D31-B0BC-190674DFCF2B} = {90B4AC52-C8DC-459A-9A45-0C8549014B56}
+		{001E5AB4-8FC9-47E0-A403-C194F23C26BD} = {90B4AC52-C8DC-459A-9A45-0C8549014B56}
 	EndGlobalSection
 EndGlobal
