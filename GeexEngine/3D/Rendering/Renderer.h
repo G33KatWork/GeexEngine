@@ -1,6 +1,8 @@
 #ifndef _RENDERER_H_
 #define _RENDERER_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Math/Matrix4.h>
 #include <Math/Color.h>
 #include <3D/Camera/ICamera.h>
@@ -19,7 +21,7 @@ enum PrimitiveType
     PRIMTYPE_TRIANGLEFAN
 };
 
-class RenderConfiguration
+class GEEXENGINE_API RenderConfiguration
 {
 private:
     unsigned int backbufferWidth, backbufferHeight;
@@ -29,7 +31,7 @@ private:
     bool fullscreen;
 };
 
-class Renderer
+class GEEXENGINE_API Renderer
 {
 protected:
     Renderer();
@@ -58,7 +60,7 @@ public:
     virtual void ClearBuffers() = 0;
 
     virtual void DrawPrimitive(PrimitiveType primitiveType, unsigned int startVertex, size_t primitiveCount) = 0;
-    virtual void DrawIndexedPrimitive(IndexElementType indexElementType, PrimitiveType primitiveType, unsigned int startIndex, size_t primitiveCount) = 0;
+    virtual void DrawIndexedPrimitive(IndexElementType indexElementType, PrimitiveType primitiveType, unsigned int startIndex, unsigned int vertexCountInBuffer, size_t primitiveCount) = 0;
     
     virtual void SwapBuffers() = 0;
 

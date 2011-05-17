@@ -1,7 +1,6 @@
 #include <Platform/Windows/WindowsOpenGLApplication.h>
 
 #include <Platform/Windows/Win32Window.h>
-#include <Platform/Windows/3D/Rendering/OpenGL/WGLRenderer.h>
 #include <Platform/Windows/Timing/WindowsTiming.h>
 #include <Platform/Windows/Input/DirectInput/DirectInputInputManager.h>
 
@@ -9,14 +8,18 @@
 
 Renderer* WindowsOpenGLApplication::CreateRenderer(Window* forWindow)
 {
-    Renderer* r = new WGLRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
+    typedef Renderer* (*InstantiateRendererPtr)(Window* window, int width, int height);
 
-    //if(glewInit() != GLEW_OK)
-    //    throw new GeexEngineException("GLEW initialization failed");
-    
-    if(FAILED(gl3wInit()))
-        throw new GeexEngineException("No OGL 3.0");
+    HMODULE oglRendererModule = LoadLibrary("OpenGLRenderer.dll");
+    if(!oglRendererModule)
+        throw new GeexEngineException("Failed to load OpenGL renderer library");
 
+    InstantiateRendererPtr InstantiateRenderer = (InstantiateRendererPtr)GetProcAddress(oglRendererModule, "InstantiateRenderer");
+    if(!InstantiateRenderer)
+        throw new GeexEngineException("Renderer instantiation entrypoint was not found");
+
+    //Renderer* r = new WGLRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
+    Renderer* r = InstantiateRenderer(forWindow, forWindow->GetWidth(), forWindow->GetHeight());
     return r;
 }
 

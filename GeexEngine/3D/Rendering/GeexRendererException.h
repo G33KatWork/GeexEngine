@@ -1,9 +1,10 @@
 #ifndef _GEEXRENDEREREXCEPTION_H_
 #define _GEEXRENDEREREXCEPTION_H_
 
+#include <Common/GeexEngineExports.h>
 #include <Common/GeexEngineException.h>
 
-class GeexRendererException : public GeexEngineException
+class GEEXENGINE_API GeexRendererException : public GeexEngineException
 {
 public:
     GeexRendererException(const char* message)

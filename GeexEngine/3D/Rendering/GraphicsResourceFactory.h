@@ -1,10 +1,13 @@
 #ifndef _GRAPHICSRESOURCEFACTORY_H_
 #define _GRAPHICSRESOURCEFACTORY_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <3D/GraphicsCardResources/Effect.h>
 #include <3D/GraphicsCardResources/IndexBuffer.h>
 #include <3D/GraphicsCardResources/Texture.h>
 #include <3D/GraphicsCardResources/VertexBuffer.h>
+#include <3D/GraphicsCardResources/RenderSurface.h>
 
 enum EffectType
 {
@@ -12,7 +15,7 @@ enum EffectType
     GX_EFFECT_TYPE_CG
 };
 
-class GraphicsResourceFactory
+class GEEXENGINE_API GraphicsResourceFactory
 {
 protected:
     GraphicsResourceFactory() {}

@@ -1,9 +1,11 @@
 #ifndef _QUATERNION_H_
 #define _QUATERNION_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Math/Matrix4.h>
 
-class Quaternion
+class GEEXENGINE_API Quaternion
 {
 public:
     Quaternion();

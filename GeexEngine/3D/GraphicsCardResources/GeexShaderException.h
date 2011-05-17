@@ -2,6 +2,7 @@
 #define _GEEXSHADEREXCEPTION_H_
 
 #include <Common/GeexEngineException.h>
+#include <Common/GeexEngineExports.h>
 
 class GeexShaderException : public GeexEngineException
 {

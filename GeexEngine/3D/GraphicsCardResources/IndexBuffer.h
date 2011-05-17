@@ -2,6 +2,7 @@
 #define _INDEXBUFFER_H_
 
 #include <3D/GraphicsCardResources/IGraphicsCardResource.h>
+#include <Common/GeexEngineExports.h>
 
 enum IndexElementType
 {
@@ -9,7 +10,7 @@ enum IndexElementType
     GX_IB_ELEMENT_TYPE_UINT32,
 };
 
-class IndexBuffer /*:
+class GEEXENGINE_API IndexBuffer /*:
     public IGraphicsCardResource*/
 {
 protected:

@@ -22,6 +22,8 @@ technique glsl
 {
     pass
     {
+        ZEnable = True;
+
         VertexProgram = compile glslv VShader();
         FragmentProgram = compile glslf PShader();
     }

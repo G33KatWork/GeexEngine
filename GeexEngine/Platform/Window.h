@@ -1,7 +1,9 @@
 #ifndef _WINDOW_H_
 #define _WINDOW_H_
 
-class Window
+#include <Common/GeexEngineExports.h>
+
+class GEEXENGINE_API Window
 {
 public:
 	virtual ~Window() {};

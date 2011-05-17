@@ -1,12 +1,14 @@
 #ifndef _INPUT_MANAGER_H_
 #define _INPUT_MANAGER_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Input/MouseInputDevice.h>
 #include <Input/KeyboardInputDevice.h>
 
 //TODO: Joysticks, keymaps, multiple mice and keyboards, etc.
 
-class InputManager
+class GEEXENGINE_API InputManager
 {
 public:
     virtual ~InputManager() {}

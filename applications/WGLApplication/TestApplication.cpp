@@ -1,6 +1,6 @@
 #include "TestApplication.h"
 
-#include <3D/Rendering/OpenGL/OpenGLHeader.h>
+//#include <3D/Rendering/OpenGL/OpenGLHeader.h>
 
 TestApplication::TestApplication()
     : WindowsOpenGLApplication()
@@ -62,7 +62,7 @@ bool TestApplication::OnInitialize()
 
     renderer->SetBackgroundColor(Color(0.4f, 0.8f, 0.9f, 1.0f));
 
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
     return true;
 }
@@ -129,9 +129,7 @@ void TestApplication::OnRedraw()
         effect->SetMatrix("worldViewProjection", world*view*projection);
 
         while(effect->ExecutePass())
-            renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
-
-        GLenum err = glGetError();
+            renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 8, 12);
 
         effect->End();
 

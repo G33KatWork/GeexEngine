@@ -1,10 +1,12 @@
 #ifndef _MOUSEINPUTDEVICE_H_
 #define _MOUSEINPUTDEVICE_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Input/InputDevice.h>
 #include <Input/Keycodes.h>
 
-class MouseInputDevice : public InputDevice
+class GEEXENGINE_API MouseInputDevice : public InputDevice
 {
 public:
 	MouseInputDevice()

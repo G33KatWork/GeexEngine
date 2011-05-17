@@ -1,12 +1,14 @@
 #ifndef _MATRIX4_H_
 #define _MATRIX4_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Math/Vector3.h>
 
 //The Matrix itself is Row-Major
 //For internal data representation see note in private vars
 
-class Matrix4
+class GEEXENGINE_API Matrix4
 {
 public:
     Matrix4();

@@ -1,9 +1,11 @@
 #ifndef _WINOGL_APPLICATION_H_
 #define _WINOGL_APPLICATION_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Platform/Application.h>
 
-class WindowsOpenGLApplication : public Application
+class GEEXENGINE_API WindowsOpenGLApplication : public Application
 {
 public:
     virtual ~WindowsOpenGLApplication() {}

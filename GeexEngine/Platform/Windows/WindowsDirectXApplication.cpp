@@ -1,13 +1,26 @@
 #include <Platform/Windows/WindowsDirectXApplication.h>
 
 #include <Platform/Windows/Win32Window.h>
-#include <3D/Rendering/DirectX/DirectXRenderer.h>
 #include <Platform/Windows/Timing/WindowsTiming.h>
 #include <Platform/Windows/Input/DirectInput/DirectInputInputManager.h>
 
+#include <Common/GeexEngineException.h>
+
 Renderer* WindowsDirectXApplication::CreateRenderer(Window* forWindow)
 {
-    return new DirectXRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
+    typedef Renderer* (*InstantiateRendererPtr)(Window* window, int width, int height);
+
+    HMODULE oglRendererModule = LoadLibrary("DirectXRenderer.dll");
+    if(!oglRendererModule)
+        throw new GeexEngineException("Failed to load DirectX renderer library");
+
+    InstantiateRendererPtr InstantiateRenderer = (InstantiateRendererPtr)GetProcAddress(oglRendererModule, "InstantiateRenderer");
+    if(!InstantiateRenderer)
+        throw new GeexEngineException("Renderer instantiation entrypoint was not found");
+
+    //Renderer* r = new WGLRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
+    Renderer* r = InstantiateRenderer(forWindow, forWindow->GetWidth(), forWindow->GetHeight());
+    return r;
 }
 
 Window* WindowsDirectXApplication::CreateRenderWindow()

@@ -1,7 +1,9 @@
 #ifndef _INPUTDEVICE_H_
 #define _INPUTDEVICE_H_
 
-class InputDevice
+#include <Common/GeexEngineExports.h>
+
+class GEEXENGINE_API InputDevice
 {
 private:
 public:

@@ -10,12 +10,14 @@
 #ifndef _APPLICATION_H_
 #define _APPLICATION_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <3D/Rendering/Renderer.h>
 #include <Platform/Window.h>
 #include <Timing/TimingInformation.h>
 #include <Input/InputManager.h>
 
-class Application
+class GEEXENGINE_API Application
 {
 protected:
 	Renderer* renderer;

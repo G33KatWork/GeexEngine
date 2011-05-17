@@ -2,6 +2,8 @@
 #define _VERTEXBUFFER_H_
 
 #include <3D/GraphicsCardResources/IGraphicsCardResource.h>
+#include <Common/GeexEngineExports.h>
+
 #include <list>
 
 enum VertexElementUsage
@@ -21,7 +23,7 @@ enum VertexElementType
     GX_VB_ELEMENT_TYPE_UBYTE,
 };
 
-class VertexElement
+class GEEXENGINE_API VertexElement
 {
 public:
     VertexElementType type;
@@ -46,7 +48,7 @@ public:
     static size_t GetTypeSize(VertexElementType type);
 };
 
-class VertexBufferFormat
+class GEEXENGINE_API VertexBufferFormat
 {
 public:
     typedef std::list<VertexElement> VertexElementList;
@@ -68,7 +70,7 @@ public:
     size_t GetTotalVertexSize() const;
 };
 
-class VertexBuffer /*:
+class GEEXENGINE_API VertexBuffer /*:
     public IGraphicsCardResource*/
 {
 protected:

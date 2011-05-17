@@ -1,9 +1,11 @@
 #ifndef _WINDX9_APPLICATION_H_
 #define _WINDX9_APPLICATION_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Platform/Application.h>
 
-class WindowsDirectXApplication : public Application
+class GEEXENGINE_API WindowsDirectXApplication : public Application
 {
 public:
     virtual ~WindowsDirectXApplication() {}

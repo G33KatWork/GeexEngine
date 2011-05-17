@@ -3,7 +3,9 @@
 
 #include <stdexcept>
 
-class GeexEngineException : public std::exception
+#include <Common/GeexEngineExports.h>
+
+class GEEXENGINE_API GeexEngineException : public std::exception
 {
 public:
     GeexEngineException(const char* message)

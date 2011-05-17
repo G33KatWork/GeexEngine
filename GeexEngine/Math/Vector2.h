@@ -1,9 +1,11 @@
 #ifndef _VECTOR2_H_
 #define _VECTOR2_H_
 
+#include <Common/GeexEngineExports.h>
+
 class Matrix4;
 
-class Vector2
+class GEEXENGINE_API Vector2
 {
 private:
     float x, y;

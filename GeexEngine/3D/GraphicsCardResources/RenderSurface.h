@@ -1,7 +1,9 @@
 #ifndef _RENDERSURFACE_H_
 #define _RENDERSURFACE_H_
 
-class RenderSurface
+#include <Common/GeexEngineExports.h>
+
+class GEEXENGINE_API RenderSurface
 {
 public:
     virtual ~RenderSurface() {}

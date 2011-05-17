@@ -1,10 +1,12 @@
 #ifndef _KEYBOARDINPUTDEVICE_H_
 #define _KEYBOARDINPUTDEVICE_H_
 
+#include <Common/GeexEngineExports.h>
+
 #include <Input/InputDevice.h>
 #include <Input/Keycodes.h>
 
-class KeyboardInputDevice : public InputDevice
+class GEEXENGINE_API KeyboardInputDevice : public InputDevice
 {
 public:
 	KeyboardInputDevice()

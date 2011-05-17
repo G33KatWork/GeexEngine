@@ -10,7 +10,9 @@
 #ifndef _TIMING_INFORMATION_H_
 #define _TIMING_INFORMATION_H_
 
-class TimingInformation
+#include <Common/GeexEngineExports.h>
+
+class GEEXENGINE_API TimingInformation
 {
 public:
 	TimingInformation();

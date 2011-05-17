@@ -1,9 +1,11 @@
 #ifndef _IGRAPHICSCARDRESOURCE_H_
 #define _IGRAPHICSCARDRESOURCE_H_
 
+#include <Common/GeexEngineExports.h>
+
 class Renderer;
 
-class IGraphicsCardResource
+class GEEXENGINE_API IGraphicsCardResource
 {
 protected:
     IGraphicsCardResource() {}

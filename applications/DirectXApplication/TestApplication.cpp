@@ -20,7 +20,12 @@ bool TestApplication::OnInitialize()
     projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
     view = Matrix4::Identity();
 
-    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx", GX_EFFECT_TYPE_CG);
+    //CG Effect
+    //effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.fx", GX_EFFECT_TYPE_CG);
+    //effect->SetTechniqueByName("hlsl");
+
+    //Native effect
+    effect = renderer->GetGraphicsResourceFactory()->CreateEffectFromFile("effect.hlsl", GX_EFFECT_TYPE_NATIVE);
     effect->SetTechniqueByName("hlsl");
 
     struct D3DVERTEX vertices[] =
@@ -123,7 +128,7 @@ void TestApplication::OnRedraw()
         effect->Begin();
 
         while(effect->ExecutePass())
-            renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 12);
+            renderer->DrawIndexedPrimitive(GX_IB_ELEMENT_TYPE_UINT16, PRIMTYPE_TRIANGLELIST, 0, 8, 12);
 
         effect->End();
 

@@ -6,8 +6,9 @@
 #include <Math/Vector4.h>
 #include <Math/Matrix4.h>
 #include <3D/GraphicsCardResources/Texture.h>
+#include <Common/GeexEngineExports.h>
 
-class Effect
+class GEEXENGINE_API Effect
 {
 public:
     virtual ~Effect() {}

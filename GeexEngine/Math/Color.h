@@ -1,7 +1,9 @@
 #ifndef _COLOR_H_
 #define _COLOR_H_
 
-class Color
+#include <Common/GeexEngineExports.h>
+
+class GEEXENGINE_API Color
 {
 public:
     Color() { c[0] = c[1] = c[2] = c[3] = 0.0f; }
