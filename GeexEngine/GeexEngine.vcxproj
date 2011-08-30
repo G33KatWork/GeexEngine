@@ -127,6 +127,8 @@
     <ClInclude Include="Common\GeexEngineException.h" />
     <ClInclude Include="Common\DataStructures\DynamicArray.h" />
     <ClInclude Include="Common\GeexEngineExports.h" />
+    <ClInclude Include="DataStructures\DoublyLinkedList.h" />
+    <ClInclude Include="DataStructures\SinglyLinkedList.h" />
     <ClInclude Include="Events\IEvent.h" />
     <ClInclude Include="externals\gl3w\include\GL3\gl3.h" />
     <ClInclude Include="externals\gl3w\include\GL3\gl3w.h" />
