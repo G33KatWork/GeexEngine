@@ -19,7 +19,7 @@ GLenum GetGLPrimitiveType(PrimitiveType type)
         return GL_TRIANGLE_STRIP;
     }
 
-    throw new GeexEngineException("Invalid PrimitiveType passed");
+    throw GeexEngineException("Invalid PrimitiveType passed");
 }
 
 GLenum GetGLVertexDeclType(VertexElementType type)
@@ -34,7 +34,7 @@ GLenum GetGLVertexDeclType(VertexElementType type)
         return GL_SHORT;
     }
 
-    throw new GeexEngineException("Invalid VertexElementType supplied");
+    throw GeexEngineException("Invalid VertexElementType supplied");
 }
 
 GLenum GetGLIndexType(IndexElementType type)
@@ -47,7 +47,7 @@ GLenum GetGLIndexType(IndexElementType type)
         return GL_UNSIGNED_INT;
     }
 
-    throw new GeexEngineException("Invalid IndexElementType supplied");
+    throw GeexEngineException("Invalid IndexElementType supplied");
 }
 
 size_t GetGLIndexTypeSize(GLenum type)
@@ -60,6 +60,6 @@ size_t GetGLIndexTypeSize(GLenum type)
         return sizeof(unsigned int);
     }
 
-    throw new GeexEngineException("Invalid OpenGL Type supplied");
+    throw GeexEngineException("Invalid OpenGL Type supplied");
 }
 

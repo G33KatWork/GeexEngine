@@ -64,7 +64,7 @@ void OpenGLRenderer::DrawPrimitive(PrimitiveType primitiveType, unsigned int sta
 
     GLenum error = glGetError();
     if(error)
-        throw new GeexRendererException("Array drawing failed");
+        throw GeexRendererException("Array drawing failed");
 }
 
 void OpenGLRenderer::DrawIndexedPrimitive(IndexElementType indexElementType, PrimitiveType primitiveType, unsigned int startIndex, unsigned int vertexCountInBuffer, size_t primitiveCount)
@@ -85,7 +85,7 @@ void OpenGLRenderer::SetBackgroundColor(Color newColor)
 
 void OpenGLRenderer::UpdateCamera(ICamera* camera)
 {
-    throw new GeexRendererException("Not implemented");
+    throw GeexRendererException("Not implemented");
 }
 
 OGLMATRIX OpenGLRenderer::ToOGLMatrix(Matrix4 m)

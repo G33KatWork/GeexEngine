@@ -10,7 +10,7 @@ OpenGLIndexBuffer::OpenGLIndexBuffer(size_t indexCount, IndexElementType type)
     glGenBuffers(1, &indexBuffer);
 
     if(glGetError())
-        throw new GeexRendererException("Creation of index buffer failed");
+        throw GeexRendererException("Creation of index buffer failed");
 }
 
 OpenGLIndexBuffer::~OpenGLIndexBuffer()

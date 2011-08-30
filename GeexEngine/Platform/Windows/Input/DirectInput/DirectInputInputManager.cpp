@@ -10,7 +10,7 @@ DirectInputInputManager::DirectInputInputManager(Win32Window* forWindow)
     DirectInput8Create(GetModuleHandle(NULL), DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&din, NULL);
 
     if(!din)
-        throw new GeexEngineException("Error creating DirectInput context");
+        throw GeexEngineException("Error creating DirectInput context");
 
     mouse = new DirectInputMouseInputDevice(din, forWindow->GetWindowHandle());
     mouse->Create();

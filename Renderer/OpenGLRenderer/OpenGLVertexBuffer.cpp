@@ -10,7 +10,7 @@ OpenGLVertexBuffer::OpenGLVertexBuffer(size_t vertexCount, VertexBufferFormat& f
     glGenBuffers(1, &vertexBuffer);
 
     if(glGetError())
-        throw new GeexRendererException("Creation of vertex buffer failed");
+        throw GeexRendererException("Creation of vertex buffer failed");
 }
 
 OpenGLVertexBuffer::~OpenGLVertexBuffer()
@@ -56,7 +56,7 @@ void OpenGLVertexBuffer::Activate()
         case GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES:
             glEnableClientState(GL_TEXTURE_COORD_ARRAY);    //FIXME: Is this right? I doubt it. What is with different texture units?
             //TODO: implement
-            throw new GeexRendererException("Not implemented");
+            throw GeexRendererException("Not implemented");
             break;
 
         case GX_VB_ELEMENT_USAGE_COLOR:
@@ -97,7 +97,7 @@ void OpenGLVertexBuffer::Deactivate()
         case GX_VB_ELEMENT_USAGE_TEXTURE_COORDINATES:
             glDisableClientState(GL_TEXTURE_COORD_ARRAY);    //FIXME: Is this right? I doubt it. What is with different texture units?
             //TODO: implement
-            throw new GeexRendererException("Not implemented");
+            throw GeexRendererException("Not implemented");
             break;
 
         case GX_VB_ELEMENT_USAGE_COLOR:

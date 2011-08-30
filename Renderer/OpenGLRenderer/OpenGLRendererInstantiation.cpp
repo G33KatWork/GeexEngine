@@ -12,7 +12,7 @@ OPENGLRENDERER_API Renderer* InstantiateRenderer(Window* window, int width, int 
     {
         delete renderer;
         return NULL;
-        //throw new GeexEngineException("GL3W initialization failed");
+        //throw GeexEngineException("GL3W initialization failed");
     }
 
     return renderer;

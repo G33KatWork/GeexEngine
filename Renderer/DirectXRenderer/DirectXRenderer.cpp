@@ -201,7 +201,7 @@ void DirectXRenderer::SwapBuffers()
 
 void DirectXRenderer::UpdateCamera(ICamera* camera)
 {
-    throw new GeexEngineException("Not implemented");
+    throw GeexEngineException("Not implemented");
 }
 
 void DirectXRenderer::OnDeviceLost()
@@ -239,7 +239,7 @@ bool DirectXRenderer::CheckCooperateLevel()
     case D3DERR_DEVICENOTRESET:
         HRESULT result = d3dDevice->Reset(&presentationParamenters);
         if(FAILED(result))
-            throw new GeexEngineException("Resetting the D3D Device failed");
+            throw GeexEngineException("Resetting the D3D Device failed");
 
         OnDeviceReset();
         deviceIsLost = false;

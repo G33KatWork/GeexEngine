@@ -5,7 +5,7 @@
     std::ifstream stream;
     stream.open(filename, std::ifstream::in);
     if(!stream)
-        throw new GeexRendererException("Effect source file couldn't be opened");
+        throw GeexRendererException("Effect source file couldn't be opened");
 
     std::string fileContents;
     std::string line;

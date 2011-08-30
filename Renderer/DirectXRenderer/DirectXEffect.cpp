@@ -11,7 +11,7 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, void* code)
     totalPasses(0),
     DirectXResettableResource()
 {
-    throw new GeexEngineException("Not yet implemented");
+    throw GeexEngineException("Not yet implemented");
 }
 
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
@@ -34,7 +34,7 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode)
         &this->dxEffect,
         &errors
     )))
-        throw new GeexShaderException("Creating a DirectX effect failed", (const char*)errors->GetBufferPointer());
+        throw GeexShaderException("Creating a DirectX effect failed", (const char*)errors->GetBufferPointer());
 }
 
 DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode, bool fromFile)
@@ -55,7 +55,7 @@ DirectXEffect::DirectXEffect(IDirect3DDevice9* device, const char* sourceCode, b
         &this->dxEffect,
         &errors
     )))
-        throw new GeexShaderException("Creating a DirectX effect failed", (const char*)errors->GetBufferPointer());
+        throw GeexShaderException("Creating a DirectX effect failed", (const char*)errors->GetBufferPointer());
 }
 
 DirectXEffect::~DirectXEffect()
@@ -71,16 +71,16 @@ void DirectXEffect::SetTechniqueByName(const char* name)
 {
     D3DXHANDLE technique = this->dxEffect->GetTechniqueByName(name);
     if(!technique)
-        throw new GeexShaderException("Requested technique doesn't exist");
+        throw GeexShaderException("Requested technique doesn't exist");
     
     if(FAILED(this->dxEffect->SetTechnique(technique)))
-        throw new GeexShaderException("Switching to technique failed");
+        throw GeexShaderException("Switching to technique failed");
 }
 
 void DirectXEffect::Begin()
 {
     if(FAILED(this->dxEffect->Begin(&totalPasses, 0)))
-        throw new GeexShaderException("Beginning of effect failed");
+        throw GeexShaderException("Beginning of effect failed");
     
     currentPass = 0;
 }
@@ -92,14 +92,14 @@ bool DirectXEffect::ExecutePass()
     {
         //end last pass...
         if(FAILED(this->dxEffect->EndPass()))
-            throw new GeexShaderException("End of shader failed");
+            throw GeexShaderException("End of shader failed");
     }
 
     //... and start new one if there is one left
     if(currentPass < totalPasses)
     {
         if(FAILED(this->dxEffect->BeginPass(currentPass)))
-            throw new GeexShaderException("Beginning of shader pass failed");
+            throw GeexShaderException("Beginning of shader pass failed");
     }
 
     currentPass++;
@@ -110,7 +110,7 @@ bool DirectXEffect::ExecutePass()
 void DirectXEffect::End()
 {
     if(FAILED(this->dxEffect->End()))
-            throw new GeexShaderException("End of shader failed");
+            throw GeexShaderException("End of shader failed");
 }
 
 void DirectXEffect::GetInt(const char* name, int* i)
@@ -128,7 +128,7 @@ void DirectXEffect::GetBool(const char* name, bool* b)
     BOOL bo;
     this->dxEffect->GetBool(name, &bo);
 
-    *b = bo;
+    *b = bo == TRUE ? true : false;
 }
 
 void DirectXEffect::GetVector(const char* name, Vector2* v)

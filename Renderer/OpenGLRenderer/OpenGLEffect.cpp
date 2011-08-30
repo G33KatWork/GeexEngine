@@ -9,7 +9,7 @@ OpenGLEffect::OpenGLEffect(void* code)
     fragmentShaderObject(NULL),
     programObject(NULL)
 {
-    throw new GeexEngineException("Not yet implemented");
+    throw GeexEngineException("Not yet implemented");
 }
 
 OpenGLEffect::OpenGLEffect(const char* sourceCode)
@@ -18,7 +18,7 @@ OpenGLEffect::OpenGLEffect(const char* sourceCode)
     fragmentShaderObject(NULL),
     programObject(NULL)
 {
-    throw new GeexEngineException("Not yet implemented");
+    throw GeexEngineException("Not yet implemented");
 }
 
 OpenGLEffect::OpenGLEffect(const char* filename, bool fromFile)
@@ -61,7 +61,7 @@ void OpenGLEffect::compileShader(const char* source, GLuint handle)
         GLchar compilerSpew[4096];
         glGetShaderInfoLog(handle, sizeof(compilerSpew), 0, compilerSpew);
 
-        throw new GeexShaderException("Compilation of GLSL shader failed", compilerSpew);
+        throw GeexShaderException("Compilation of GLSL shader failed", compilerSpew);
     }
 }
 
@@ -79,7 +79,7 @@ void OpenGLEffect::SetTechniqueByName(const char* name)
     
     //compile shader
     if(!vsSource)
-        throw new GeexShaderException("No vertex shader in given technique found");
+        throw GeexShaderException("No vertex shader in given technique found");
     else
     {
         vertexShaderObject = glCreateShader(GL_VERTEX_SHADER);
@@ -118,18 +118,18 @@ void OpenGLEffect::SetTechniqueByName(const char* name)
         GLchar linkerSpew[4096];
         glGetProgramInfoLog(programObject, sizeof(linkerSpew), 0, linkerSpew);
 
-        throw new GeexShaderException("Linking of GLSL program failed", linkerSpew);
+        throw GeexShaderException("Linking of GLSL program failed", linkerSpew);
     }
 }
 
 void OpenGLEffect::Begin()
 {
     if(!programObject)
-        throw new GeexShaderException("No valid technique was selected");
+        throw GeexShaderException("No valid technique was selected");
 
     glUseProgram(programObject);
     if(glGetError())
-        throw new GeexShaderException("Activation of GLSL program failed");
+        throw GeexShaderException("Activation of GLSL program failed");
 
     firstPass = true;
 }
@@ -247,7 +247,7 @@ GLint OpenGLEffect::retrieveParameter(const char* name)
 {
     GLint location = glGetUniformLocation(programObject, name);
     if(location == -1)
-        throw new GeexShaderException("Uniform doesn't exist");
+        throw GeexShaderException("Uniform doesn't exist");
 
     return location;
 }

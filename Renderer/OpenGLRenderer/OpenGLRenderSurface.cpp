@@ -7,7 +7,7 @@ OpenGLRenderSurface::OpenGLRenderSurface()
     glGenFramebuffers(1, &fbo);
 
     if(!glGetError())
-        throw new GeexEngineException("Error generating framebuffer object");
+        throw GeexEngineException("Error generating framebuffer object");
 }
 
 OpenGLRenderSurface::~OpenGLRenderSurface()
@@ -24,7 +24,7 @@ void OpenGLRenderSurface::Activate()
     glBindFramebuffer(GL_FRAMEBUFFER, fbo);
     
     if(!glGetError())
-        throw new GeexEngineException("Error binding framebuffer object");
+        throw GeexEngineException("Error binding framebuffer object");
 
 }
 

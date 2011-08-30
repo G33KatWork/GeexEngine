@@ -50,5 +50,5 @@ size_t Renderer::GetVertexCount(PrimitiveType type, size_t primitiveCount)
         return primitiveCount + 2; 
     }
 
-    throw new GeexEngineException("Invalid PrimitiveType passed");
+    throw GeexEngineException("Invalid PrimitiveType passed");
 }

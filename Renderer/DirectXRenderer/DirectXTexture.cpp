@@ -5,7 +5,7 @@ DirectXTexture::DirectXTexture(IDirect3DDevice9* device, void* textureData)
     : dxTexture(NULL),
     device(device)
 {
-    throw new GeexEngineException("Not yet implemented");
+    throw GeexEngineException("Not yet implemented");
 }
 
 DirectXTexture::DirectXTexture(IDirect3DDevice9* device, const char* textureFilename)
@@ -13,7 +13,7 @@ DirectXTexture::DirectXTexture(IDirect3DDevice9* device, const char* textureFile
     device(device)
 {
     if(FAILED(D3DXCreateTextureFromFile(device, textureFilename, &dxTexture)))
-        throw new GeexEngineException("Texture creation from file failed");
+        throw GeexEngineException("Texture creation from file failed");
 }
 
 DirectXTexture::~DirectXTexture()

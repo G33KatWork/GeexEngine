@@ -19,7 +19,7 @@ D3DPRIMITIVETYPE GetD3DPrimitiveType(PrimitiveType type)
         return D3DPT_TRIANGLESTRIP;
     }
 
-    throw new GeexEngineException("Invalid PrimitiveType passed");
+    throw GeexEngineException("Invalid PrimitiveType passed");
 }
 
 D3DDECLTYPE GetDXDeclType(VertexElementType type, size_t componentCount)
@@ -47,7 +47,7 @@ D3DDECLTYPE GetDXDeclType(VertexElementType type, size_t componentCount)
             return D3DDECLTYPE_UBYTE4;
     }
 
-    throw new GeexEngineException("Unknown VertexElementType and componentCount pair supplied");
+    throw GeexEngineException("Unknown VertexElementType and componentCount pair supplied");
 }
 
 D3DDECLUSAGE GetDXDeclUsage(VertexElementUsage usage)
@@ -68,7 +68,7 @@ D3DDECLUSAGE GetDXDeclUsage(VertexElementUsage usage)
         return D3DDECLUSAGE_COLOR;*/
     }
 
-    throw new GeexEngineException("Unknown VertexElementUsage supplied");
+    throw GeexEngineException("Unknown VertexElementUsage supplied");
 }
 
 D3DFORMAT GetDXIndexType(IndexElementType type)
@@ -81,7 +81,7 @@ D3DFORMAT GetDXIndexType(IndexElementType type)
         return D3DFMT_INDEX32;
     }
 
-    throw new GeexEngineException("Unknown IndexElementType supplied");
+    throw GeexEngineException("Unknown IndexElementType supplied");
 }
 
 size_t GetDXIndexTypeSize(D3DFORMAT type)
@@ -94,5 +94,5 @@ size_t GetDXIndexTypeSize(D3DFORMAT type)
         return sizeof(unsigned int);
     }
 
-    throw new GeexEngineException("Unappropriate D3DFORMAT supplied");
+    throw GeexEngineException("Unappropriate D3DFORMAT supplied");
 }

@@ -19,7 +19,7 @@ DirectX9VertexBuffer::DirectX9VertexBuffer(IDirect3DDevice9 *device, size_t vert
         &vertexBuffer,
         NULL
     )))
-        throw new GeexRendererException("Creation of vertex buffer failed");
+        throw GeexRendererException("Creation of vertex buffer failed");
 }
 
 DirectX9VertexBuffer::~DirectX9VertexBuffer()
@@ -40,31 +40,31 @@ DirectX9VertexBuffer::~DirectX9VertexBuffer()
 void DirectX9VertexBuffer::Activate()
 {
     if(FAILED(device->SetVertexDeclaration(vertexDeclaration)))
-        throw new GeexRendererException("Setting of vertex declaration failed");
+        throw GeexRendererException("Setting of vertex declaration failed");
     
     if(FAILED(device->SetStreamSource(0, vertexBuffer, 0, format.GetTotalVertexSize())))
-        throw new GeexRendererException("Setting of vertex stream source failed");
+        throw GeexRendererException("Setting of vertex stream source failed");
 }
 
 void DirectX9VertexBuffer::Deactivate()
 {
     if(FAILED(device->SetVertexDeclaration(NULL)))
-        throw new GeexRendererException("Unsetting of vertex declaration failed");
+        throw GeexRendererException("Unsetting of vertex declaration failed");
 
     if(FAILED(device->SetStreamSource(0, NULL, 0, 0)))
-        throw new GeexRendererException("Unsetting of vertex stream source failed");
+        throw GeexRendererException("Unsetting of vertex stream source failed");
 }
 
 void DirectX9VertexBuffer::SetData(void* data)
 {
     void *pVertexBuffer = NULL;
     if(FAILED(vertexBuffer->Lock(0, vertexCount * format.GetTotalVertexSize(), &pVertexBuffer, 0)))
-        throw new GeexRendererException("Locking of vertex buffer failed");
+        throw GeexRendererException("Locking of vertex buffer failed");
 
     memcpy(pVertexBuffer, data, vertexCount * format.GetTotalVertexSize());
 
     if(FAILED(vertexBuffer->Unlock()))
-        throw new GeexRendererException("Unlocking of vertex buffer failed");
+        throw GeexRendererException("Unlocking of vertex buffer failed");
 }
 
 void DirectX9VertexBuffer::BuildDirect3DVertexDeclaration9()
@@ -73,7 +73,7 @@ void DirectX9VertexBuffer::BuildDirect3DVertexDeclaration9()
 
     LPD3DVERTEXELEMENT9 declaration = new D3DVERTEXELEMENT9[vertexElementCount + 1];
     if(!declaration)
-        throw new GeexRendererException("Allocation of vertex declaration array failed");
+        throw GeexRendererException("Allocation of vertex declaration array failed");
 
     for(size_t i = 0; i < vertexElementCount; i++)
     {
@@ -97,7 +97,7 @@ void DirectX9VertexBuffer::BuildDirect3DVertexDeclaration9()
 
     HRESULT hr = device->CreateVertexDeclaration(declaration, &vertexDeclaration);
     if(FAILED(hr))
-        throw new GeexRendererException("Creation of vertex declaration failed");
+        throw GeexRendererException("Creation of vertex declaration failed");
 
 
     delete[] declaration;

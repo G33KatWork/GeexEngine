@@ -12,11 +12,11 @@ Renderer* WindowsDirectXApplication::CreateRenderer(Window* forWindow)
 
     HMODULE oglRendererModule = LoadLibrary("DirectXRenderer.dll");
     if(!oglRendererModule)
-        throw new GeexEngineException("Failed to load DirectX renderer library");
+        throw GeexEngineException("Failed to load DirectX renderer library");
 
     InstantiateRendererPtr InstantiateRenderer = (InstantiateRendererPtr)GetProcAddress(oglRendererModule, "InstantiateRenderer");
     if(!InstantiateRenderer)
-        throw new GeexEngineException("Renderer instantiation entrypoint was not found");
+        throw GeexEngineException("Renderer instantiation entrypoint was not found");
 
     //Renderer* r = new WGLRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
     Renderer* r = InstantiateRenderer(forWindow, forWindow->GetWidth(), forWindow->GetHeight());

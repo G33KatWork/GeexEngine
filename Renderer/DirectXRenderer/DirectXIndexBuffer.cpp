@@ -16,7 +16,7 @@ DirectX9IndexBuffer::DirectX9IndexBuffer(IDirect3DDevice9 *device, size_t indexC
         &indexBuffer,
         NULL
     )))
-        throw new GeexRendererException("Creation of index buffer failed");
+        throw GeexRendererException("Creation of index buffer failed");
 }
 
 DirectX9IndexBuffer::~DirectX9IndexBuffer()
@@ -31,23 +31,23 @@ DirectX9IndexBuffer::~DirectX9IndexBuffer()
 void DirectX9IndexBuffer::Activate()
 {
     if(FAILED(device->SetIndices(indexBuffer)))
-        throw new GeexRendererException("Setting of index buffer failed");
+        throw GeexRendererException("Setting of index buffer failed");
 }
 
 void DirectX9IndexBuffer::Deactivate()
 {
     if(FAILED(device->SetIndices(NULL)))
-        throw new GeexRendererException("Unsetting of index buffer failed");
+        throw GeexRendererException("Unsetting of index buffer failed");
 }
 
 void DirectX9IndexBuffer::SetData(void* data)
 {
     void *pIndexBuffer = NULL;
     if(FAILED(indexBuffer->Lock(0, indexCount * GetDXIndexTypeSize(GetDXIndexType(this->elementType)), &pIndexBuffer, 0)))
-        throw new GeexRendererException("Locking of index buffer failed");
+        throw GeexRendererException("Locking of index buffer failed");
 
     memcpy(pIndexBuffer, data, indexCount * GetDXIndexTypeSize(GetDXIndexType(this->elementType)));
 
     if(FAILED(indexBuffer->Unlock()))
-        throw new GeexRendererException("Unlocking of index buffer failed");
+        throw GeexRendererException("Unlocking of index buffer failed");
 }
