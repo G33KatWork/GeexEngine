@@ -6,6 +6,10 @@
 
 #include <list>
 
+#pragma warning( push )
+//disable dll interface warning for std::list stuff
+#pragma warning( disable : 4251 )
+
 enum VertexElementUsage
 {
     GX_VB_ELEMENT_USAGE_POSITION,
@@ -96,6 +100,8 @@ public:
 };
 
 //TODO: Vertex streams
+
+#pragma warning( pop )
 
 #endif
 

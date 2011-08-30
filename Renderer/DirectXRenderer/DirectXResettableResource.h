@@ -6,6 +6,10 @@
 #include <3D/GraphicsCardResources/Texture.h>
 #include <list>
 
+#pragma warning( push )
+//disable dll interface warning for std::list stuff
+#pragma warning( disable : 4251 )
+
 /**
   * This class is a superclass for all DirectX resources which need to be
   * notified on a lost or resetted device
@@ -36,5 +40,7 @@ private:
     //prevent copying
     DirectXResettableResource(const DirectXResettableResource& other) {}
 };
+
+#pragma warning( pop )
 
 #endif
