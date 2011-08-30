@@ -16,8 +16,8 @@ void ErrorExit(const char* err, ...)
 
 	printf(msg);
 
-#ifdef _WIN32
-	MessageBox(NULL, msg, "GeexEngine Error", MB_OK | MB_TOPMOST);
+#ifdef _WIN32 || _WIN64
+    MessageBox(NULL, msg, "GeexEngine Error", MB_OK | MB_ICONERROR | MB_TOPMOST);
 #endif
 
 	//TODO: Cleanup video shit
@@ -35,7 +35,7 @@ void DebugMsg(const char* err, ...)
 
 	printf(msg);
 
-#ifdef _WIN32
+#ifdef _WIN32 || _WIN64
 	OutputDebugString(msg);
 #endif
 }

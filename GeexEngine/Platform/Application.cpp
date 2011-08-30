@@ -1,4 +1,5 @@
 #include <Platform/Application.h>
+#include <Common/DebugMessages.h>
 #include <cassert>
 #include <cstdio>
 #include <stddef.h>
@@ -20,66 +21,73 @@ Application::~Application()
 
 int Application::Main(int iQuantity, char** apcArgument)
 {
-    assert(Application::TheApplication);
-    if(!Application::TheApplication)
-        return -1;
-
-    if(!OnPrecreate())
-        return -2;
-
-
-    window = this->CreateRenderWindow();
-    window->Create();
-    renderer = this->CreateRenderer(window);
-    this->CreateInputDevices(window);
-    timer = this->CreateTimer();
-    input = this->CreateInputDevices(window);
-
-    if(!OnInitialize())
-        return -4;
-
-    window->Show();
-
-    while (this->running)
+    try
     {
-        if(!window->HandleEvents())
-            break;
+        assert(Application::TheApplication);
+        if(!Application::TheApplication)
+            return -1;
 
-        timer->Update();
+        if(!OnPrecreate())
+            return -2;
 
-        //TODO: Call OnRedraw() at a fixed rate (i.e. 60 times per second or so). VSync?
-        OnUpdate();
-        OnRedraw();
+
+        window = this->CreateRenderWindow();
+        window->Create();
+        renderer = this->CreateRenderer(window);
+        this->CreateInputDevices(window);
+        timer = this->CreateTimer();
+        input = this->CreateInputDevices(window);
+
+        if(!OnInitialize())
+            return -4;
+
+        window->Show();
+
+        while (this->running)
+        {
+            if(!window->HandleEvents())
+                break;
+
+            timer->Update();
+
+            //TODO: Call OnRedraw() at a fixed rate (i.e. 60 times per second or so). VSync?
+            OnUpdate();
+            OnRedraw();
+        }
+
+        OnTerminate();
+
+        if(timer)
+        {
+            delete timer;
+            timer = NULL;
+        }
+
+        if(input)
+        {
+            delete input;
+            input = NULL;
+        }
+
+        if(renderer)
+        {
+            delete renderer;
+            renderer = NULL;
+        }
+
+        if(window)
+        {
+            window->Destroy();
+            delete window;
+            window = NULL;
+        }
+
+        return 0;
     }
-
-    OnTerminate();
-
-    if(timer)
+    catch(std::exception &e)
     {
-        delete timer;
-        timer = NULL;
+        ErrorExit("An unexpected exception occured: %s", e.what());
     }
-
-    if(input)
-    {
-        delete input;
-        input = NULL;
-    }
-
-    if(renderer)
-    {
-        delete renderer;
-        renderer = NULL;
-    }
-
-    if(window)
-    {
-        window->Destroy();
-        delete window;
-        window = NULL;
-    }
-
-    return 0;
 };
 
 bool Application::OnPrecreate()
