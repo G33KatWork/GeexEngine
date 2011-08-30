@@ -166,6 +166,7 @@
     <ClInclude Include="Platform\Windows\WindowsOpenGLApplication.h" />
     <ClInclude Include="Timing\TimingInformation.h" />
     <ClInclude Include="3D\Transformation.h" />
+    <ClInclude Include="Utils\FileStream.h" />
     <ClInclude Include="Utils\Log.h" />
     <ClInclude Include="3D\GraphicsCardResources\VertexBuffer.h" />
     <ClInclude Include="Utils\Path.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="Timing\TimingInformation.cpp" />
     <ClCompile Include="3D\Transformation.cpp" />
     <ClCompile Include="3D\GraphicsCardResources\VertexBuffer.cpp" />
+    <ClCompile Include="Utils\FileStream.cpp" />
     <ClCompile Include="Utils\Path.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
