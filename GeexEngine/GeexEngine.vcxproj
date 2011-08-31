@@ -127,7 +127,9 @@
     <ClInclude Include="Common\GeexEngineException.h" />
     <ClInclude Include="Common\DataStructures\DynamicArray.h" />
     <ClInclude Include="Common\GeexEngineExports.h" />
+    <ClInclude Include="DataStructures\Dictionary.h" />
     <ClInclude Include="DataStructures\DoublyLinkedList.h" />
+    <ClInclude Include="DataStructures\Hashtable.h" />
     <ClInclude Include="DataStructures\SinglyLinkedList.h" />
     <ClInclude Include="Events\IEvent.h" />
     <ClInclude Include="externals\gl3w\include\GL3\gl3.h" />
@@ -166,6 +168,7 @@
     <ClInclude Include="Platform\Windows\WindowsOpenGLApplication.h" />
     <ClInclude Include="Timing\TimingInformation.h" />
     <ClInclude Include="3D\Transformation.h" />
+    <ClInclude Include="Utils\CRC32.h" />
     <ClInclude Include="Utils\FileStream.h" />
     <ClInclude Include="Utils\Log.h" />
     <ClInclude Include="3D\GraphicsCardResources\VertexBuffer.h" />
@@ -193,6 +196,7 @@
     <ClCompile Include="Timing\TimingInformation.cpp" />
     <ClCompile Include="3D\Transformation.cpp" />
     <ClCompile Include="3D\GraphicsCardResources\VertexBuffer.cpp" />
+    <ClCompile Include="Utils\CRC32.cpp" />
     <ClCompile Include="Utils\FileStream.cpp" />
     <ClCompile Include="Utils\Path.cpp" />
   </ItemGroup>
