@@ -14,10 +14,13 @@ public:
     Path& operator+= (const Path& other);
     Path operator+ (const Path& other) const { return Path(*this) += other; }
 
+    bool operator== (const Path& other) const;
+    bool operator!= (const Path& other) const { return !(*this == other); }
+
     //other functions
     //Path& Normalize();
-    bool Exists();
-    bool IsFile();
+    bool Exists() const;
+    bool IsFile() const;
 
     static char GetPathSeparator();
 

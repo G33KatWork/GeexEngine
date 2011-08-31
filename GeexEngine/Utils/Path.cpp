@@ -20,19 +20,25 @@ Path& Path::operator+= (const Path& other)
     return *this;
 }
 
+bool Path::operator== (const Path& other) const
+{
+    //FIXME: Normalize bother path before comparison
+    return (this->path.compare(other.path) == 0);
+}
+
 /*Path& Path::Normalize()
 {
     return *this;
 }*/
 
-bool Path::Exists()
+bool Path::Exists() const
 {
     struct stat st;
     int res = stat(path.c_str(), &st);
     return res == 0;
 }
 
-bool Path::IsFile()
+bool Path::IsFile() const
 {
     struct stat st;
     int res = stat(path.c_str(), &st);
