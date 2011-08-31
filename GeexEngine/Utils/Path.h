@@ -22,6 +22,8 @@ public:
     bool Exists() const;
     bool IsFile() const;
 
+    const char* GetExtension();
+
     static char GetPathSeparator();
 
 private:

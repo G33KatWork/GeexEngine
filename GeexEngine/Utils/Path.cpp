@@ -45,6 +45,18 @@ bool Path::IsFile() const
     return (res == 0) && (st.st_mode & S_IFDIR) != S_IFDIR;
 }
 
+const char* Path::GetExtension()
+{
+    if(!IsFile())
+        return "";
+
+    size_t dotIndex = path.find_last_of('.');
+    if(dotIndex == std::string::npos)
+        return "";
+
+    return &path.c_str()[dotIndex+1];
+}
+
 char Path::GetPathSeparator()
 {
 #ifdef _WIN32 || _WIN64
