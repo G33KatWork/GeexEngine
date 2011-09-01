@@ -45,7 +45,7 @@ bool Path::IsFile() const
     return (res == 0) && (st.st_mode & S_IFDIR) != S_IFDIR;
 }
 
-const char* Path::GetExtension()
+const char* Path::GetExtension() const
 {
     if(!IsFile())
         return "";
@@ -55,6 +55,11 @@ const char* Path::GetExtension()
         return "";
 
     return &path.c_str()[dotIndex+1];
+}
+
+const char* Path::GetPath() const
+{
+    return path.c_str();
 }
 
 char Path::GetPathSeparator()
