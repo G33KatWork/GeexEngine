@@ -12,6 +12,7 @@ Application::Application()
     renderer = NULL;
     timer = NULL;
     input = NULL;
+    pluginManager = NULL;
     running = true;
 }
 
@@ -31,6 +32,7 @@ int Application::Main(int iQuantity, char** apcArgument)
             return -2;
 
 
+        pluginManager = new PluginManager();
         window = this->CreateRenderWindow();
         window->Create();
         renderer = this->CreateRenderer(window);
@@ -82,11 +84,18 @@ int Application::Main(int iQuantity, char** apcArgument)
             window = NULL;
         }
 
+        if(pluginManager)
+        {
+            delete pluginManager;
+            pluginManager = NULL;
+        }
+
         return 0;
     }
     catch(std::exception &e)
     {
         ErrorExit("An unexpected exception occured: %s", e.what());
+        return -1;
     }
 };
 

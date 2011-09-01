@@ -166,6 +166,10 @@
     <ClInclude Include="3D\SceneGraph\Spatial.h" />
     <ClInclude Include="Platform\Windows\WindowsDirectXApplication.h" />
     <ClInclude Include="Platform\Windows\WindowsOpenGLApplication.h" />
+    <ClInclude Include="Plugins\GeexEnginePluginException.h" />
+    <ClInclude Include="Plugins\Interface.h" />
+    <ClInclude Include="Plugins\IPlugin.h" />
+    <ClInclude Include="Plugins\PluginManager.h" />
     <ClInclude Include="Timing\TimingInformation.h" />
     <ClInclude Include="3D\Transformation.h" />
     <ClInclude Include="Utils\CRC32.h" />
@@ -193,6 +197,7 @@
     <ClCompile Include="3D\SceneGraph\Spatial.cpp" />
     <ClCompile Include="Platform\Windows\WindowsDirectXApplication.cpp" />
     <ClCompile Include="Platform\Windows\WindowsOpenGLApplication.cpp" />
+    <ClCompile Include="Plugins\PluginManager.cpp" />
     <ClCompile Include="Timing\TimingInformation.cpp" />
     <ClCompile Include="3D\Transformation.cpp" />
     <ClCompile Include="3D\GraphicsCardResources\VertexBuffer.cpp" />

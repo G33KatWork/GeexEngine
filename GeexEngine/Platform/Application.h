@@ -7,11 +7,12 @@
  *
  */
 
-#ifndef _APPLICATION_H_
-#define _APPLICATION_H_
+#ifndef _GX_APPLICATION_H_
+#define _GX_APPLICATION_H_
 
 #include <Common/GeexEngineExports.h>
 
+#include <Plugins/PluginManager.h>
 #include <3D/Rendering/Renderer.h>
 #include <Platform/Window.h>
 #include <Timing/TimingInformation.h>
@@ -24,6 +25,7 @@ protected:
 	Window* window;
 	TimingInformation* timer;
     InputManager* input;
+    PluginManager* pluginManager;
 
 	bool running;
 
