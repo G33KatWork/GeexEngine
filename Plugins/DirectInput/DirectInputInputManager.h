@@ -2,15 +2,15 @@
 #define _DI_INPUT_MANAGER_H_
 
 #include <Input/InputManager.h>
+#include <Platform/Window.h>
 
-#include <Platform/Windows/Input/DirectInput/DirectInputMouseInputDevice.h>
-#include <Platform/Windows/Input/DirectInput/DirectInputKeyboardInputDevice.h>
-#include <Platform/Windows/Win32Window.h>
+#include "DirectInputMouseInputDevice.h"
+#include "DirectInputKeyboardInputDevice.h"
 
 class DirectInputInputManager : public InputManager
 {
 public:
-    DirectInputInputManager(Win32Window* forWindow);
+    DirectInputInputManager(Window* forWindow);
     virtual ~DirectInputInputManager();
 
     virtual MouseInputDevice* GetMouse() { return this->mouse; }

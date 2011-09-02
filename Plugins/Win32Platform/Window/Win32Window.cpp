@@ -1,5 +1,8 @@
-#include <Platform/Windows/Win32Window.h>
+#include "Win32Window.h"
 #include <Platform/Application.h>
+#include <Plugins/Interface.h>
+
+REGISTER_INTERFACE_ARG5(Win32Window, Window, "Window", const char*, int, int, int, int);
 
 LRESULT CALLBACK WinProc (HWND hWnd, UINT uiMsg, WPARAM wParam, LPARAM lParam)
 {
@@ -47,7 +50,7 @@ LRESULT CALLBACK WinProc (HWND hWnd, UINT uiMsg, WPARAM wParam, LPARAM lParam)
 void Win32Window::Create()
 {
     HINSTANCE hInst = GetModuleHandle(NULL);
-
+    
     WNDCLASS wc;
     wc.style			= CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
     wc.lpfnWndProc		= (WNDPROC) WinProc;
@@ -58,7 +61,7 @@ void Win32Window::Create()
     wc.hCursor			= LoadCursor(NULL, IDC_ARROW);
     wc.hbrBackground	= NULL;
     wc.lpszMenuName		= NULL;
-    wc.lpszClassName	= "GeekD3DWindow";
+    wc.lpszClassName	= "GeexEngineWindow";
 
     if(!RegisterClass(&wc))
         return;	//FIXME: Handle error
@@ -71,7 +74,7 @@ void Win32Window::Create()
     AdjustWindowRect(&windowRect, WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX, false);
 
     hWnd = CreateWindow(
-        "GeekD3DWindow",
+        "GeexEngineWindow",
         this->windowTitle,
         WS_OVERLAPPED | WS_CAPTION | WS_SYSMENU | WS_MINIMIZEBOX,
         this->x,
@@ -92,7 +95,7 @@ void Win32Window::Destroy()
         hWnd = NULL;
     }
 
-    UnregisterClass("GeekD3DWindow", GetModuleHandle(NULL));
+    UnregisterClass("GeexEngineWindow", GetModuleHandle(NULL));
 }
 
 void Win32Window::Resize(int newWidth, int newHeight)

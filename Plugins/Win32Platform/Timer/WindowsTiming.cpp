@@ -7,8 +7,10 @@
  *
  */
 
-#include <Platform/Windows/Timing/WindowsTiming.h>
-#include <cstring>
+#include "WindowsTiming.h"
+#include <Plugins/Interface.h>
+
+REGISTER_INTERFACE(WindowsTiming, TimingInformation, "Timer");
 
 WindowsTiming::WindowsTiming()
 {

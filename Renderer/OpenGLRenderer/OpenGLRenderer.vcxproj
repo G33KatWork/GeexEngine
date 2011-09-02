@@ -80,7 +80,7 @@
     <ClInclude Include="OpenGLIndexBuffer.h" />
     <ClInclude Include="OpenGLRenderer.h" />
     <ClInclude Include="OpenGLRendererExports.h" />
-    <ClInclude Include="OpenGLRendererInstantiation.h" />
+    <ClInclude Include="OpenGLRendererPlugin.h" />
     <ClInclude Include="OpenGLRenderSurface.h" />
     <ClInclude Include="OpenGLTypeConversions.h" />
     <ClInclude Include="OpenGLVertexBuffer.h" />
@@ -99,7 +99,7 @@
     <ClCompile Include="OpenGLGraphicsResourceFactory.cpp" />
     <ClCompile Include="OpenGLIndexBuffer.cpp" />
     <ClCompile Include="OpenGLRenderer.cpp" />
-    <ClCompile Include="OpenGLRendererInstantiation.cpp" />
+    <ClCompile Include="OpenGLRendererPlugin.cpp" />
     <ClCompile Include="OpenGLRenderSurface.cpp" />
     <ClCompile Include="OpenGLTypeConversions.cpp" />
     <ClCompile Include="OpenGLVertexBuffer.cpp" />

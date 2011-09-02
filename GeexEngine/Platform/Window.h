@@ -21,6 +21,7 @@ public:
 
 	int GetHeight() { return windowHeight; }
 	int GetWidth() { return windowWidth; }
+    const char* GetTitle() { return windowTitle; }
 
 protected:
     Window(const char* title, int xPos, int yPos, int width, int height)

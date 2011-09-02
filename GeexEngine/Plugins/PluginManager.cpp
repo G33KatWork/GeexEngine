@@ -13,14 +13,16 @@
 #error Unsupported platform
 #endif
 
-IPlugin* PluginManager::Load(const char* filename)
+IPlugin* PluginManager::Load(const char* name)
 {
-    if(!filename)
+    if(!name)
         return NULL;
 
-    IPlugin* loadedPlugin = NULL;
+    IPlugin* loadedPlugin = GetPlugin(name);
+    if(loadedPlugin)
+        return loadedPlugin;
 
-    std::string f = filename;
+    std::string f = name;
     f.append(libExtension);
 
 #if defined(_WIN32) || defined(_WIN64)

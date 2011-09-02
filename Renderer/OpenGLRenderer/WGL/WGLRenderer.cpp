@@ -1,14 +1,20 @@
 #include "WGLRenderer.h"
 #include <Common/GeexEngineException.h>
+#include <Plugins/Interface.h>
+#include <GL3/gl3.h>
 
-WGLRenderer::WGLRenderer(HWND window, int width, int height)
+REGISTER_INTERFACE_ARG3(WGLRenderer, Renderer, "Renderer", Window*, int, int);
+
+WGLRenderer::WGLRenderer(Window* window, int width, int height)
     : OpenGLRenderer(width, height)
 {
     deviceContext = NULL;
     renderingContext = NULL;
     pixelFormat = 0;
 
-    windowHandle = window;
+    HWND windowHandle = FindWindow("GeexEngineWindow", window->GetTitle());
+    if(!windowHandle)
+        throw GeexEngineException("Main window handle couldn't be retrieved");
 
     if(!(deviceContext = GetDC(windowHandle)))
         throw GeexEngineException("Failed to acquire device context");
@@ -47,6 +53,9 @@ WGLRenderer::WGLRenderer(HWND window, int width, int height)
 
     if (!wglMakeCurrent(deviceContext, renderingContext))
         throw GeexEngineException("Failed to set current rendering context");
+
+    if(FAILED(gl3wInit()))
+        throw GeexEngineException("GL3W initialization failed");
 }
 
 WGLRenderer::~WGLRenderer()

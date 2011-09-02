@@ -72,7 +72,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;$(DXSDK_DIR)\Lib\x86\dinput8.lib;$(DXSDK_DIR)\Lib\x86\dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TargetMachine>
       </TargetMachine>
     </Link>
@@ -154,11 +154,6 @@
     <ClInclude Include="Math\Vector4.h" />
     <ClInclude Include="Platform\Application.h" />
     <ClInclude Include="Platform\Window.h" />
-    <ClInclude Include="Platform\Windows\Input\DirectInput\DirectInputInputManager.h" />
-    <ClInclude Include="Platform\Windows\Input\DirectInput\DirectInputKeyboardInputDevice.h" />
-    <ClInclude Include="Platform\Windows\Input\DirectInput\DirectInputMouseInputDevice.h" />
-    <ClInclude Include="Platform\Windows\Timing\WindowsTiming.h" />
-    <ClInclude Include="Platform\Windows\Win32Window.h" />
     <ClInclude Include="externals\glew\inc\glew.h" />
     <ClInclude Include="externals\glew\inc\glxew.h" />
     <ClInclude Include="externals\glew\inc\wglew.h" />
@@ -188,11 +183,6 @@
     <ClCompile Include="Math\Vector3.cpp" />
     <ClCompile Include="Math\Vector4.cpp" />
     <ClCompile Include="Platform\Application.cpp" />
-    <ClCompile Include="Platform\Windows\Input\DirectInput\DirectInputInputManager.cpp" />
-    <ClCompile Include="Platform\Windows\Input\DirectInput\DirectInputKeyboardInputDevice.cpp" />
-    <ClCompile Include="Platform\Windows\Input\DirectInput\DirectInputMouseDevice.cpp" />
-    <ClCompile Include="Platform\Windows\Timing\WindowsTiming.cpp" />
-    <ClCompile Include="Platform\Windows\Win32Window.cpp" />
     <ClCompile Include="3D\Rendering\Renderer.cpp" />
     <ClCompile Include="3D\SceneGraph\Spatial.cpp" />
     <ClCompile Include="Platform\Windows\WindowsDirectXApplication.cpp" />

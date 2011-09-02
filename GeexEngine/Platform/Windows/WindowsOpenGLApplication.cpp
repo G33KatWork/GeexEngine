@@ -1,39 +1,46 @@
 #include <Platform/Windows/WindowsOpenGLApplication.h>
-
-#include <Platform/Windows/Win32Window.h>
-#include <Platform/Windows/Timing/WindowsTiming.h>
-#include <Platform/Windows/Input/DirectInput/DirectInputInputManager.h>
-
 #include <Common/GeexEngineException.h>
 
 Renderer* WindowsOpenGLApplication::CreateRenderer(Window* forWindow)
 {
-    typedef Renderer* (*InstantiateRendererPtr)(Window* window, int width, int height);
+    IPlugin* rendererPlugin = pluginManager->Load("OpenGLRenderer");
+    Renderer* renderer = (Renderer*)rendererPlugin->InstantiateInterface("Renderer", I_ARG(Window*, forWindow), I_ARG(int, forWindow->GetWidth()), I_ARG(int, forWindow->GetHeight()));
 
-    HMODULE oglRendererModule = LoadLibrary("OpenGLRenderer.dll");
-    if(!oglRendererModule)
-        throw GeexEngineException("Failed to load OpenGL renderer library");
+    if(!renderer)
+        throw GeexEngineException("DirectXRenderer interface instantiation failed");
 
-    InstantiateRendererPtr InstantiateRenderer = (InstantiateRendererPtr)GetProcAddress(oglRendererModule, "InstantiateRenderer");
-    if(!InstantiateRenderer)
-        throw GeexEngineException("Renderer instantiation entrypoint was not found");
-
-    //Renderer* r = new WGLRenderer(((Win32Window*)forWindow)->GetWindowHandle(), forWindow->GetWidth(), forWindow->GetHeight());
-    Renderer* r = InstantiateRenderer(forWindow, forWindow->GetWidth(), forWindow->GetHeight());
-    return r;
+    return renderer;
 }
 
 Window* WindowsOpenGLApplication::CreateRenderWindow()
 {
-    return new Win32Window("GeeXengine OpenGL Window", 0, 0, 640, 480);
+    IPlugin* platformPlugin = pluginManager->Load("Win32Platform");
+    Window* window = (Window*)platformPlugin->InstantiateInterface("Window", I_ARG(const char*, "GeeXengine DirectX Window"), I_ARG(int, 0), I_ARG(int, 0), I_ARG(int, 640), I_ARG(int, 480));
+
+    if(!window)
+        throw GeexEngineException("Win32Window interface instantiation failed");
+
+    return window;
 }
 
 TimingInformation* WindowsOpenGLApplication::CreateTimer()
 {
-    return new WindowsTiming();
+    IPlugin* timerPlugin = pluginManager->Load("Win32Platform");
+    TimingInformation* timer = (TimingInformation*)timerPlugin->InstantiateInterface("Timer");
+
+    if(!timer)
+        throw GeexEngineException("Win32Timer interface instantiation failed");
+
+    return timer;
 }
 
 InputManager* WindowsOpenGLApplication::CreateInputDevices(Window* forWindow)
 {
-    return new DirectInputInputManager((Win32Window*)forWindow);
+    IPlugin* inputPlugin = pluginManager->Load("DirectInput");
+    InputManager* input = (InputManager*)inputPlugin->InstantiateInterface("Input", I_ARG(Window*, forWindow));
+
+    if(!input)
+        throw GeexEngineException("DirectInput interface instantiation failed");
+
+    return input;
 }

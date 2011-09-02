@@ -7,7 +7,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 
-class GEEXENGINE_API Win32Window : public Window
+class Win32Window : public Window
 {
 private:
 	HWND hWnd;

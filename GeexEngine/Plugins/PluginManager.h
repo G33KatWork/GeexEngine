@@ -14,7 +14,7 @@ private:
     
 
 public:
-    IPlugin* Load(const char* filename);
+    IPlugin* Load(const char* name);
 
     IPlugin* GetPlugin(const char* name);
 };

@@ -4,13 +4,14 @@
 #include "DirectXRendererExports.h"
 
 #include <3D/Rendering/Renderer.h>
+#include <Platform/Window.h>
 #include <Windows.h>
 #include <d3d9.h>
 
 class DIRECTXRENDERER_API DirectXRenderer : public Renderer
 {
 public:
-    DirectXRenderer(HWND window, int width, int height);
+    DirectXRenderer(Window* window, int width, int height);
     virtual ~DirectXRenderer();
 
     virtual GraphicsResourceFactory* GetGraphicsResourceFactory() { return resourceFactory; }

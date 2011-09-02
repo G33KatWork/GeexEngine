@@ -1,7 +1,10 @@
 #include "DirectInputInputManager.h"
 #include <Common/GeexEngineException.h>
+#include <Plugins/Interface.h>
 
-DirectInputInputManager::DirectInputInputManager(Win32Window* forWindow)
+REGISTER_INTERFACE_ARG1(DirectInputInputManager, InputManager, "Input", Window*);
+
+DirectInputInputManager::DirectInputInputManager(Window* forWindow)
     : din(NULL),
     mouse(NULL),
     keyboard(NULL),
@@ -12,10 +15,14 @@ DirectInputInputManager::DirectInputInputManager(Win32Window* forWindow)
     if(!din)
         throw GeexEngineException("Error creating DirectInput context");
 
-    mouse = new DirectInputMouseInputDevice(din, forWindow->GetWindowHandle());
+    HWND windowHandle = FindWindow("GeexEngineWindow", forWindow->GetTitle());
+    if(!windowHandle)
+        throw GeexEngineException("Main window handle couldn't be retrieved");
+
+    mouse = new DirectInputMouseInputDevice(din, windowHandle);
     mouse->Create();
 
-    keyboard = new DirectInputKeyboardInputDevice(din, forWindow->GetWindowHandle());
+    keyboard = new DirectInputKeyboardInputDevice(din, windowHandle);
     keyboard->Create();
 }
 

@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{D1D7F99C-B3E1-4A6F-86CA-FB391CE3D410}</ProjectGuid>
+    <ProjectGuid>{6C2498A9-9DAC-40EB-A7BF-0F314B6E3AAF}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DirectXRenderer</RootNamespace>
+    <RootNamespace>DirectInput</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -25,7 +25,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -45,64 +45,51 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DIRECTXRENDERER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;DIRECTINPUTPLUGIN_EXPORTS</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>..\..\GeexEngine;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>$(OutDir)\GeexEngine.lib;$(DXSDK_DIR)\Lib\x86\d3d9.lib;$(DXSDK_DIR)\Lib\x86\d3dx9.lib;..\..\externals\cg\win\lib\*.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(OutDir)\GeexEngine.lib;$(DXSDK_DIR)\Lib\x86\dinput8.lib;$(DXSDK_DIR)\Lib\x86\dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;DIRECTXRENDERER_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;DIRECTINPUTPLUGIN_EXPORTS</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\GeexEngine;$(DXSDK_DIR)\Include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>$(OutDir)\GeexEngine.lib;$(DXSDK_DIR)\Lib\x86\dinput8.lib;$(DXSDK_DIR)\Lib\x86\dxguid.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="DirectXEffect.h" />
-    <ClInclude Include="DirectXGraphicsResourceFactory.h" />
-    <ClInclude Include="DirectXIndexBuffer.h" />
-    <ClInclude Include="DirectXRenderer.h" />
-    <ClInclude Include="DirectXRendererExports.h" />
-    <ClInclude Include="DirectXRendererPlugin.h" />
-    <ClInclude Include="DirectXResettableResource.h" />
-    <ClInclude Include="DirectXTexture.h" />
-    <ClInclude Include="DirectXTypeConversions.h" />
-    <ClInclude Include="DirectXVertexBuffer.h" />
+    <ClCompile Include="DirectInputInputManager.cpp" />
+    <ClCompile Include="DirectInputKeyboardInputDevice.cpp" />
+    <ClCompile Include="DirectInputMouseDevice.cpp" />
+    <ClCompile Include="DirectInputPlugin.cpp" />
+    <ClCompile Include="dllmain.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="DirectXEffect.cpp" />
-    <ClCompile Include="DirectXGraphicsResourceFactory.cpp" />
-    <ClCompile Include="DirectXIndexBuffer.cpp" />
-    <ClCompile Include="DirectXRenderer.cpp" />
-    <ClCompile Include="DirectXRendererPlugin.cpp" />
-    <ClCompile Include="DirectXResettableResource.cpp" />
-    <ClCompile Include="DirectXTexture.cpp" />
-    <ClCompile Include="DirectXTypeConversions.cpp" />
-    <ClCompile Include="DirectXVertexBuffer.cpp" />
-    <ClCompile Include="dllmain.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-    </ClCompile>
+    <ClInclude Include="DirectInputInputManager.h" />
+    <ClInclude Include="DirectInputKeyboardInputDevice.h" />
+    <ClInclude Include="DirectInputMouseInputDevice.h" />
+    <ClInclude Include="DirectInputPlugin.h" />
+    <ClInclude Include="DirectInputPluginExports.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -4,12 +4,19 @@
 #include "DirectXGraphicsResourceFactory.h"
 
 #include <Common/GeexEngineException.h>
+#include <Plugins/Interface.h>
 
-DirectXRenderer::DirectXRenderer(HWND window, int width, int height)
+REGISTER_INTERFACE_ARG3(DirectXRenderer, Renderer, "Renderer", Window*, int, int);
+
+DirectXRenderer::DirectXRenderer(Window* window, int width, int height)
     : Renderer(width, height),
     deviceIsLost(false),
     resourceFactory(NULL)
 {
+    HWND windowHandle = FindWindow("GeexEngineWindow", window->GetTitle());
+    if(!windowHandle)
+        throw GeexEngineException("Main window handle couldn't be retrieved");
+
     d3dObject = Direct3DCreate9(D3D_SDK_VERSION);
     if(!d3dObject)
         throw GeexEngineException("D3D creation failed");
@@ -20,7 +27,7 @@ DirectXRenderer::DirectXRenderer(HWND window, int width, int height)
     presentationParamenters.BackBufferHeight = height;
     presentationParamenters.BackBufferFormat = D3DFMT_A8R8G8B8;
     presentationParamenters.BackBufferCount = 1;
-    presentationParamenters.hDeviceWindow = window;
+    presentationParamenters.hDeviceWindow = windowHandle;
     presentationParamenters.Windowed = true;
     presentationParamenters.Flags = 0;
     presentationParamenters.FullScreen_RefreshRateInHz = 0;
@@ -39,7 +46,7 @@ DirectXRenderer::DirectXRenderer(HWND window, int width, int height)
 
     if(FAILED(d3dObject->CreateDevice(D3DADAPTER_DEFAULT,
                                       D3DDEVTYPE_HAL,
-                                      window,
+                                      windowHandle,
                                       D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_FPU_PRESERVE,
                                       &presentationParamenters,
                                       &d3dDevice)))

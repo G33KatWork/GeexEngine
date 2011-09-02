@@ -6,11 +6,12 @@
 
 #include "../OpenGLRenderer.h"
 #include "../OpenGLRendererExports.h"
+#include <Platform/Window.h>
 
 class OPENGLRENDERER_API WGLRenderer : public OpenGLRenderer
 {
 public:
-    WGLRenderer(HWND window, int width, int height);
+    WGLRenderer(Window*, int width, int height);
     virtual ~WGLRenderer();
 
     virtual void ToggleFullscreen();
