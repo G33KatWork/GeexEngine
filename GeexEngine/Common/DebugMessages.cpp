@@ -16,7 +16,7 @@ void ErrorExit(const char* err, ...)
 
 	printf(msg);
 
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
     MessageBox(NULL, msg, "GeexEngine Error", MB_OK | MB_ICONERROR | MB_TOPMOST);
 #endif
 
@@ -35,7 +35,7 @@ void DebugMsg(const char* err, ...)
 
 	printf(msg);
 
-#ifdef _WIN32 || _WIN64
+#if defined(_WIN32) || defined(_WIN64)
 	OutputDebugString(msg);
 #endif
 }
