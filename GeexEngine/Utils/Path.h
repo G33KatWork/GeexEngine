@@ -4,6 +4,10 @@
 #include <Common/GeexEngineExports.h>
 #include <string>
 
+#pragma warning( push )
+//disable dll interface warning for std::string stuff
+#pragma warning( disable : 4251 )
+
 class GEEXENGINE_API Path
 {
 public:
@@ -30,5 +34,7 @@ public:
 private:
     std::string path;
 };
+
+#pragma warning( pop )
 
 #endif

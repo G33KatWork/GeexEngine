@@ -5,6 +5,10 @@
 #include <Plugins/IPlugin.h>
 #include <set>
 
+#pragma warning( push )
+//disable dll interface warning for std::list stuff
+#pragma warning( disable : 4251 )
+
 //TODO: add dependencies to other plugins
 
 class GEEXENGINE_API PluginManager
@@ -18,5 +22,7 @@ public:
 
     IPlugin* GetPlugin(const char* name);
 };
+
+#pragma warning( pop )
 
 #endif
