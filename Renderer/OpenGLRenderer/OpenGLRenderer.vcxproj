@@ -69,7 +69,7 @@
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>$(OutDir)\glsw.lib;$(OutDir)\gl3w.lib;..\..\externals\cg\win\lib\*.lib;$(OutDir)\GeexEngine.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
