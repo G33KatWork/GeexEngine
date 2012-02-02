@@ -118,6 +118,11 @@
     <ClInclude Include="Plugins\Interface.h" />
     <ClInclude Include="Plugins\IPlugin.h" />
     <ClInclude Include="Plugins\PluginManager.h" />
+    <ClInclude Include="Resources\GeexEngineResourceException.h" />
+    <ClInclude Include="Resources\IResourceLoader.h" />
+    <ClInclude Include="Resources\Loaders\EffectResourceLoader.h" />
+    <ClInclude Include="Resources\Resource.h" />
+    <ClInclude Include="Resources\ResourceManager.h" />
     <ClInclude Include="Timing\TimingInformation.h" />
     <ClInclude Include="3D\Transformation.h" />
     <ClInclude Include="Utils\CRC32.h" />
@@ -141,6 +146,8 @@
     <ClCompile Include="Platform\Windows\WindowsDirectXApplication.cpp" />
     <ClCompile Include="Platform\Windows\WindowsOpenGLApplication.cpp" />
     <ClCompile Include="Plugins\PluginManager.cpp" />
+    <ClCompile Include="Resources\Loaders\EffectResourceLoader.cpp" />
+    <ClCompile Include="Resources\ResourceManager.cpp" />
     <ClCompile Include="Timing\TimingInformation.cpp" />
     <ClCompile Include="3D\Transformation.cpp" />
     <ClCompile Include="3D\GraphicsCardResources\VertexBuffer.cpp" />

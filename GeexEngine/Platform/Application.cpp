@@ -12,6 +12,7 @@ Application::Application()
     renderer = NULL;
     timer = NULL;
     input = NULL;
+    resourceManager = NULL;
     pluginManager = NULL;
     running = true;
 }
@@ -39,6 +40,7 @@ int Application::Main(int iQuantity, char** apcArgument)
         this->CreateInputDevices(window);
         timer = this->CreateTimer();
         input = this->CreateInputDevices(window);
+        resourceManager = new ResourceManager();
 
         if(!OnInitialize())
             return -4;
@@ -69,6 +71,12 @@ int Application::Main(int iQuantity, char** apcArgument)
         {
             delete input;
             input = NULL;
+        }
+
+        if(resourceManager)
+        {
+            delete resourceManager;
+            resourceManager = NULL;
         }
 
         if(renderer)

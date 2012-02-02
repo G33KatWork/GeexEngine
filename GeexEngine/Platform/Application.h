@@ -17,6 +17,7 @@
 #include <Platform/Window.h>
 #include <Timing/TimingInformation.h>
 #include <Input/InputManager.h>
+#include <Resources/ResourceManager.h>
 
 class GEEXENGINE_API Application
 {
@@ -25,6 +26,7 @@ protected:
 	Window* window;
 	TimingInformation* timer;
     InputManager* input;
+    ResourceManager* resourceManager;
     PluginManager* pluginManager;
 
 	bool running;

@@ -47,6 +47,7 @@ IPlugin* PluginManager::Load(const char* name)
 
 IPlugin* PluginManager::GetPlugin(const char* name)
 {
+    //TODO: Perhaps use my Dictionary here, searching is faster
     for(std::set<IPlugin*>::const_iterator it = loadedPlugins.begin(); it != loadedPlugins.end(); it++)
         if(strcmp(name, (*it)->GetName()) == 0)
             return *it;

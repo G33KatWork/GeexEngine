@@ -49,6 +49,8 @@ public:
     size_t GetItemCount() const { return hashTable.GetItemCount(); }
     ValueType& Lookup(const KeyType& key) const { return hashTable.Lookup(key)->value; }
     
+    ~Dictionary() { Clear(); }
+
     void Clear()
     {
         KeyValuePair<KeyType, ValueType>* itemList = hashTable.Clear(true);

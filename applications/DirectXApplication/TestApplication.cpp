@@ -1,5 +1,7 @@
 #include "TestApplication.h"
 
+#include <Resources/ResourceManager.h>
+
 TestApplication::TestApplication()
     : WindowsDirectXApplication()
 {
@@ -16,6 +18,15 @@ TestApplication::TestApplication()
 
 bool TestApplication::OnInitialize()
 {
+    
+
+    resourceManager->AddArchive(".");
+    Resource* res = resourceManager->Load("effect.hlsl");
+    resourceManager->Unload(res);
+
+
+
+
     world = Matrix4::Identity();
     projection = Matrix4::CreatePerspectiveLeftHanded(45.0f * 3.14f/180.0f, (float)this->window->GetWidth() / (float)this->window->GetHeight(), 0.1f, 100.0f);
     view = Matrix4::Identity();
